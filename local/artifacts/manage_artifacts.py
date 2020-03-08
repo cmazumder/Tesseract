@@ -10,8 +10,8 @@ from util import os_process
 
 class ManageArtifacts:
     def __init__(self):
-        self.application = DownloadArtifacts()
         try:
+            self.application = DownloadArtifacts()
             self.path_to_vertexData = deployment_env_paths["path_vertexData"]
             self.path_to_VertexApps = deployment_env_paths["path_vertexApp"]
         except (KeyError, NameError) as err:
@@ -24,6 +24,7 @@ class ManageArtifacts:
         :rtype:
         """
         self.application.download()
+        print "Downloaded"
 
 
     def close_running_process(self):

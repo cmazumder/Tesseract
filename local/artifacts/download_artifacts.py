@@ -16,34 +16,35 @@ class DownloadArtifacts:
         self.shell = self.ui = self.dataservice = self.reports = self.service = None
         pass
 
-    def vertex_service(self):
-        print self.spacer
-        print "Service"
+    def download_applications(self):
+
         self.service = Service()
-        self.service.download_from_teamcity()
+        self.service.start()
 
-    def vertex_ui(self):
-        print "UI"
         self.ui = UI()
-        self.ui.download_from_teamcity()
+        self.ui.start()
 
-    def vertex_shell(self):
-        print self.spacer
-        print "Shell"
         self.shell = Shell()
-        self.shell.download_from_teamcity()
+        self.shell.start()
 
-    def vertex_dataservice(self):
-        print self.spacer
-        print "DataService"
         self.dataservice = DataService()
-        self.dataservice.download_from_teamcity()
+        self.dataservice.start()
 
-    def vertex_reports(self):
-        print self.spacer
-        print "Reports"
         self.reports = Reports()
-        self.reports.download_from_teamcity()
+        self.reports.start()
+
+        # # download
+        # self.service.download_from_teamcity()
+        # self.ui.download_from_teamcity()
+        # self.shell.download_from_teamcity()
+        # self.dataservice.download_from_teamcity()
+        # self.reports.download_from_teamcity()
+
+        self.service.join()
+        self.ui.join()
+        self.shell.join()
+        self.dataservice.join()
+        self.reports.join()
 
     def extract_configuration_files(self, search_in_path, save_to_path, file_name):
         if Folder.folder_exists(save_to_path):
@@ -57,27 +58,28 @@ class DownloadArtifacts:
 
     def download(self):
         if Folder.create_folder(self.config_download_path):
-            self.vertex_service()
+            self.download_applications()
+            #self.vertex_service()
             if self.service.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.service.artifact_download_path,
                                                  save_to_path=self.config_download_path,
                                                  file_name=application_structure["service"]["config_file_name"])
-            self.vertex_dataservice()
+            #self.vertex_dataservice()
             if self.dataservice.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.dataservice.artifact_download_path,
                                                  save_to_path=self.config_download_path,
                                                  file_name=application_structure["dataservice"]["config_file_name"])
-            self.vertex_reports()
+            #self.vertex_reports()
             if self.reports.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.reports.artifact_download_path,
                                                  save_to_path=self.config_download_path,
                                                  file_name=application_structure["reports"]["config_file_name"])
-            self.vertex_shell()
+            #self.vertex_shell()
             if self.shell.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.shell.artifact_download_path,
                                                  save_to_path=self.config_download_path,
                                                  file_name=application_structure["shell"]["config_file_name"])
-            self.vertex_ui()
+            #self.vertex_ui()
             if self.ui.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.ui.artifact_download_path,
                                                  save_to_path=self.config_download_path,

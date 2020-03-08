@@ -40,7 +40,10 @@ class Reports(apiServices):
         else:
             print "Error {} \n url {}".format(session_response, self.artifact_url_complete)
 
-    def download_from_teamcity(self):
+    def run(self):
+        print self.spacer_char_asterisk
+        print "Reports"
         self.set_vertex_reports_properties()
         self.download_vertex_reports()
         self.show_downloaded_info()
+        print self.spacer_char_asterisk

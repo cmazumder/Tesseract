@@ -3,11 +3,15 @@ from os import path
 from build import Build
 from framework_config import deployment_env_paths, teamcity_setting
 from util import folder_actions as Folder, download_tasks as DownloadTask, file_actions as File
+from threading import Thread
 
 
-class Vertex(Build):
+class Vertex(Build, Thread):
+    spacer_char_hyphen = '-' * 50
+    spacer_char_asterisk = '*' * 50
 
     def __init__(self):
+        Thread.__init__(self)
         Build.__init__(self)
 
         """ 
@@ -139,7 +143,9 @@ class Vertex(Build):
         temp func to print some info
         :return: None
         """
+        print self.spacer_char_hyphen
         print "Version: {}\nBuild_ID: {}".format(self.build_version_number, self.build_id)
         print "Teamcity file count : {} \n" \
               "Downloaded file count : {} \n".format(len(self.artifact_file_details), len(self.downloaded_file_list))
+        print self.spacer_char_hyphen
         # print "---------Downloaded---------\n {}".format(json.dumps(self.downloaded_file_list, indent=4))

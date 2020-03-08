@@ -35,7 +35,10 @@ class DataService(apiServices):
         else:
             print "Error {} \n url {}".format(session_response, self.artifact_url_complete)
 
-    def download_from_teamcity(self):
+    def run(self):
+        print self.spacer_char_asterisk
+        print "DataService"
         self.set_vertex_dataservice_properties()
         self.download_vertex_dataservice()
         self.show_downloaded_info()
+        print self.spacer_char_asterisk
