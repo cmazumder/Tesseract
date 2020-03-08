@@ -1,0 +1,41 @@
+from framework_config import application_structure, teamcity_download_setting
+from teamcity.api.vertex import Vertex as apiServices
+
+
+class DataService(apiServices):
+
+    def __init__(self):
+        apiServices.__init__(self)
+        try:
+            self.build_id = self.get_buildId_from_buildTypeId(
+                buildTypeId=teamcity_download_setting["dataservice"]["buildTypeID"])
+            self.folder = application_structure["dataservice"]["folder_name"]
+        except KeyError as err:
+            print "Key error: {0}\nLists: {1}".format(err.message, err.args)
+        except NameError as err:
+            print "Name error: {0}\nLists: {1}".format(err.message, err.args)
+
+    def __del__(self):
+        pass
+
+    def set_vertex_dataservice_properties(self):
+        anchor_text = teamcity_download_setting["dataservice"]["anchor"]
+        self.set_file_download_path(save_artifact_dir=self.folder)
+        self.set_artifact_url(self.build_id, anchor_text)
+
+    def download_vertex_dataservice(self):
+        session_response = self.teamcity_session.get_url_response(self.artifact_url_complete,
+                                                                  self.teamcity_session.username,
+                                                                  self.teamcity_session.password)
+        if session_response.status_code == 200:
+            api_response = self.get_decoded_json_response(self.artifact_url_complete)
+            self.create_filelist_from_api(api_response=api_response)
+            if self.artifact_file_details:
+                self.start_download()
+        else:
+            print "Error {} \n url {}".format(session_response, self.artifact_url_complete)
+
+    def download_from_teamcity(self):
+        self.set_vertex_dataservice_properties()
+        self.download_vertex_dataservice()
+        self.show_downloaded_info()
