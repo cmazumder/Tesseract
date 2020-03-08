@@ -42,9 +42,9 @@ class Shell(apiServices):
             print "Error {} \n url {}".format(session_response, self.artifact_url_complete)
 
     def run(self):
-        print self.spacer_char_asterisk
-        print "Shell"
         self.set_vertex_shell_properties()
         self.download_vertex_shell()
+        print self.spacer_char_asterisk
+        print "Shell"
         self.show_downloaded_info()
         print self.spacer_char_asterisk

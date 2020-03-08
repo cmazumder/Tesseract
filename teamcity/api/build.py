@@ -14,9 +14,9 @@ class Build:
             print "Key error: {0}\nLists: {1}".format(err.message, err.args)
         except NameError as err:
             print "Name error: {0}\nLists: {1}".format(err.message, err.args)
-        build_id = None
-        build_version_number = None
-        api_url = None
+        # build_id = None
+        # version_number = None
+        # api_url = None
         self.teamcity_session = TeamCityUser()
         self.set_api_url()
 
@@ -77,7 +77,7 @@ class Build:
         :return: None
         """
         self.build_id = build_info_json["id"]  # value is int
-        self.build_version_number = build_info_json["number"].encode('ascii', 'ignore')  # value converted from unicode
+        self.version_number = build_info_json["number"].encode('ascii', 'ignore')  # value converted from unicode
 
     def show_build_information(self):
         """
@@ -85,4 +85,4 @@ class Build:
         :return: None
         """
         print "BuildID: {} \n" \
-              "Version: {} \n".format(self.build_id, self.build_version_number)
+              "Version: {} \n".format(self.build_id, self.version_number)

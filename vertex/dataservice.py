@@ -36,9 +36,10 @@ class DataService(apiServices):
             print "Error {} \n url {}".format(session_response, self.artifact_url_complete)
 
     def run(self):
-        print self.spacer_char_asterisk
-        print "DataService"
+
         self.set_vertex_dataservice_properties()
         self.download_vertex_dataservice()
+        print self.spacer_char_asterisk
+        print "DataService"
         self.show_downloaded_info()
         print self.spacer_char_asterisk

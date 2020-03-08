@@ -65,18 +65,18 @@ class Service(apiServices):
             print "Error {} \n url {}".format(session_response, self.artifact_url_complete)
 
     def run(self):
-        print self.spacer_char_asterisk
-        print "Service"
+
         #  SQL
         self.set_vertex_sql_properties()
         self.download_vertex_sql()
+        print self.spacer_char_asterisk
+        print "Service - SQL"
         self.show_downloaded_info()
-
-        self.clear_artifact_list()
-
+        print self.spacer_char_asterisk
         #  Service
         self.set_vertex_service_properties()
         self.download_vertex_service()
+        print "Service - apps"
         self.show_downloaded_info()
         print self.spacer_char_asterisk
 

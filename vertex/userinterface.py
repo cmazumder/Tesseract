@@ -41,9 +41,9 @@ class UI(apiServices):
             print "Error {} \n url {}".format(session_response, self.artifact_url_complete)
 
     def run(self):
-        print self.spacer_char_asterisk
-        print "UI"
         self.set_vertex_ui_properties()
         self.download_vertex_ui()
+        print self.spacer_char_asterisk
+        print "UI"
         self.show_downloaded_info()
         print self.spacer_char_asterisk

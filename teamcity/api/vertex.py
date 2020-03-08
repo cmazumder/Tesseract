@@ -144,7 +144,7 @@ class Vertex(Build, Thread):
         :return: None
         """
         print self.spacer_char_hyphen
-        print "Version: {}\nBuild_ID: {}".format(self.build_version_number, self.build_id)
+        print "Version: {}\nBuild_ID: {}".format(self.version_number, self.build_id)
         print "Teamcity file count : {} \n" \
               "Downloaded file count : {} \n".format(len(self.artifact_file_details), len(self.downloaded_file_list))
         print self.spacer_char_hyphen
