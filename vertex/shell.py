@@ -1,11 +1,11 @@
-from framework_config import application_structure, teamcity_download_setting
-from teamcity.api.vertex import Vertex as apiServices
+from config.framework_config import application_structure, teamcity_download_setting
+from teamcity.api.application import Application
 
 
-class Shell(apiServices):
+class Shell(Application):
 
     def __init__(self):
-        apiServices.__init__(self)
+        Application.__init__(self)
         try:
             self.build_id = \
                 self.get_buildId_from_buildTypeId(

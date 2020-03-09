@@ -1,11 +1,11 @@
-from framework_config import application_structure, teamcity_download_setting, deployment_env_paths, local_database_setting
-from teamcity.api.vertex import Vertex as apiServices
+from config.framework_config import application_structure, teamcity_download_setting, deployment_env_paths, local_database_setting
+from teamcity.api.application import Application
 
 
-class Service(apiServices):
+class Service(Application):
 
     def __init__(self):
-        apiServices.__init__(self)
+        Application.__init__(self)
         try:
             self.build_id = self.get_buildId_from_buildTypeId(
                 buildTypeId=teamcity_download_setting["service"]["buildTypeID"])
@@ -73,6 +73,7 @@ class Service(apiServices):
         print "Service - SQL"
         self.show_downloaded_info()
         print self.spacer_char_asterisk
+        self.clear_artifact_list()
         #  Service
         self.set_vertex_service_properties()
         self.download_vertex_service()

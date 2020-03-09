@@ -1,4 +1,4 @@
-from framework_config import deployment_env_paths, application_structure
+from config.framework_config import deployment_env_paths, application_structure
 from util import file_actions as File, folder_actions as Folder
 from vertex.dataservice import DataService
 from vertex.reports import Reports
@@ -32,13 +32,6 @@ class DownloadArtifacts:
 
         self.reports = Reports()
         self.reports.start()
-
-        # # download
-        # self.service.download_from_teamcity()
-        # self.ui.download_from_teamcity()
-        # self.shell.download_from_teamcity()
-        # self.dataservice.download_from_teamcity()
-        # self.reports.download_from_teamcity()
 
         self.service.join()
         self.ui.join()

@@ -2,7 +2,7 @@ from os import system
 
 import pyodbc
 
-from framework_config import local_database_setting
+from config.framework_config import local_database_setting
 
 
 class Database:
@@ -15,17 +15,22 @@ class Database:
                 local_database_setting["db_server"],
                 local_database_setting["db_username"],
                 local_database_setting["db_password"])
-            self.connection, self.cursor = self.connect_to_db(local_database_setting["db_server"],
-                                                              local_database_setting["db_username"],
-                                                              local_database_setting["db_password"])
-        except KeyError as err:
-            print "Key error: {0}\nLists: {1}".format(err.message, err.args)
-        except NameError as err:
-            print "Name error: {0}\nLists: {1}".format(err.message, err.args)
+            try:
+                self.connection, self.cursor = self.connect_to_db(db_server=local_database_setting["db_server"],
+                                                                  db_username=local_database_setting["db_username"],
+                                                                  db_password=local_database_setting["db_password"])
+            except pyodbc.Error as err:
+                print "Database connection error:{0}\nSQL state: {1}".format(err.message, err.args)
+        except (KeyError, NameError) as err:
+            print "Error database init: {0}\nLists: {1}".format(err.message, err.args)
 
     def __del__(self):
         """ destructor"""
-        self.connection.close()
+        if self.connection or self.cursor:
+            print "Cursor closed: {}".format(self.cursor.close())
+            print "Connection closed: {}".format(self.connection.close())
+        else:
+            pass
 
     def connect_to_db(self, db_server, db_username, db_password):
         """
@@ -38,10 +43,11 @@ class Database:
                                 r"trusted_connection=yes;UID={2};PWD={3}" \
                 .format(db_server, 'master', db_username, db_password)
 
-            connection = pyodbc.connect(connection_string)
+            connection = pyodbc.connect(connection_string, autocommit=True)
             return connection, connection.cursor()
-        except pyodbc.Error as E:
-            print "Cannot setup database connection {}".format(E.message)
+        except (pyodbc.Error, pyodbc.OperationalError) as err:
+            print "Cannot setup database connection: {0}" \
+                  "\nCode: {1}\nReason:{2}".format(err.message, err.args[0], err.args[1])
         return None, None
 
     def execute_sql_query(self, sql_query):
@@ -55,8 +61,11 @@ class Database:
                 self.cursor.execute(sql_query)
                 self.connection.commit()
                 return True
-        except pyodbc.Error as E:
-            print "SQL query: {0}\n Error: {1}".format(sql_query, E.args)
+            else:
+                print "Cannot execute sql query\nIssue with database connection:".format(self.connection)
+        except pyodbc.Error as err:
+            self.connection.rollback()
+            print "Failed to execute SQL query: {0}\n Error: {1}".format(sql_query, err.message)
         return False
 
     def get_result_from_sql_query(self, sql_query):
@@ -69,6 +78,8 @@ class Database:
             if self.cursor:
                 self.cursor.execute(sql_query)
                 return self.cursor.fetchall()
+            else:
+                print "Cannot execute sql query\nIssue with database connection:".format(self.connection)
         except pyodbc.Error as E:
             print "Problem getting result. SQL query: {0} \n Error: {1}".format(sql_query, E.args)
         return False

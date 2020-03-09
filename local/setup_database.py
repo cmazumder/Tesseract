@@ -1,4 +1,4 @@
-from framework_config import local_database_setting
+from config.framework_config import local_database_setting
 from local.database import Database
 from util import file_actions as File
 
@@ -25,7 +25,7 @@ def setup_sql_script(sql_path):
 
 
 def recreate_database_from_script(sql_path):
-    vertex_database = Database()
+    vertex_database = get_database_connection()
     try:
         delete_exisiting_database(vertex_database, db_to_delete=local_database_setting["db_to_delete"])
     except KeyError as err:
@@ -36,4 +36,8 @@ def recreate_database_from_script(sql_path):
     setup_sql_script(sql_path)
 
     vertex_database.execute_sql_script(sql_script_path=sql_path)
+
+
+def get_database_connection():
+    return Database()
 

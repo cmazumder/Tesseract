@@ -1,12 +1,12 @@
 from os import path
-
-from build import Build
-from framework_config import deployment_env_paths, teamcity_setting
-from util import folder_actions as Folder, download_tasks as DownloadTask, file_actions as File
 from threading import Thread
 
+from build import Build
+from config.framework_config import deployment_env_paths, teamcity_setting
+from util import folder_actions as Folder, download_tasks as DownloadTask, file_actions as File
 
-class Vertex(Build, Thread):
+
+class Application(Build, Thread):
     spacer_char_hyphen = '-' * 50
     spacer_char_asterisk = '*' * 50
 

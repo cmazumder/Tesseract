@@ -1,7 +1,7 @@
 import time
 from os import listdir
 
-from framework_config import deployment_env_paths, process_to_stop
+from config.framework_config import deployment_env_paths, process_to_stop
 from local.artifacts.download_artifacts import DownloadArtifacts
 from util import file_actions as File
 from util import folder_actions as Folder

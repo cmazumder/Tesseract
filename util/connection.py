@@ -1,5 +1,4 @@
 from requests import get, ConnectTimeout, ConnectionError
-import sys
 
 
 class Connection:
@@ -23,9 +22,10 @@ class Connection:
             raise Exception("Something else")
         return None
 
-    def get_url_response(self, url, username=None, password=None, headers=None):
+    def get_url_response(self, url, username=None, password=None, headers=None, timeout=None):
         """
 
+        :param timeout:
         :param headers:
         :type headers:
         :param url:
@@ -38,11 +38,10 @@ class Connection:
         :rtype:
         """
         try:
-            response = get(url, auth=(username, password), headers=headers)
+            response = get(url, auth=(username, password), headers=headers, timeout=timeout)
             return response
         except ConnectionError as err:
             print "Cannot connect (message): {}\n{}".format(err.message, err.request)
         except ConnectTimeout as err:
             print "Timeout {}:{}\n{}".format(err.errno, err.message, err.request)
-        print "Terminating program"
-        sys.exit(0)
+        print "No response from url: {}".format(url)
