@@ -1,20 +1,20 @@
-#  This is a configuration file of CreatePackageController framework for VERTEX BOX
+#  This is a configuration file of CreatePackageController framework for TESTING purpose
 
-#  Application's teamcity info as build type id and anchor text. Dynamic based on user choice (Vertex / Nabler)
+#  Application's teamcity info as build type id and anchor text. Dynamic based on user choice (Vertex / NAbler)
 #  eg teamcity_download_setting = vertex_buildTypeID
 
-Environment = "PROD"
+Environment = "TEST"
 
 teamcity_download_setting = {}
 
 #  configuration for controller box
 deployment_env_paths = {
     "exclude_file_extension": [".pdb"],  # comma separated list of file extensions not to be downloaded
-    "path_download_root": r"F:\Artifacts",  # local machine base path to download all the artifact files
-    "path_vertexApp": r"D:\\",  # local machine base path to vertex applications folder
-    "path_vertexData": r"F:\\",  # local machine base path to vertex data folder
-    "config_folder": "Configurations",  # config folder name, which is common in VertexApps and VertexData
-    "backup_folder": "Backup"  # backup folder in VertexApps
+    "path_download_root": r"C:\Test_TeamCity\Artifacts",  # local machine base path to download all the files
+    "path_vertexApp": r"C:\Test_TeamCity\D_Drive",  # local machine base path to download all the files
+    "path_vertexData": r"C:\Test_TeamCity\F_Drive",
+    "config_folder": "Configurations",      # config files from all the apps to be saved in this folder
+    "backup_folder": "Backup"
 }
 
 #  configuration for controller (local) database server
@@ -22,10 +22,10 @@ local_database_setting = {
     "db_server": "localhost\\SQLEXPRESS",
     "db_username": "sa",
     "db_password": "Password1",
-    "db_size": {"reduce": "no",
-                "new_size": "100MB"},
+    "db_size": {"reduce": "yes",
+                "new_size": "50MB"},
     "db_to_delete": ['Vertex', 'VertexArch', 'GamesArch', 'Games', 'Misc'],
-    "db_to_setup": "Vertex_and_Games_on_VertexBox.sql",
+    "db_to_setup": "Vertex_and_Games_on_PC.sql",
 }
 
 #  configuration for TeamCity server

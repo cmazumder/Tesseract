@@ -11,15 +11,15 @@ from util import folder_actions as Folder
 spacer = '-' * 50
 
 
-def write_to_file_setup_info(to_file, artifacts=None, sql_path=None, test_mode=0):
+def write_to_file_setup_info(to_file, artifacts=None, sql_path=None, test_mode=False):
     File.append_text_to_file(to_file, spacer, "\n", spacer)
     File.append_text_to_file(to_file, "\t\tApp version(s) TeamCity\n")
     sql_version = None
-    if test_mode == 0:
+    if not test_mode:
         write_downloaded_application_version_info(file_path=to_file, artifact=artifacts)
         sql_version = (lambda value: artifacts.application.service.version_number if
         artifacts.application.service.version_number else None)(artifacts.application.service.version_number)
-    elif test_mode != 0:
+    elif test_mode:
         sql_version = "Test.2.2"
         write_dummy_info_to_file(to_file)
 
@@ -184,3 +184,5 @@ def controller_infrastructure_ready():
         print "Database server: Bad"
         status = False
     return status
+
+

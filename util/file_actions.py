@@ -97,10 +97,8 @@ def copy_from_to_file(source, destination):
             delete_file(destination)
         try:
             copy2(source, destination)
-            return True
-        except OSError as E:
-            print E.message
-            return False
+        except OSError as err:
+            print "File copy error:\nSource:{}\nDestination{}".format(err.message, source, destination)
 
 
 def search_file_first_occurrence(search_path, filename):

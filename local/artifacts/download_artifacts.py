@@ -46,33 +46,33 @@ class DownloadArtifacts:
                 save_to_path = Folder.build_path(save_to_path, file_name)
                 if 'Shell.config' in file_name:
                     # better to search and replace via xpath, which has to be implemented
-                    File.find_replace_text(source_path, r'enabled="true"', r'enabled="false')
+                    File.find_replace_text(source_path, r'enabled="true"', r'enabled="false"')
             File.copy_from_to_file(source=source_path, destination=save_to_path)
 
     def download(self):
         if Folder.create_folder(self.config_download_path):
             self.download_applications()
-            #self.vertex_service()
+
             if self.service.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.service.artifact_download_path,
                                                  save_to_path=self.config_download_path,
                                                  file_name=application_structure["service"]["config_file_name"])
-            #self.vertex_dataservice()
+
             if self.dataservice.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.dataservice.artifact_download_path,
                                                  save_to_path=self.config_download_path,
                                                  file_name=application_structure["dataservice"]["config_file_name"])
-            #self.vertex_reports()
+
             if self.reports.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.reports.artifact_download_path,
                                                  save_to_path=self.config_download_path,
                                                  file_name=application_structure["reports"]["config_file_name"])
-            #self.vertex_shell()
+
             if self.shell.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.shell.artifact_download_path,
                                                  save_to_path=self.config_download_path,
                                                  file_name=application_structure["shell"]["config_file_name"])
-            #self.vertex_ui()
+
             if self.ui.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.ui.artifact_download_path,
                                                  save_to_path=self.config_download_path,
