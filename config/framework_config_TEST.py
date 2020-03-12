@@ -105,7 +105,3 @@ vertex_buildTypeID = {
 }
 
 process_to_stop = ['iexplore', 'WinMergeU']
-
-
-
-

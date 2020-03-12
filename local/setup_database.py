@@ -40,4 +40,3 @@ def recreate_database_from_script(sql_path):
 
 def get_database_connection():
     return Database()
-

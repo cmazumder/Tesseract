@@ -1,12 +1,9 @@
 import sys
-
+from make_configuration import controller_infrastructure_ready, start_controller_setup
 try:
-    from config.framework_config import Environment
+    from config.framework_config import Environment, process_to_stop
 except (ImportError, Environment) as err:
-    print "Error: {}\nMissing framkework_config.py, recreating now".format(err.message)
-
-from config import framework_config_PROD, framework_config_TEST
-from setup import controller_infrastructure_ready, start_controller_setup
+    print "Error: {}\nMissing framework_config.py, recreate".format(err.message)
 import util.file_actions as File
 import util.folder_actions as Folder
 
@@ -15,18 +12,11 @@ def config_file_select(test_mode):
     destination_path = Folder.build_path("config/", 'framework_config.py')
     if test_mode:
         source_path = Folder.build_path("config/", 'framework_config_TEST.py')
-        if not File.file_exists(destination_path):
-            File.copy_from_to_file(source=source_path, destination=destination_path)
-        else:
-            if Environment.lower() != framework_config_TEST.Environment.lower():
-                File.copy_from_to_file(source=source_path, destination=destination_path)
+        File.copy_from_to_file(source=source_path, destination=destination_path)
     else:
         source_path = Folder.build_path("config/", 'framework_config_PROD.py')
-        if not File.file_exists(destination_path):
-            File.copy_from_to_file(source=source_path, destination=destination_path)
-        else:
-            if Environment.lower() != framework_config_PROD.Environment.lower():
-                File.copy_from_to_file(source=source_path, destination=destination_path)
+        File.copy_from_to_file(source=source_path, destination=destination_path)
+    print "Run: {}\nProcess: {}".format(Environment, process_to_stop)
 
 
 def main(test_mode=False):

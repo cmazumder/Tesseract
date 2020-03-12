@@ -80,5 +80,3 @@ class Service(Application):
         print "Service - apps"
         self.show_downloaded_info()
         print self.spacer_char_asterisk
-
-

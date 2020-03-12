@@ -184,5 +184,3 @@ def controller_infrastructure_ready():
         print "Database server: Bad"
         status = False
     return status
-
-

@@ -14,5 +14,3 @@ class TeamCity(Connection):
             print "Key error: {0}\nLists: {1}".format(err.message, err.args)
         except NameError as err:
             print "Name error: {0}\nLists: {1}".format(err.message, err.args)
-
-

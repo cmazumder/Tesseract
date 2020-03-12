@@ -104,8 +104,4 @@ vertex_buildTypeID = {
         "anchor": "VertexDataService"}
 }
 
-process_to_stop = ['iexplore', 'WinMergeU']
-
-
-
-
+process_to_stop = ['VertexShell.exe', 'Aristocrat.Vertex.Service.exe']
