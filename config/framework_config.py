@@ -19,7 +19,7 @@ deployment_env_paths = {
 
 #  configuration for controller (local) database server
 local_database_setting = {
-    "db_server": "localhost\\SQLEXPRESS",
+    "db_server": "localhost\\SQLEXPRESSq",
     "db_username": "sa",
     "db_password": "Password1",
     "db_size": {"reduce": "no",

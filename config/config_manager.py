@@ -60,13 +60,16 @@ class ConfigManager:
         response = teamcity.get_url_response(url=teamcity_setting["host"],
                                              username=teamcity_setting["teamcity_username"],
                                              password=teamcity_setting["teamcity_username"])
-        if response.status_code == 200:
-            return True
-        elif response.status_code == 401:
-            print "Incorrect TeamCity login credentials"
-            return False
+        if response:
+            if response.status_code == 200:
+                return True
+            elif response.status_code == 401:
+                print "Incorrect TeamCity login credentials"
+                return False
         else:
+            print "Cannot reach TeamCity"
             return False
+
 
     def check_database_connection(self):
         db = Database()

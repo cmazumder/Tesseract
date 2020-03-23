@@ -8,6 +8,11 @@ from local.artifacts.manage_artifacts import ManageArtifacts
 from util import file_actions as File
 from util import folder_actions as Folder
 
+try:
+    from config.framework_config import Environment, process_to_stop
+except (ImportError, Environment) as err:
+    print "Error: {}\nMissing framework_config.py, recreate".format(err.message)
+
 spacer = '-' * 50
 
 
@@ -172,15 +177,26 @@ def controller_infrastructure_ready():
         print "Configuration files: Ok"
     else:
         print "Configuration files: Bad"
-        status = False
+        return False
     if configuration.check_teamcity_available():
         print "TeamCity server: Ok"
     else:
         print "TeamCity server: Bad"
-        status = False
+        return False
     if check_database_connection():
         print "Database server: Ok"
     else:
         print "Database server: Bad"
-        status = False
+        return False
     return status
+
+
+def config_file_select(test_mode):
+    destination_path = Folder.build_path("config/", 'framework_config.py')
+    if test_mode:
+        source_path = Folder.build_path("config/", 'framework_config_TEST.py')
+    # File.copy_from_to_file(source=source_path, destination=destination_path)
+    else:
+        source_path = Folder.build_path("config/", 'framework_config_PROD.py')
+    # File.copy_from_to_file(source=source_path, destination=destination_path)
+    print "Run: {}\nProcess: {}".format(Environment, process_to_stop)

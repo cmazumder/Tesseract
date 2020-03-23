@@ -26,11 +26,7 @@ class Database:
 
     def __del__(self):
         """ destructor"""
-        if self.connection or self.cursor:
-            print "Cursor closed: {}".format(self.cursor.close())
-            print "Connection closed: {}".format(self.connection.close())
-        else:
-            pass
+        pass
 
     def connect_to_db(self, db_server, db_username, db_password):
         """
