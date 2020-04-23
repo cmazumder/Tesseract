@@ -1,9 +1,10 @@
-from os import path, remove, rename, walk
+from os import remove, rename, walk
+from os.path import normcase, isdir, basename, dirname, join, isfile, isabs
 from shutil import move, copy2
 
 
 def append_text_to_file(file_path, *args):
-    if path.isdir(file_path):
+    if isdir(file_path):
         print "Cannot write to dir: {}".format(file_path)
     else:
         try:
@@ -18,10 +19,18 @@ def append_text_to_file(file_path, *args):
 
 
 def file_exists(file_path):
-    if path.isfile(file_path):
-        return True
+    if isabs(file_path):
+        if isfile(file_path):
+            return True
+        else:
+            return False
     else:
-        return False
+        script_dir = normcase(dirname(__file__))  # <-- absolute dir the script is in
+        abs_file_path = join(script_dir, file_path)
+        if isfile(abs_file_path):
+            return True
+        else:
+            return False
 
 
 def delete_file(file_path):
@@ -44,12 +53,12 @@ def move_from_to_file(source, destination):
 
 def find_replace_text(file_path, find_text, replace_text):
     if file_exists(file_path):
-        file_root = path.dirname(file_path)
+        file_root = dirname(file_path)
 
         original_file = open(file_path, "r")
 
-        temp_file_name = path.basename(file_path) + ".TMP"
-        temp_file_name = path.join(file_root, temp_file_name)
+        temp_file_name = basename(file_path) + ".TMP"
+        temp_file_name = join(file_root, temp_file_name)
         temp_file = open(temp_file_name, "w")
 
         for line in original_file:
@@ -65,12 +74,12 @@ def find_replace_text(file_path, find_text, replace_text):
 
 def find_replace_text_many(file_path, find_text, replace_text):
     if file_exists(file_path):
-        file_root = path.dirname(file_path)
+        file_root = dirname(file_path)
 
         original_file = open(file_path, "r")
 
-        temp_file_name = path.basename(file_path) + ".TMP"
-        temp_file_name = path.join(file_root, temp_file_name)
+        temp_file_name = basename(file_path) + ".TMP"
+        temp_file_name = join(file_root, temp_file_name)
         temp_file = open(temp_file_name, "w")
 
         for line in original_file:
@@ -92,8 +101,8 @@ def find_replace_text_many(file_path, find_text, replace_text):
 
 
 def copy_from_to_file(source, destination):
-    if file_exists(source) and path.isdir(path.dirname(destination)):
-        if path.basename(source) == path.basename(destination) and file_exists(destination):
+    if file_exists(source) and isdir(dirname(destination)):
+        if basename(source) == basename(destination) and file_exists(destination):
             delete_file(destination)
         try:
             copy2(source, destination)
@@ -106,7 +115,7 @@ def search_file_first_occurrence(search_path, filename):
     # Waking top-down from the root
     for root, dir, files in walk(search_path):
         if filename in files:
-            result = path.join(root, filename)
+            result = join(root, filename)
             return result
 
 
@@ -115,7 +124,7 @@ def search_file_all_occurrence(filename, search_path):
     # Waking top-down from the root
     for root, dir, files in walk(search_path):
         if filename in files:
-            result.append(path.join(root, filename))
+            result.append(join(root, filename))
     return result
 
 

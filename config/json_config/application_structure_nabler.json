@@ -1,0 +1,23 @@
+{
+  "_comment": "Additional VertexApps D drive folder structure for NAbler",
+  "auditui": {
+    "folder_name": "AuditUI",
+    "config_file_name": null
+  },
+  "cms": {
+    "folder_name": "CMS",
+    "config_file_name": "CmsDataService.config"
+  },
+  "ib": {
+    "folder_name": "InterfaceBoardService",
+    "config_file_name": "InterfaceBoardService.config"
+  },
+  "watchdog": {
+    "folder_name": "Watchdog",
+    "config_file_name": "Reports.config"
+  },
+  "valyria": {
+    "folder_name": "Valyria",
+    "config_file_name": "Valyria.config"
+  }
+}

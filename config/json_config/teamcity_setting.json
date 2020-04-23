@@ -1,0 +1,8 @@
+{
+    "_comment": "configuration for TeamCity server",
+    "host": "http://uslv-addv12-02.dev.local/",
+    "teamcity_username": "guest",
+    "teamcity_password": "guest",
+    "api_artifacts": "/guestAuth/app/rest/builds/id:{0}/artifacts/children",
+    "api_buildId": null
+}

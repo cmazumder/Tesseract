@@ -1,0 +1,19 @@
+{
+    "_comment": "Configuration for controller (local) database server",
+    "db_server": "localhost\\SQLEXPRESS",
+    "db_username": "sa",
+    "db_password": "Password1",
+    "db_size": {
+        "reduce": "no",
+        "new_size": "100MB"
+    },
+    "db_to_delete": [
+        "Vertex",
+        "VertexArch",
+        "GamesArch",
+        "Games",
+        "Misc"
+    ],
+    "db_to_setup": "Vertex_and_Games_on_VertexBox.sql"
+}
+

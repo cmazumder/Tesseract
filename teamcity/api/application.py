@@ -1,8 +1,9 @@
 from os import path
 from threading import Thread
 
-from build import Build
 from config.framework_config import deployment_env_paths, teamcity_setting
+
+from build import Build
 from util import folder_actions as Folder, download_tasks as DownloadTask, file_actions as File
 
 

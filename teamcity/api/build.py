@@ -2,6 +2,7 @@ import json
 from urlparse import urljoin
 
 from config.framework_config import teamcity_setting
+
 from teamcity import TeamCity as TeamCityUser
 
 

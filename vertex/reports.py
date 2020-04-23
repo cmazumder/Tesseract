@@ -1,4 +1,5 @@
 from config.framework_config import application_structure, teamcity_download_setting
+
 from teamcity.api.application import Application
 
 

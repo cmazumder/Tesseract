@@ -1,4 +1,3 @@
-from config.framework_config import deployment_env_paths, application_structure
 from util import file_actions as File, folder_actions as Folder
 from vertex.dataservice import DataService
 from vertex.reports import Reports

@@ -1,8 +1,9 @@
 import os
 from time import time, localtime, strftime
 
-from config.config_manager import ConfigManager
 from config.framework_config import deployment_env_paths, local_database_setting
+
+from config.config_manager import ConfigManager
 from local import setup_database as Database
 from local.artifacts.manage_artifacts import ManageArtifacts
 from util import file_actions as File

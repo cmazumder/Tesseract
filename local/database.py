@@ -1,7 +1,6 @@
 from os import system
 
 import pyodbc
-
 from config.framework_config import local_database_setting
 
 

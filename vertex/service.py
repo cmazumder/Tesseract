@@ -1,4 +1,6 @@
-from config.framework_config import application_structure, teamcity_download_setting, deployment_env_paths, local_database_setting
+from config.framework_config import application_structure, teamcity_download_setting, deployment_env_paths, \
+    local_database_setting
+
 from teamcity.api.application import Application
 
 

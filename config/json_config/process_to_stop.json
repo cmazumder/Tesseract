@@ -1,0 +1,4 @@
+{
+  "_comment": "name of process to be stopped",
+  "process_name" : ["VertexShell.exe", "Aristocrat.Vertex.Service.exe"]
+}
