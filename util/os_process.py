@@ -47,7 +47,8 @@ def kill_process_tree(pid, sig=signal.SIGTERM, include_parent=True,
     return status(pid)
 
 
-spacer = '-'*50
+spacer = '-' * 50
+
 
 def test_close_process():
     # This is just a test function, and not to be used in code

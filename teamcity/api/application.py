@@ -79,11 +79,13 @@ class Application(Build, Thread):
                 if "size" in items:  # it's a file
                     # exclude file with extension (if any extension is specified in config)
                     try:
-                        if any(ext not in File.path.basename(items["content"]["href"]) for ext in self.exclude_file_extension) \
+                        if any(ext not in File.path.basename(items["content"]["href"]) for ext in
+                               self.exclude_file_extension) \
                                 or len(self.exclude_file_extension) == 0:
                             try:
                                 if len(filename_to_get) == 0 or \
-                                        any(file_name == File.path.basename(items["content"]["href"]) for file_name in filename_to_get):
+                                        any(file_name == File.path.basename(items["content"]["href"]) for file_name in
+                                            filename_to_get):
                                     value = [items["name"], str(items["size"]), items["content"]["href"]]
                                     make_key = items["href"].split(self.url_resource_text, 1)[1][1:]
                                     self.artifact_file_details[make_key] = value
@@ -104,8 +106,8 @@ class Application(Build, Thread):
         :return: None
         """
         session_response = self.teamcity_session.get_url_response(url=self.artifact_url_complete,
-                                                  username=self.teamcity_session.username,
-                                                  password=self.teamcity_session.password)
+                                                                  username=self.teamcity_session.username,
+                                                                  password=self.teamcity_session.password)
         if session_response.status_code == 200:
             api_response = self.get_decoded_json_response(self.artifact_url_complete)
             self.create_filelist_from_api(api_response=api_response)

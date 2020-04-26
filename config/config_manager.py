@@ -70,7 +70,6 @@ class ConfigManager:
             print "Cannot reach TeamCity"
             return False
 
-
     def check_database_connection(self):
         db = Database()
         if db.connect_to_db():

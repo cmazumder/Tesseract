@@ -26,7 +26,6 @@ class ManageArtifacts:
         self.application.download()
         print "Downloaded"
 
-
     def close_running_process(self):
         # process_ids = get_processid_by_name('chrome', 'conhost', 'pycharm64.exe', 'WinMergeU')
         try:

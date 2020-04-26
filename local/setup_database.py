@@ -9,6 +9,7 @@ def delete_exisiting_database(database, db_to_delete):
         # status = database_object.db_exists(item)
         print "{0} delete status: {1} ".format(item, status)
 
+
 def setup_sql_script(sql_path):
     File.file_exists(sql_path)
     try:
@@ -17,11 +18,11 @@ def setup_sql_script(sql_path):
             REPLACE_TEXT = ['Vertex', 'Games', 'Misc', local_database_setting["db_size"]["new_size"]]
             File.find_replace_text_many(sql_path, FIND_TEXT, REPLACE_TEXT)
         elif local_database_setting["db_size"]["reduce"].lower() == 'yes':
-            File.find_replace_text(sql_path, '10240MB',  local_database_setting["db_size"]["new_size"])
+            File.find_replace_text(sql_path, '10240MB', local_database_setting["db_size"]["new_size"])
     except KeyError as err:
         print "Key error: {0}\nLists: {1}".format(err.message, err.args)
     except NameError as err:
-            print "Name error: {0}\nLists: {1}".format(err.message, err.args)
+        print "Name error: {0}\nLists: {1}".format(err.message, err.args)
 
 
 def recreate_database_from_script(sql_path):
@@ -31,7 +32,7 @@ def recreate_database_from_script(sql_path):
     except KeyError as err:
         print "Key error: {0}\nLists: {1}".format(err.message, err.args)
     except NameError as err:
-            print "Name error: {0}\nLists: {1}".format(err.message, err.args)
+        print "Name error: {0}\nLists: {1}".format(err.message, err.args)
 
     setup_sql_script(sql_path)
 
