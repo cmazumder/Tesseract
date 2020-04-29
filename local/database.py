@@ -1,23 +1,20 @@
 from os import system
 
 import pyodbc
-from config.framework_config import local_database_setting
 
 
 class Database:
     sql_script_execute_string = None
 
-    def __init__(self):
+    def __init__(self, server, username, password):
         """ constructor"""
         try:
             self.sql_script_execute_string = r"call osql -S {0} -U {1} -P {2} -d master -n -i ".format(
-                local_database_setting["db_server"],
-                local_database_setting["db_username"],
-                local_database_setting["db_password"])
+                server, username, password)
             try:
-                self.connection, self.cursor = self.connect_to_db(db_server=local_database_setting["db_server"],
-                                                                  db_username=local_database_setting["db_username"],
-                                                                  db_password=local_database_setting["db_password"])
+                self.connection, self.cursor = self.connect_to_db(db_server=server,
+                                                                  db_username=username,
+                                                                  db_password=password)
             except pyodbc.Error as err:
                 print "Database connection error:{0}\nSQL state: {1}".format(err.message, err.args)
         except (KeyError, NameError) as err:

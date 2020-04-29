@@ -1,4 +1,6 @@
-from requests import get, ConnectTimeout, ConnectionError
+from urlparse import urljoin
+
+from requests import get, ConnectionError
 
 
 class Connection:
@@ -34,14 +36,28 @@ class Connection:
         :type username:
         :param password:
         :type password:
-        :return:
-        :rtype:
+        :return: response
+        :rtype: json
         """
         try:
             response = get(url, auth=(username, password), headers=headers, timeout=timeout)
             return response
         except ConnectionError as err:
-            print "Cannot connect (message): {}\n{}".format(err.message, err.request)
-        except ConnectTimeout as err:
-            print "Timeout {}:{}\n{}".format(err.errno, err.message, err.request)
+            print "Cannot connect\n Error #: {}\nMessage: {}\nRequest: {}".format(err.errno, err.message, err.request)
         print "No response from url: {}".format(url)
+
+    def join_url(self, *args):
+        """
+        pythonic way to make urls
+        WARNING Don't sent any argument starting with /
+        :param args: all arguments to be joined
+        :return: final url
+        """
+        url = None
+        for arg in args:
+            url = urljoin(url, arg)
+            if url[-1] != '/':
+                url += '/'
+        if url[-1] == '/':
+            return url[:-1]
+        return url

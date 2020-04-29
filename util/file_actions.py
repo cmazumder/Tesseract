@@ -1,5 +1,5 @@
 from os import remove, rename, walk
-from os.path import normcase, isdir, basename, dirname, join, isfile, isabs
+from os.path import normcase, isdir, basename, dirname, join, isfile, isabs, getsize
 from shutil import move, copy2
 
 
@@ -131,3 +131,10 @@ def search_file_all_occurrence(filename, search_path):
 def create_file(file_path):
     with open(file_path, "w") as file_write:
         file_write.close()
+
+
+def compute_file_size(file_path):
+    if file_exists(file_path):
+        return getsize(file_path)
+    else:
+        return None

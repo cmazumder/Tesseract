@@ -1,0 +1,10 @@
+{
+  "_about": "configuration for controller box",
+  "exclude_file_extension": [
+    ".pdb"
+  ],
+  "windows_process_to_stop": [
+    "VertexShell.exe",
+    "Aristocrat.Vertex.Service.exe"
+  ]
+}

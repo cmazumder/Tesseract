@@ -1,7 +1,7 @@
-from config.framework_config import application_structure, teamcity_download_setting, deployment_env_paths, \
+from config.framework_config import artifacts_to_download, teamcity_download_setting, deployment_env_paths, \
     local_database_setting
 
-from teamcity.api.application import Application
+from website.api.application import Application
 
 
 class Service(Application):
@@ -9,9 +9,9 @@ class Service(Application):
     def __init__(self):
         Application.__init__(self)
         try:
-            self.build_id = self.get_buildId_from_buildTypeId(
-                buildTypeId=teamcity_download_setting["service"]["buildTypeID"])
-            self.folder = application_structure["service"]["folder_name"]
+            self.build_id = self.get_successful_buildid(
+                build_type_id=teamcity_download_setting["service"]["buildTypeID"])
+            self.folder = artifacts_to_download["service"]["folder_name"]
         except KeyError as err:
             print "Key error: {0}\nLists: {1}".format(err.message, err.args)
         except NameError as err:
@@ -35,8 +35,8 @@ class Service(Application):
                                                                   self.teamcity_session.username,
                                                                   self.teamcity_session.password)
         if session_response.status_code == 200:
-            api_response = self.get_decoded_json_response(self.artifact_url_complete)
-            self.create_filelist_from_api(api_response=api_response,
+            api_response = self.get_json_response_as_dict(self.artifact_url_complete)
+            self.create_filelist_from_api(artifact_list_from_api=api_response,
                                           filename_to_get=[local_database_setting["db_to_setup"]])
             if self.artifact_file_details:
                 self.start_download()
@@ -59,8 +59,8 @@ class Service(Application):
                                                                   self.teamcity_session.password
                                                                   )
         if session_response.status_code == 200:
-            api_response = self.get_decoded_json_response(self.artifact_url_complete)
-            self.create_filelist_from_api(api_response=api_response)
+            api_response = self.get_json_response_as_dict(self.artifact_url_complete)
+            self.create_filelist_from_api(artifact_list_from_api=api_response)
             if self.artifact_file_details:
                 self.start_download()
         else:

@@ -1,9 +1,7 @@
 {
-  "_comment": "path to all configuration files",
-  "application_structure": "config/json_config/application_structure.json",
-  "application_structure_nabler": "config/json_config/application_structure_nabler.json",
-  "deployment_evn_path": "config/json_config/deployment_evn_path.json",
+  "_about": "path to all configuration files",
+  "artifacts_to_download": "config/json_config/artifacts_to_download.json",
+  "environment_setting": "config/json_config/environment_setting.json",
   "local_database_setting": "config/json_config/local_database_setting.json",
-  "process_to_stop": "config/json_config/process_to_stop.json",
-  "teamcity_setting": "config/json_config/teamcity_setting.json",
+  "teamcity_setting": "config/json_config/teamcity_setting.json"
 }

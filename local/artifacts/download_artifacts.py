@@ -55,24 +55,24 @@ class DownloadArtifacts:
             if self.service.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.service.artifact_download_path,
                                                  save_to_path=self.config_download_path,
-                                                 file_name=application_structure["service"]["config_file_name"])
+                                                 file_name=artifacts_to_download["service"]["config_file_name"])
 
             if self.dataservice.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.dataservice.artifact_download_path,
                                                  save_to_path=self.config_download_path,
-                                                 file_name=application_structure["dataservice"]["config_file_name"])
+                                                 file_name=artifacts_to_download["dataservice"]["config_file_name"])
 
             if self.reports.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.reports.artifact_download_path,
                                                  save_to_path=self.config_download_path,
-                                                 file_name=application_structure["reports"]["config_file_name"])
+                                                 file_name=artifacts_to_download["reports"]["config_file_name"])
 
             if self.shell.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.shell.artifact_download_path,
                                                  save_to_path=self.config_download_path,
-                                                 file_name=application_structure["shell"]["config_file_name"])
+                                                 file_name=artifacts_to_download["shell"]["config_file_name"])
 
             if self.ui.compare_file_count():
                 self.extract_configuration_files(search_in_path=self.ui.artifact_download_path,
                                                  save_to_path=self.config_download_path,
-                                                 file_name=application_structure["ui"]["config_file_name"])
+                                                 file_name=artifacts_to_download["ui"]["config_file_name"])

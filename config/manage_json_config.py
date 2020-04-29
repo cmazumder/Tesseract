@@ -4,20 +4,23 @@ from os.path import normcase, dirname, join
 import util.file_actions as File
 
 
-def deep_get(dictionary, keys, default=None):
+def get_dict_value_deep_fetch(dictionary, keys, ascii=False, default=None):
     """
     Example:
         dictionary = {'meta': {'status': 'OK', 'status_code': 200}}
-        deep_get(dictionary, ['meta', 'status_code'])          # => 200
-        deep_get(dictionary, ['garbage', 'status_code'])       # => None
-        deep_get(dictionary, ['meta', 'garbage'], default='-') # => '-'
+        get_dict_value_deep_fetch(dictionary, ['meta', 'status_code'])          # => 200
+        get_dict_value_deep_fetch(dictionary, ['garbage', 'status_code'])       # => None
+        get_dict_value_deep_fetch(dictionary, ['meta', 'garbage'], default='-') # => '-'
     """
     assert type(keys) is list
     if dictionary is None:
         return default
     if not keys:
-        return dictionary
-    return deep_get(dictionary.get(keys[0]), keys[1:], default)
+        if ascii:
+            return dictionary.encode('ascii', 'ignore')  # value converted from unicode
+        else:
+            return dictionary
+    return get_dict_value_deep_fetch(dictionary.get(keys[0]), keys[1:], default)
 
 
 def get_value_from_json_file(json_file_path, val):
@@ -32,7 +35,7 @@ def get_value_from_json_file(json_file_path, val):
         with open(abs_file_path, 'r') as config_file:
             dictionary = json.load(config_file)
             if dictionary:
-                return deep_get(dictionary, val)
+                return get_dict_value_deep_fetch(dictionary, val)
     except IOError as err:
         print "I/O error({0}): {1}".format(err.errno, err.strerror)
 

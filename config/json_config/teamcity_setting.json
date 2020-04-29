@@ -1,8 +1,9 @@
 {
-    "_comment": "configuration for TeamCity server",
-    "host": "http://uslv-addv12-02.dev.local/",
-    "teamcity_username": "guest",
-    "teamcity_password": "guest",
-    "api_artifacts": "/guestAuth/app/rest/builds/id:{0}/artifacts/children",
-    "api_buildId": null
+  "_about": "configuration for TeamCity server",
+  "host": "http://uslv-addv12-02.dev.local/",
+  "teamcity_username": "guest",
+  "teamcity_password": "guest",
+  "api_artifacts": "/httpAuth/app/rest/builds/id:{0}/artifacts/children",
+  "api_buildId_last_successful": "/httpAuth/app/rest/builds/buildType:{0},status:success",
+  "api_buildId_via_tags": "/httpAuth/app/rest/builds/buildType:{0},status:success,tags:({1})"
 }

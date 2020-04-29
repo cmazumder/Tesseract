@@ -1,8 +1,6 @@
 import time
 from os import listdir
 
-from config.framework_config import deployment_env_paths, process_to_stop
-
 from local.artifacts.download_artifacts import DownloadArtifacts
 from util import file_actions as File
 from util import folder_actions as Folder
@@ -31,7 +29,7 @@ class ManageArtifacts:
     def close_running_process(self):
         # process_ids = get_processid_by_name('chrome', 'conhost', 'pycharm64.exe', 'WinMergeU')
         try:
-            for item in process_to_stop:
+            for item in environment_setting:
                 process_ids = os_process.get_processid_by_name(item)
                 if len(process_ids) > 0:
                     for elem in process_ids:

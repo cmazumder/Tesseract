@@ -1,5 +1,5 @@
 {
-  "_comment": "Additional VertexApps D drive folder structure for NAbler",
+  "_about": "Additional VertexApps D drive folder structure for NAbler",
   "auditui": {
     "folder_name": "AuditUI",
     "config_file_name": null
@@ -8,7 +8,7 @@
     "folder_name": "CMS",
     "config_file_name": "CmsDataService.config"
   },
-  "ib": {
+  "interfaceboard": {
     "folder_name": "InterfaceBoardService",
     "config_file_name": "InterfaceBoardService.config"
   },
@@ -19,5 +19,11 @@
   "valyria": {
     "folder_name": "Valyria",
     "config_file_name": "Valyria.config"
+  },
+  "service": {
+    "folder_name": "Service",
+    "config_file_name": "Controller.config",
+    "buildTypeID": "Vertex_Service_VertexXSeries",
+    "anchor": "Applications/Aristocrat.Vertex.Service/Release"
   }
 }
