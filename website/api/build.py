@@ -1,6 +1,6 @@
 import json
 
-from config.manage_json_config import get_dict_value_deep_fetch
+from config.manage_json_config import get_dict_value
 from infrastructure import teamcity_handler
 
 
@@ -11,9 +11,6 @@ class Build:
         self.version_number = None
         self.application_api = None
         self.host = None
-
-    def __del__(self):
-        pass
 
     def get_json_response_as_dict(self, api_url):
         """
@@ -51,10 +48,10 @@ class Build:
         :return: True if there is a successful build
         """
         response_teamcity = self.get_json_response_as_dict(api_url=api_url)
-        if get_dict_value_deep_fetch(dictionary=response_teamcity, keys=["status"], ascii=True) == 'SUCCESS':
-            self.build_id = get_dict_value_deep_fetch(dictionary=response_teamcity, keys=["id"], ascii=True)
-            self.version_number = get_dict_value_deep_fetch(dictionary=response_teamcity, keys=["number"], ascii=True)
-            self.application_api = get_dict_value_deep_fetch(dictionary=response_teamcity, keys=["artifacts", "href"])
+        if get_dict_value(dictionary=response_teamcity, keys=["status"], ascii=True) == 'SUCCESS':
+            self.build_id = get_dict_value(dictionary=response_teamcity, keys=["id"], ascii=True)
+            self.version_number = get_dict_value(dictionary=response_teamcity, keys=["number"], ascii=True)
+            self.application_api = get_dict_value(dictionary=response_teamcity, keys=["artifacts", "href"])
             if self.build_id and self.version_number and self.application_api:
                 return True
             else:

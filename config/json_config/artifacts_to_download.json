@@ -52,6 +52,8 @@
     "anchor": "VertexShell",
     "save_artifact_to_path": "F:\\Artifacts\\Shell",
     "copy_artifacts_to_path": "D:\\Shell",
+    "find_text": ["enabled=\"true\""],
+    "replace_text": ["enabled=\"false\""],
     "copy_config_to_path": [
       "D:\\Backup\\Configurations",
       "F:\\Configurations"

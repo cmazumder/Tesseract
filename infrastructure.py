@@ -1,4 +1,5 @@
 from config.config_manager import ConfigManager
+from config.manage_json_config import get_dict_value
 from local import setup_database as Database
 from local.artifacts.manage_artifacts import ManageArtifacts
 from util import file_actions as File
@@ -11,12 +12,13 @@ teamcity_handler = TeamCity
 
 
 def check_teamcity_available():
-    teamcity_setting = configuration.get_config_teamcity()
+    teamcity_setting = configuration.get_teamcity()
     if teamcity_setting:
         global teamcity_handler
-        teamcity_handler = TeamCity(host=teamcity_setting["host"], username=teamcity_setting["teamcity_username"],
-                                    password=teamcity_setting["teamcity_password"])
-        response = teamcity_handler.get_url_response(url=teamcity_setting["host"])
+        teamcity_handler = TeamCity(host=get_dict_value(teamcity_setting, ["host"]),
+                                    username=get_dict_value(teamcity_setting, ["teamcity_username"]),
+                                    password=get_dict_value(teamcity_setting, ["teamcity_password"]))
+        response = teamcity_handler.get_url_response(url=get_dict_value(teamcity_setting, ["host"]))
         if response:
             if response.status_code == 200:
                 return True
@@ -29,11 +31,11 @@ def check_teamcity_available():
 
 
 def check_database_connection():
-    database_setting = configuration.get_config_database()
+    database_setting = configuration.get_database()
     if database_setting:
-        database = Database.get_database_connection(server=database_setting["db_server"],
-                                                    username=database_setting["db_username"],
-                                                    password=database_setting["db_password"])
+        database = Database.get_database_connection(server=get_dict_value(database_setting, ["db_server"]),
+                                                    username=get_dict_value(database_setting, ["db_username"]),
+                                                    password=get_dict_value(database_setting, ["db_password"]))
         if database.connection:
             return True
     else:

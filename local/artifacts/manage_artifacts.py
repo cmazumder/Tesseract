@@ -1,7 +1,7 @@
 import time
 from os import listdir
 
-from local.artifacts.download_artifacts import DownloadArtifacts
+from local.artifacts.download import Download
 from util import file_actions as File
 from util import folder_actions as Folder
 from util import os_process
@@ -10,7 +10,7 @@ from util import os_process
 class ManageArtifacts:
     def __init__(self):
         try:
-            self.application = DownloadArtifacts()
+            self.application = Download()
             self.path_to_vertexData = deployment_env_paths["path_vertexData"]
             self.path_to_VertexApps = deployment_env_paths["path_vertexApp"]
         except (KeyError, NameError) as err:
@@ -25,6 +25,16 @@ class ManageArtifacts:
         self.application.download()
         print "Downloaded"
 
+
+    def extract_configuration_files(self, search_in_path, save_to_path, file_name):
+        if Folder.folder_exists(save_to_path):
+            source_path = File.search_file_first_occurrence(filename=file_name, search_path=search_in_path)
+            if source_path:
+                save_to_path = Folder.build_path(save_to_path, file_name)
+                if 'Shell.config' in file_name:
+                    # better to search and replace via xpath, which has to be implemented
+                    File.find_replace_text(source_path, r'enabled="true"', r'enabled="false"')
+            File.copy_from_to_file(source=source_path, destination=save_to_path)
 
     def close_running_process(self):
         # process_ids = get_processid_by_name('chrome', 'conhost', 'pycharm64.exe', 'WinMergeU')
@@ -51,15 +61,15 @@ class ManageArtifacts:
         :return:
         :rtype:
         """
-        if self.application.service and self.application.service.compare_file_count():
+        if self.application.service and self.application.service._count_of_download_and_artifact_list_match():
             self.copy_artifact(self.application.service)
-        if self.application.shell and self.application.shell.compare_file_count():
+        if self.application.shell and self.application.shell._count_of_download_and_artifact_list_match():
             self.copy_artifact(self.application.shell)
-        if self.application.ui and self.application.ui.compare_file_count():
+        if self.application.ui and self.application.ui._count_of_download_and_artifact_list_match():
             self.copy_artifact(self.application.ui)
-        if self.application.dataservice and self.application.dataservice.compare_file_count():
+        if self.application.dataservice and self.application.dataservice._count_of_download_and_artifact_list_match():
             self.copy_artifact(self.application.dataservice)
-        if self.application.reports and self.application.reports.compare_file_count():
+        if self.application.reports and self.application.reports._count_of_download_and_artifact_list_match():
             self.copy_artifact(self.application.reports)
 
     def copy_artifact(self, application):
@@ -69,7 +79,7 @@ class ManageArtifacts:
         :type application:
         :return: None
         """
-        destination_path = Folder.build_path(self.path_to_VertexApps, application.folder)
+        destination_path = Folder.build_path(self.path_to_VertexApps, application.Folder)
         Folder.copy_from_to_location(source=application.artifact_download_path, destination=destination_path)
 
     def replace_configuration_file(self):

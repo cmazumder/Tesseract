@@ -1,5 +1,5 @@
 from os import remove, rename, walk
-from os.path import normcase, isdir, basename, dirname, join, isfile, isabs, getsize
+from os.path import normcase, isdir, basename, dirname, join, isfile, isabs, getsize, islink
 from shutil import move, copy2
 
 
@@ -73,6 +73,7 @@ def find_replace_text(file_path, find_text, replace_text):
 
 
 def find_replace_text_many(file_path, find_text, replace_text):
+    # make this elegant, that is handle as many items from the list
     if file_exists(file_path):
         file_root = dirname(file_path)
 
@@ -113,18 +114,18 @@ def copy_from_to_file(source, destination):
 def search_file_first_occurrence(search_path, filename):
     result = r''
     # Waking top-down from the root
-    for root, dir, files in walk(search_path):
-        if filename in files:
-            result = join(root, filename)
+    for dir_path, dir_names, file_names in walk(search_path):
+        if filename in file_names:
+            result = join(dir_path, filename)
             return result
 
 
 def search_file_all_occurrence(filename, search_path):
     result = []
     # Waking top-down from the root
-    for root, dir, files in walk(search_path):
-        if filename in files:
-            result.append(join(root, filename))
+    for dir_path, dir_names, file_names in walk(search_path):
+        if filename in file_names:
+            result.append(join(dir_path, filename))
     return result
 
 
@@ -135,6 +136,8 @@ def create_file(file_path):
 
 def compute_file_size(file_path):
     if file_exists(file_path):
-        return getsize(file_path)
+        # skip if it is symbolic link
+        if not islink(file_path):
+            return getsize(file_path)
     else:
         return None

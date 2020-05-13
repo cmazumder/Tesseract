@@ -1,13 +1,10 @@
 from config.framework_config import artifacts_to_download, teamcity_download_setting, deployment_env_paths, \
     local_database_setting
 
-from website.api.application import Application
 
-
-class Service(Application):
+class Service:
 
     def __init__(self):
-        Application.__init__(self)
         try:
             self.build_id = self.get_successful_buildid(
                 build_type_id=teamcity_download_setting["service"]["buildTypeID"])
@@ -39,7 +36,7 @@ class Service(Application):
             self.create_filelist_from_api(artifact_list_from_api=api_response,
                                           filename_to_get=[local_database_setting["db_to_setup"]])
             if self.artifact_file_details:
-                self.start_download()
+                self._start_download()
         else:
             print "Error {} \n url {}".format(session_response, self.artifact_url_complete)
 
@@ -62,7 +59,7 @@ class Service(Application):
             api_response = self.get_json_response_as_dict(self.artifact_url_complete)
             self.create_filelist_from_api(artifact_list_from_api=api_response)
             if self.artifact_file_details:
-                self.start_download()
+                self._start_download()
         else:
             print "Error {} \n url {}".format(session_response, self.artifact_url_complete)
 
@@ -73,12 +70,12 @@ class Service(Application):
         self.download_vertex_sql()
         print self.spacer_char_asterisk
         print "Service - SQL"
-        self.show_downloaded_info()
+        self._show_downloaded_info()
         print self.spacer_char_asterisk
         self.clear_artifact_list()
         #  Service
         self.set_vertex_service_properties()
         self.download_vertex_service()
         print "Service - apps"
-        self.show_downloaded_info()
+        self._show_downloaded_info()
         print self.spacer_char_asterisk

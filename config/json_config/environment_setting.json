@@ -6,5 +6,7 @@
   "windows_process_to_stop": [
     "VertexShell.exe",
     "Aristocrat.Vertex.Service.exe"
-  ]
+  ],
+  "save_artifact_root_path": "F:\\Artifacts",
+  "artifact_config_folder": "Configurations"
 }

@@ -1,7 +1,7 @@
-from os import path, makedirs, listdir
+from os import path, makedirs, listdir, walk
 from shutil import rmtree, copytree, move
 
-from util.file_actions import file_exists, delete_file
+from util.file_actions import file_exists, delete_file, compute_file_size
 
 
 def delete_path(dir_path):
@@ -73,3 +73,47 @@ def delete_folder_contents(folder_path):
                 delete_path(path)
             elif file_exists(path):
                 delete_file(path)
+
+
+def get_folder_properties_file_count(folder_path):
+    """Calculate the square root of a number.
+
+    Args:
+        folder_path: the path of the Folder
+    Returns:
+        no_of_file: total number of file as int.
+    Raises:
+        None
+    """
+    no_of_file = 0
+    for dir_path, dir_names, file_names in walk(folder_path):
+        for dirs in dir_names:
+           pass
+        for filename in file_names:
+            no_of_file += 1
+            return no_of_file
+
+
+def get_folder_properties(folder_path):
+    """Calculate the square root of a number.
+
+    Args:
+        folder_path: the path of the Folder
+    Returns:
+        the square root of n.
+    Raises:
+        TypeError: if n is not a number.
+        ValueError: if n is negative.
+
+    """
+    no_of_file = 0
+    no_of_folder = 0
+    total_size = 0
+    for dir_path, dir_names, file_names in walk(folder_path):
+        for dirs in dir_names:
+            no_of_folder += 1
+        for filename in file_names:
+            no_of_file += 1
+            file_path = build_path(dir_path, filename)
+            total_size += compute_file_size(file_path)
+    return no_of_file, no_of_folder, total_size

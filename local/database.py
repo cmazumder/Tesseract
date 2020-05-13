@@ -130,7 +130,8 @@ class Database:
 
 
 def test_Database():
-    db = Database()
+    # This is test function for this class
+    db = Database(server="localhost\\SQLEXPRESS", username="sa", password="Password1")
     db_to_delete = ['Vertex', 'VertexArch', 'GamesArch', 'Games', 'Misc']
 
     # for item in db_to_delete:

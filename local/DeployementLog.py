@@ -40,47 +40,47 @@ def write_to_file_setup_info(to_file, artifacts=None, sql_path=None, test_mode=F
 
 def write_downloaded_application_version_info(file_path, artifact):
     try:
-        if artifact.application.dataservice.compare_file_count():
-            File.append_text_to_file(file_path, "\t", artifact.application.dataservice.folder, "\t\t\t",
+        if artifact.application.dataservice._count_of_download_and_artifact_list_match():
+            File.append_text_to_file(file_path, "\t", artifact.application.dataservice.Folder, "\t\t\t",
                                      artifact.application.dataservice.version_number)
         else:
-            File.append_text_to_file(file_path, "\t", artifact.application.dataservice.folder, "\t\t\t",
+            File.append_text_to_file(file_path, "\t", artifact.application.dataservice.Folder, "\t\t\t",
                                      "NA")
     except (AttributeError, ValueError, TypeError) as err:
         print "Error in writing version info <DataService>: {}\nargs{}".format(err.message, err.args)
     try:
-        if artifact.application.reports.compare_file_count():
-            File.append_text_to_file(file_path, "\t", artifact.application.reports.folder, "\t\t\t\t",
+        if artifact.application.reports._count_of_download_and_artifact_list_match():
+            File.append_text_to_file(file_path, "\t", artifact.application.reports.Folder, "\t\t\t\t",
                                      artifact.application.reports.version_number)
         else:
-            File.append_text_to_file(file_path, "\t", artifact.application.reports.folder, "\t\t\t",
+            File.append_text_to_file(file_path, "\t", artifact.application.reports.Folder, "\t\t\t",
                                      "NA")
     except (AttributeError, ValueError, TypeError) as err:
         print "Error in writing version info <Reports>: {}\nargs{}".format(err.message, err.args)
     try:
-        if artifact.application.service.compare_file_count():
-            File.append_text_to_file(file_path, "\t", artifact.application.service.folder, "\t\t\t\t",
+        if artifact.application.service._count_of_download_and_artifact_list_match():
+            File.append_text_to_file(file_path, "\t", artifact.application.service.Folder, "\t\t\t\t",
                                      artifact.application.service.version_number)
         else:
-            File.append_text_to_file(file_path, "\t", artifact.application.service.folder, "\t\t\t",
+            File.append_text_to_file(file_path, "\t", artifact.application.service.Folder, "\t\t\t",
                                      "NA")
     except (AttributeError, ValueError, TypeError) as err:
         print "Error in writing version info <Service>: {}\nargs{}".format(err.message, err.args)
     try:
-        if artifact.application.shell.compare_file_count():
-            File.append_text_to_file(file_path, "\t", artifact.application.shell.folder, "\t\t\t\t",
+        if artifact.application.shell._count_of_download_and_artifact_list_match():
+            File.append_text_to_file(file_path, "\t", artifact.application.shell.Folder, "\t\t\t\t",
                                      artifact.application.shell.version_number)
         else:
-            File.append_text_to_file(file_path, "\t", artifact.application.shell.folder, "\t\t\t",
+            File.append_text_to_file(file_path, "\t", artifact.application.shell.Folder, "\t\t\t",
                                      "NA")
     except (AttributeError, ValueError, TypeError) as err:
         print "Error in writing version info <Shell>: {}\nargs{}".format(err.message, err.args)
     try:
-        if artifact.application.ui.compare_file_count():
-            File.append_text_to_file(file_path, "\t", artifact.application.ui.folder, "\t\t\t\t\t",
+        if artifact.application.ui._count_of_download_and_artifact_list_match():
+            File.append_text_to_file(file_path, "\t", artifact.application.ui.Folder, "\t\t\t\t\t",
                                      artifact.application.ui.version_number)
         else:
-            File.append_text_to_file(file_path, "\t", artifact.application.ui.folder, "\t\t\t",
+            File.append_text_to_file(file_path, "\t", artifact.application.ui.Folder, "\t\t\t",
                                      "NA")
     except (AttributeError, ValueError, TypeError) as err:
         print "Error in writing version info <UI>: {}\nargs{}".format(err.message, err.args)

@@ -30,7 +30,7 @@ class DataService(Application):
             api_response = self.get_json_response_as_dict(self.artifact_url_complete)
             self.create_filelist_from_api(artifact_list_from_api=api_response)
             if self.artifact_file_details:
-                self.start_download()
+                self._start_download()
         else:
             print "Error {} \n url {}".format(session_response, self.artifact_url_complete)
 
@@ -40,5 +40,5 @@ class DataService(Application):
         self.download_vertex_dataservice()
         print self.spacer_char_asterisk
         print "DataService"
-        self.show_downloaded_info()
+        self._show_downloaded_info()
         print self.spacer_char_asterisk

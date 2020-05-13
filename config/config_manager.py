@@ -27,7 +27,9 @@ class ConfigManager(Singleton):
     def load_config(self, setting_name):
         file_path = get_value_from_json_file(self.master_config_with_path, [setting_name])
         if file_path and file_exists(file_path):
-            return get_json_as_dictionary(file_path).pop("_about", None)
+            dictionary = get_json_as_dictionary(file_path)
+            dictionary.pop("_about", None)
+            return dictionary
         else:
             raise ConfigLoadError("Cannot load --> {}".format(setting_name))
 
