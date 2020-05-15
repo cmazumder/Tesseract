@@ -7,6 +7,6 @@
     "VertexShell.exe",
     "Aristocrat.Vertex.Service.exe"
   ],
-  "save_artifact_root_path": "F:\\Artifacts",
+  "download_artifact_root_path": "F:\\Artifacts",
   "artifact_config_folder": "Configurations"
 }

@@ -28,7 +28,10 @@ class ConfigManager(Singleton):
         file_path = get_value_from_json_file(self.master_config_with_path, [setting_name])
         if file_path and file_exists(file_path):
             dictionary = get_json_as_dictionary(file_path)
-            dictionary.pop("_about", None)
+            try:
+                del dictionary["_about"]
+            except KeyError as err:
+                print "Key error: {}".format(err.message)
             return dictionary
         else:
             raise ConfigLoadError("Cannot load --> {}".format(setting_name))

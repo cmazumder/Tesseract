@@ -72,8 +72,16 @@ def find_replace_text(file_path, find_text, replace_text):
         rename(temp_file_name, file_path)
 
 
-def find_replace_text_many(file_path, find_text, replace_text):
-    # make this elegant, that is handle as many items from the list
+def find_replace_text_many(file_path, find_text_list, replace_text_list):
+    """
+    Replace all occurrences of text in file
+    @param file_path: path to file
+    @type file_path: raw string
+    @param find_text_list: find the list of words in file
+    @type find_text_list: list
+    @param replace_text_list: replace the list of words in file
+    @type replace_text_list: list
+    """
     if file_exists(file_path):
         file_root = dirname(file_path)
 
@@ -84,19 +92,14 @@ def find_replace_text_many(file_path, find_text, replace_text):
         temp_file = open(temp_file_name, "w")
 
         for line in original_file:
-            if any(word in line for word in find_text):
-                if find_text[0] in line:
-                    temp_file.write(line.replace(find_text[0], replace_text[0]))
-                elif find_text[1] in line:
-                    temp_file.write(line.replace(find_text[1], replace_text[1]))
-                elif find_text[2] in line:
-                    temp_file.write(line.replace(find_text[2], replace_text[2]))
-                elif find_text[3] in line:
-                    temp_file.write(line.replace(find_text[3], replace_text[3]))
-            else:
-                temp_file.write(line)
+            for find_text, replace_text in zip(find_text_list, replace_text_list):
+                if find_text in line:
+                    line = line.replace(find_text, replace_text)
+            temp_file.write(line)
+
         original_file.close()
         temp_file.close()
+
         delete_file(file_path)
         rename(temp_file_name, file_path)
 

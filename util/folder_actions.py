@@ -95,16 +95,14 @@ def get_folder_properties_file_count(folder_path):
 
 
 def get_folder_properties(folder_path):
-    """Calculate the square root of a number.
+    """Return no of files, sub-folder and size of a director
 
     Args:
         folder_path: the path of the Folder
     Returns:
-        the square root of n.
+        no of files, no of sub-folder and size
     Raises:
-        TypeError: if n is not a number.
-        ValueError: if n is negative.
-
+        none
     """
     no_of_file = 0
     no_of_folder = 0

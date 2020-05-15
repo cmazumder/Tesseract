@@ -1,7 +1,7 @@
 from config.config_manager import ConfigManager
 from config.manage_json_config import get_dict_value
 from local import setup_database as Database
-from local.artifacts.manage_artifacts import ManageArtifacts
+from local.artifacts.manage_artifacts import ManageApplication
 from util import file_actions as File
 from website.api.teamcity import TeamCity
 
@@ -69,14 +69,14 @@ def controller_infrastructure_ready():
 
 
 def start_controller_setup(test_mode):
-    artifact = ManageArtifacts()
+    artifact = ManageApplication()
 
-    # Download all artifacts
-    artifact.download_artifacts()
+    # DownloadApplication all artifacts
+    artifact.__download_artifacts()
 
     # Replace old with new artifacts
 
-    artifact.replace_artifacts()
+    artifact._replace_artifacts()
 
 
     sql_path = os.path.join(deployment_env_paths["path_download_root"], local_database_setting["db_to_setup"])

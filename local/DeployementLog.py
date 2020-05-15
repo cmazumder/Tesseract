@@ -1,7 +1,7 @@
 from os.path import join
 from time import time, localtime, strftime
 
-from local.artifacts.manage_artifacts import ManageArtifacts
+from local.artifacts.manage_artifacts import ManageApplication
 from util import file_actions as File
 from util import folder_actions as Folder
 
@@ -100,26 +100,26 @@ def start_controller_setup(test_mode):
     start_s = time()  # The execution epoch start time
     start_time = strftime("%H:%M:%S", localtime())  # The execution local start time
 
-    artifact = ManageArtifacts()
+    artifact = ManageApplication()
 
-    # Download all artifacts
-    start = time()  # Download epoch start time
-    artifact.download_artifacts()
-    end = time()  # Download epoch finish time
+    # DownloadApplication all artifacts
+    start = time()  # DownloadApplication epoch start time
+    artifact.__download_artifacts()
+    end = time()  # DownloadApplication epoch finish time
     time_download = end - start
 
     # Replace old with new artifacts
     start = time()  # Build replacement epoch start time
-    artifact.replace_artifacts()
+    artifact._replace_artifacts()
     end = time()  # Build replacement epoch start time
     time_replace = end - start
 
     sql_path = join(deployment_env_paths["path_download_root"], local_database_setting["db_to_setup"])
     time_db = None
     if File.file_exists(sql_path):
-        start = time()  # Download epoch start time
+        start = time()  # DownloadApplication epoch start time
         Database.recreate_database_from_script(sql_path)
-        end = time()  # Download epoch start time
+        end = time()  # DownloadApplication epoch start time
         time_db = end - start
         write_to_file_setup_info(to_file=file_save_deployment_stats, artifacts=artifact, sql_path=sql_path,
                                  test_mode=test_mode)
@@ -131,7 +131,7 @@ def start_controller_setup(test_mode):
     print "{}\n{}".format("  *" * 15, "#" * 45)
 
     File.append_text_to_file(file_save_deployment_stats, "\t\tElapsed time (hh:mm:ss)\n")
-    File.append_text_to_file(file_save_deployment_stats, "\tDownload build -----> ",
+    File.append_text_to_file(file_save_deployment_stats, "\tDownloadApplication build -----> ",
                              get_readable_epoch_time(time_download))
     File.append_text_to_file(file_save_deployment_stats, "\tReplace build  -----> ",
                              get_readable_epoch_time(time_replace))

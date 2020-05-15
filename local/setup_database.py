@@ -15,7 +15,7 @@ def setup_sql_script(sql_path, find_text="10240MB", replace_text=None):
         if 'Vertex_and_Games_on_PC.sql' in sql_path:
             FIND_TEXT = ['VertexXYZ', 'GamesXYZ', 'MiscXYZ', '10240MB']
             REPLACE_TEXT = ['Vertex', 'Games', 'Misc', replace_text]
-            File.find_replace_text_many(file_path=sql_path, find_text=FIND_TEXT, replace_text=REPLACE_TEXT)
+            File.find_replace_text_many(file_path=sql_path, find_text_list=FIND_TEXT, replace_text_list=REPLACE_TEXT)
         else:
             File.find_replace_text(file_path=sql_path, find_text=find_text, replace_text=replace_text)
     except KeyError as err:
