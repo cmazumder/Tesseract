@@ -43,7 +43,7 @@ class Build:
 
     def has_successful_build(self, api_url):
         """
-        List the last successfully completed build in teamcity_handler for the buildTypeId
+        List the last successfully completed build in TeamCityConnection for the buildTypeId
         :param api_url: api url for teamcity
         :return: True if there is a successful build
         """

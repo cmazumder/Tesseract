@@ -1,60 +1,112 @@
+import time
+
 from config.manage_json_config import get_dict_value
-from infrastructure import configuration
 from local.artifacts.download_application import DownloadApplication
 from local.artifacts.replace_application import ReplaceApplication
 from util import file_actions as File
 from util import folder_actions as Folder
-
-env_setting = configuration.get_environment_setting()
+from util import os_process
 
 
 class ManageApplication:
-    # self.path_to_vertexData = deployment_env_paths["path_vertexData"]
-    # self.path_to_VertexApps = deployment_env_paths["path_vertexApp"]
-    download_application_root_path = get_dict_value(env_setting, ["download_application_root_path"])
-    config_folder_path = Folder.build_path(download_application_root_path,
-                                           get_dict_value(env_setting, ["artifact_config_folder"]))
-    exclude_file_extension = get_dict_value(env_setting, ["exclude_file_extension"])
-    Folder.create_folder(download_application_root_path)
-    Folder.create_folder(config_folder_path)
-
+    download_application_root_path = None
+    config_folder_path = None
+    exclude_file_extension = []
     application_details = {}
     application_name_keys = []
+    process_to_terminate = []
 
-    def __init__(self, app_setting):
+    def __init__(self, app_setting, env_setting):
+        self.env_setting = env_setting
+        self.download_application_root_path = get_dict_value(env_setting, ["download_application_root_path"])
+        self.config_folder_path = Folder.build_path(self.download_application_root_path,
+                                                    get_dict_value(env_setting, ["artifact_config_folder"]))
+        self.exclude_file_extension = get_dict_value(env_setting, ["exclude_file_extension"])
+
+        self.process_to_terminate = get_dict_value(env_setting, ["windows_process_to_stop"])
+
         self.application_details = app_setting
         self.application_name_keys = app_setting.keys()
-        self.__make_app_handler_and_update()
+        self.__make_and_update_application_details_with_download_handler()
 
-    def _download_application(self):
+    def download_application(self):
         """ Download Applications """
-        for application_handler in self.application_name_keys:
-            self.application_details[application_handler]['Download'].start()
-        for application_handler in self.application_name_keys:
-            self.application_details[application_handler]['Download'].join()
+        for application in self.application_name_keys:
+            app_handler = get_dict_value(self.application_details,
+                                         [application, "Download"])  # type: DownloadApplication
+            app_handler.start()
+        for application in self.application_name_keys:
+            app_handler = get_dict_value(self.application_details,
+                                         [application, "Download"])  # type: DownloadApplication
+            app_handler.join()
+
         # extract config files
         map(self.__extract_configuration_file, self.application_name_keys)
 
-    def __make_app_handler_and_update(self):
+    def __make_and_update_application_details_with_download_handler(self):
+        """
+        Download application
+        @return:
+        @rtype:
+        """
         list_of_application_object = dict(
-            map(self.__create_app_download_handler, self.application_name_keys))  # type : DownloadApplication
-        for app_object in list_of_application_object:
-            self.application_details[app_object]['Download'] = list_of_application_object[app_object]
+            map(self.__create_download_object, self.application_name_keys))
+        for download_object in list_of_application_object:
+            self.application_details[download_object]['Download'] = list_of_application_object[download_object]
 
-    def __create_app_download_handler(self, app_name):
+    def __create_download_object(self, app_name):
+        """
+        Create download object
+        @param app_name:
+        @type app_name:
+        @return:
+        @rtype:
+        """
         return app_name, DownloadApplication(download_artifact_root_path=self.download_application_root_path,
                                              folder_name=get_dict_value(self.application_details,
                                                                         [app_name, "folder_name"]),
                                              anchor_text=get_dict_value(self.application_details, [app_name, "anchor"]))
 
-    def __TESTinit__(self, folder_name, config_file_name, find_text, replace_text, anchor_text):
+    def __make_and_update_application_details_with_replace_handler(self):
+        list_of_application_object = dict(
+            map(self.__create_replace_object, self.application_name_keys))
+        for replace_object in list_of_application_object:
+            self.application_details[replace_object]['Replace'] = list_of_application_object[replace_object]
 
-        # self.folder_name = folder_name
-        # self.config_file_name = config_file_name
-        # self.find_text = find_text
-        # self.replace_text = replace_text
-        # self.anchor_text = anchor_text
-        pass
+    def __create_replace_object(self, app_name):
+        app_download_handler = get_dict_value(self.application_details,
+                                              [app_name, "Download"])  # type: DownloadApplication
+        if app_download_handler.get_download_status():
+            curr_app_source = app_download_handler.download_path
+            curr_app_destinations = get_dict_value(self.application_details, [app_name, "copy_artifacts_to_path"])
+            curr_config_name = get_dict_value(self.application_details, [app_name, "config_file_name"])
+            curr_config_source = Folder.build_path(self.config_folder_path, curr_config_name)
+            curr_config_destinations = get_dict_value(self.application_details, [app_name, "copy_config_to_path"])
+            if not curr_app_destinations and not curr_config_destinations:
+                # no need to create replacement object, since don't have a destination for the application
+                pass
+            else:
+                return app_name, ReplaceApplication(app_source=curr_app_source, app_destinations=curr_app_destinations,
+                                                    config_source=curr_config_source,
+                                                    config_destinations=curr_config_destinations)
+
+    @staticmethod
+    def __close_running_process(process_name):
+        # process_detail = get_processid_by_name('chrome', 'conhost', 'pycharm64.exe', 'WinMergeU')
+        try:
+            process_detail = os_process.get_processid_by_name(process_name=process_name)
+            if len(process_detail) > 0:
+                for element in process_detail:
+                    curr_pid = element['pid']
+                    curr_name = element['name']
+                    curr_created_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(element['create_time']))
+                    print curr_pid, curr_name, curr_created_time
+                    status = os_process.kill_process_tree(pid=curr_pid)
+                    print "Process: {0}\tpid: {1}\tStatus:{2}".format(process_name, curr_pid, status)
+            else:
+                print"No running process found: {}".format(process_name)
+        except (ValueError, TypeError, AttributeError) as err:
+            print "Error closing process: {}\nargs:".format(err.message, err.args)
 
     def __extract_configuration_file(self, app_name):
         # If config file name is supplied
@@ -78,31 +130,12 @@ class ManageApplication:
             File.find_replace_text_many(file_path=source_path, find_text_list=find_text,
                                         replace_text_list=replace_text)
 
-    def __replace_old_application(self):
+    def replace_application(self):
         # make list of applications to be replaced
-        application_replace = {}
-        config_replace = {}
-
+        map(self.__close_running_process, self.process_to_terminate)
         for application in self.application_name_keys:
-            app_dest = get_dict_value(self.application_details, [application, "copy_artifacts_to_path"])
-            if app_dest:
-                app_handler = get_dict_value(self.application_details,
-                                             [application, "Download"])  # type: DownloadApplication
-                app_source = app_handler.download_path
-                application_replace[application] = {'source': app_source, 'destination': app_dest}
+            app_handler = get_dict_value(self.application_details, [application, "Replace"])  # type: ReplaceApplication
+            app_handler.replace_artifact()
 
-            config_file_name = get_dict_value(self.application_details, [application, "config_file_name"])
-            if config_file_name:
-                config_source = Folder.build_path(self.config_folder_path, config_file_name)
-                destinations = get_dict_value(self.application_details, [application, "copy_artifacts_to_path"])
-                config_dest = []
-                for destination in destinations:
-                    config_dest.append(Folder.build_path(destination, config_file_name))
-                    config_replace[application] = {'source': config_source, 'destination': config_dest}
-
-        process_to_terminate = get_dict_value(env_setting, ["windows_process_to_stop"])
-        application = ReplaceApplication(windows_process_to_stop=process_to_terminate,
-                                                         application_replace_details=application_replace,
-                                                         config_replace_details=config_replace)
-
-        application.replace_applications()
+    def get_application_detail_after_deployment(self):
+        return self.application_details

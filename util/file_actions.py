@@ -105,6 +105,14 @@ def find_replace_text_many(file_path, find_text_list, replace_text_list):
 
 
 def copy_from_to_file(source, destination):
+    """
+    @param source: source path to file, with filename
+    @type source: string
+    @param destination: destination directory only
+    @type destination: string
+    @return: None
+    @rtype: None
+    """
     if file_exists(source) and isdir(dirname(destination)):
         if basename(source) == basename(destination) and file_exists(destination):
             delete_file(destination)

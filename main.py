@@ -1,15 +1,21 @@
 import sys
 
-from infrastructure import controller_infrastructure_ready, start_controller_setup, config_file_select
+from infrastructure import Infrastructure
 
 
 def main(test_mode=False):
-    config_file_select(test_mode)
-    if controller_infrastructure_ready():
-        start_controller_setup(test_mode)
+    if test_mode:
+        config_file_path = r"config/json_config/test_config/config_path.json"
+    else:
+        config_file_path = r'config/json_config/config_path.json'
+
+    controller_infrastructure = Infrastructure(config_file_path=config_file_path)
+
+    if controller_infrastructure.is_ready():
+        controller_infrastructure.start_setup()
     else:
         sys.exit("Issue with infrastructure")
 
 
 if __name__ == '__main__':
-    main(test_mode=False)
+    main(test_mode=True)

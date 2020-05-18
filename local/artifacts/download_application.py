@@ -1,10 +1,7 @@
 from threading import Thread
 
-from infrastructure import configuration
 from util import folder_actions as Folder
 from website.api.application import Application
-
-env_setting = configuration.get_environment_setting()
 
 
 class DownloadApplication(Thread, Application):
@@ -40,7 +37,7 @@ class DownloadApplication(Thread, Application):
             else:
                 self.status = False
 
-    def _get_download_status(self):
+    def get_download_status(self):
         if self.status:
             return self.status
 

@@ -1,87 +1,131 @@
+from DeployementLog import DeploymentLog
 from config.config_manager import ConfigManager
 from config.manage_json_config import get_dict_value
-from local import setup_database as Database
+from local import database_setup as Database
 from local.artifacts.manage_artifacts import ManageApplication
 from util import file_actions as File
+from util import folder_actions as Folder
 from website.api.teamcity import TeamCity
 
-config_file_path = r'config/json_config/config_path.json'
-configuration = ConfigManager(path_to_master_config=config_file_path)
 
-teamcity_handler = TeamCity
+class Infrastructure:
+    TeamCityConnection = None  # type: TeamCity
+    ConfigurationManager = None  # type: ConfigManager
+    DatabaseConnection = None  # type: Database
 
+    # configs for each
+    teamcity_setting = None
+    application_setting = None
+    database_setting = None
+    env_setting = None
 
-def check_teamcity_available():
-    teamcity_setting = configuration.get_teamcity()
-    if teamcity_setting:
-        global teamcity_handler
-        teamcity_handler = TeamCity(host=get_dict_value(teamcity_setting, ["host"]),
-                                    username=get_dict_value(teamcity_setting, ["teamcity_username"]),
-                                    password=get_dict_value(teamcity_setting, ["teamcity_password"]))
-        response = teamcity_handler.get_url_response(url=get_dict_value(teamcity_setting, ["host"]))
+    def __init__(self, config_file_path):
+        self.ConfigurationManager = ConfigManager(path_to_master_config=config_file_path)
+
+        self.teamcity_setting = self.ConfigurationManager.get_teamcity()
+        self.application_setting = self.ConfigurationManager.get_artifacts_to_download()
+        self.database_setting = self.ConfigurationManager.get_database()
+
+        self.env_setting = self.ConfigurationManager.get_environment_setting()
+
+        if self.teamcity_setting:
+            self.TeamCityConnection = TeamCity(host=get_dict_value(self.teamcity_setting, ["host"]),
+                                               username=get_dict_value(self.teamcity_setting, ["teamcity_username"]),
+                                               password=get_dict_value(self.teamcity_setting, ["teamcity_password"]))
+        if self.database_setting:
+            self.DatabaseConnection = Database.get_database_connection(
+                server=get_dict_value(self.database_setting, ["db_server"]),
+                username=get_dict_value(self.database_setting, ["db_username"]),
+                password=get_dict_value(self.database_setting, ["db_password"]))
+
+    def check_teamcity_available(self):
+
+        response = self.TeamCityConnection.get_url_response(
+            url=get_dict_value(self.teamcity_setting, ["host"]))  # type: response
         if response:
             if response.status_code == 200:
                 return True
             elif response.status_code == 401:
-                print "Incorrect TeamCity login credentials"
+                print "Incorrect TeamCityConnection login credentials"
                 return False
         else:
-            print "Cannot reach TeamCity"
+            print "Cannot reach TeamCityConnection"
+            return False
+
+    def check_database_connection(self):
+
+        if self.DatabaseConnection.connection:
+            return True
+        else:
+            return False
+
+    def check_download_location_ready(self):
+        download_location = get_dict_value(self.env_setting, ["download_artifact_root_path"])
+        copy_all_config_location = Folder.build_path(download_location,
+                                                     get_dict_value(self.env_setting, ["download_artifact_root_path"]))
+        if Folder.create_folder(download_location) and Folder.create_folder(copy_all_config_location):
+            return True
+        else:
             return False
 
 
-def check_database_connection():
-    database_setting = configuration.get_database()
-    if database_setting:
-        database = Database.get_database_connection(server=get_dict_value(database_setting, ["db_server"]),
-                                                    username=get_dict_value(database_setting, ["db_username"]),
-                                                    password=get_dict_value(database_setting, ["db_password"]))
-        if database.connection:
-            return True
-    else:
-        return False
+    def is_ready(self):
+        status = True
+        if self.ConfigurationManager.get_load_status():
+            print "Configuration files: Ok"
+        else:
+            print "Configuration files: Error"
+            print "Could not load: {}".format(str(self.ConfigurationManager.get_list_of_failed_configs())[1:-1])
+            status = False
+
+        if self.check_teamcity_available():
+            print "TeamCity server: Ok"
+        else:
+            print "TeamCity server: Error"
+            status = False
+        if self.check_database_connection():
+            print "Database server: Ok"
+        else:
+            print "Database server: Error"
+            status = False
+        if self.check_download_location_ready():
+            print "Download location: Ok"
+        else:
+            print "Download location: Error"
+            status = False
+        return status
 
 
-def start_controller_setup(test_mode):
-    pass
+    def start_setup(self):
+        logger = DeploymentLog(get_dict_value(self.env_setting, ["download_artifact_root_path"]))
 
+        total_database_time = None
+        # def write_time(self, time_download, time_replace, time_db):
 
-def controller_infrastructure_ready():
-    status = True
+        artifact = ManageApplication(app_setting=self.application_setting, env_setting=self.env_setting)
 
-    if configuration.get_load_status():
-        print "Configuration files: Ok"
-    else:
-        print "Configuration files: Fail"
-        print "Could not load: {}".format(str(configuration.get_list_of_failed_configs())[1:-1])
+        # DownloadApplication all artifacts
+        start_time = logger.time_it()
+        artifact.download_application()
+        total_download_time = logger.total_time(start=start_time, end=logger.time_it())
 
-    if check_teamcity_available():
-        print "TeamCity server: Ok"
-    else:
-        print "TeamCity server: Bad"
-        return False
-    if check_database_connection():
-        print "Database server: Ok"
-    else:
-        print "Database server: Bad"
-        return False
-    return status
+        # Replace old with new artifacts
+        start_time = logger.time_it()
+        artifact.replace_application()
+        total_replace_time = logger.total_time(start=start_time, end=logger.time_it())
 
+        sql_path = Folder.build_path(get_dict_value(self.env_setting, ["download_artifact_root_path"]),
+                                     get_dict_value(self.env_setting, ["db_property", "db_script"]))
 
-def start_controller_setup(test_mode):
-    artifact = ManageApplication()
+        if File.file_exists(sql_path):
+            start_time = logger.time_it()
+            Database.recreate_database_from_script(database_connection=self.DatabaseConnection, sql_path=sql_path,
+                                                   delete_db=get_dict_value(self.env_setting,
+                                                                            ["db_property", "db_to_delete"]))
 
-    # DownloadApplication all artifacts
-    artifact.__download_artifacts()
+            total_database_time = logger.total_time(start=start_time, end=logger.time_it())
 
-    # Replace old with new artifacts
-
-    artifact._replace_artifacts()
-
-
-    sql_path = os.path.join(deployment_env_paths["path_download_root"], local_database_setting["db_to_setup"])
-
-    if File.file_exists(sql_path):
-        Database.recreate_database_from_script(sql_path)
-
-
+        application_details = artifact.get_application_detail_after_deployment()  # type: dict
+        logger.write_deployment_status(app_details=application_details)
+        logger.write_time(time_download=total_download_time, time_replace=total_replace_time,
+                          time_db=total_database_time)

@@ -16,7 +16,7 @@ class ConfigManager(Singleton):
     master_config_with_path = None  # type: str  # Path of json config, for each individual config files
     artifacts_to_download_setting = None  # type: dict # config/json_config/artifacts_to_download.json
     environment_setting = None  # type: dict  # Load config/json_config/environment_setting.json
-    database_setting = None  # type: dict  # Load config/json_config/local_database_setting.json
+    database_setting = None  # type: dict  # Load config/json_config/database_setting.json
     teamcity_setting = None  # type: dict  # Load config/json_config/teamcity_setting.json
 
     def __init__(self, path_to_master_config):
@@ -46,7 +46,7 @@ class ConfigManager(Singleton):
 
     def load_database(self):
         try:
-            self.database_setting = self.load_config("local_database_setting")
+            self.database_setting = self.load_config("database_setting")
             return True
         except ConfigLoadError as err:
             print "Error: {0}".format(err.message)
@@ -99,7 +99,7 @@ class ConfigManager(Singleton):
         else:
             print "Problem with Teamcity config"
             self.config_load_status = False
-            self.list_configs_failed.append("TeamCity")
+            self.list_configs_failed.append("TeamCityConnection")
 
         if self.load_artifacts_to_download():
             print "Got application config"
