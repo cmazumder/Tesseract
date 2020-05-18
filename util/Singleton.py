@@ -4,13 +4,14 @@ class Singleton:
     @staticmethod
     def get_instance():
         """ Static access method. """
-        if Singleton.__instance == None:
+        if not Singleton.__instance:
             Singleton()
         return Singleton.__instance
 
-    def __init__(self):
+    @classmethod
+    def __init__(cls):
         """ Virtually private constructor. """
-        if Singleton.__instance != None:
+        if Singleton.__instance:
             raise Exception("This class is a singleton!")
         else:
-            Singleton.__instance = self
+            Singleton.__instance = cls

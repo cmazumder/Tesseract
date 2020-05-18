@@ -2,7 +2,6 @@
 from urllib import unquote
 
 from build import Build
-from infrastructure import teamcity_handler
 from util import folder_actions as Folder, file_actions as File
 
 
@@ -101,7 +100,7 @@ class Application(Build):
         :return: None
         """
         # make the api for artifacts with the list of files
-        artifact_url = teamcity_handler.join_url(self.application_api, self.anchor_text)
+        artifact_url = self.teamcity_handler.join_url(self.application_api, self.anchor_text)
 
         if self.__complete_download_prerequisite(artifact_repository_url=artifact_url):
             for items in self.artifact_file_details:

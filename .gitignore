@@ -1,3 +1,4 @@
 .idea/
 *.pyc
 /desktop.ini
+/config/json_config/

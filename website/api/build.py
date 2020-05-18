@@ -1,7 +1,7 @@
 import json
 
 from config.manage_json_config import get_dict_value
-from infrastructure import teamcity_handler
+from website.api.teamcity import TeamCity
 
 
 class Build:
@@ -11,6 +11,7 @@ class Build:
         self.version_number = None
         self.application_api = None
         self.host = None
+        self.teamcity_handler = TeamCity.get_instance()
 
     def get_json_response_as_dict(self, api_url):
         """
@@ -18,7 +19,7 @@ class Build:
         :rtype: dict
         :return: json response
         """
-        session_response = teamcity_handler.get_teamcity_json_response(api_url=api_url)
+        session_response = self.teamcity_handler.get_teamcity_json_response(api_url=api_url)
         if session_response:
             return json.loads(session_response)
         else:
@@ -30,7 +31,7 @@ class Build:
         :rtype: string
         :return: http response
         """
-        session_response = teamcity_handler.get_teamcity_response(api_url=api_url)
+        session_response = self.teamcity_handler.get_teamcity_response(api_url=api_url)
         return session_response.status_code
 
     def get_api_response(self, api_url):
@@ -39,7 +40,7 @@ class Build:
         :rtype: string
         :return: http response
         """
-        return teamcity_handler.get_teamcity_response(api_url=api_url)
+        return self.teamcity_handler.get_teamcity_response(api_url=api_url)
 
     def has_successful_build(self, api_url):
         """
