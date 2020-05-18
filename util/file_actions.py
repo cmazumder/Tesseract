@@ -1,5 +1,5 @@
 from os import remove, rename, walk
-from os.path import normcase, isdir, basename, dirname, join, isfile, isabs, getsize, islink
+from os.path import isdir, basename, dirname, join, isfile, getsize, islink
 from shutil import move, copy2
 
 
@@ -19,18 +19,10 @@ def append_text_to_file(file_path, *args):
 
 
 def file_exists(file_path):
-    if isabs(file_path):
-        if isfile(file_path):
-            return True
-        else:
-            return False
+    if isfile(file_path):
+        return True
     else:
-        script_dir = normcase(dirname(__file__))  # <-- absolute dir the script is in
-        abs_file_path = join(script_dir, file_path)
-        if isfile(abs_file_path):
-            return True
-        else:
-            return False
+        return False
 
 
 def delete_file(file_path):

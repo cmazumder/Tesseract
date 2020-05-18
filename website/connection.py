@@ -4,13 +4,10 @@ from requests import get, ConnectionError
 
 
 class Connection:
-
-    def __init__(self):
-        pass
-
-    def get_json_response(self, url, username=None, password=None):
+    @classmethod
+    def get_json_response(cls, url, username=None, password=None):
         header = {"Accept": "Application/JSON"}
-        response_api = self.get_url_response(url, username=username, password=password, headers=header)
+        response_api = cls.get_url_response(url, username=username, password=password, headers=header)
         if response_api.status_code == 200:
             return response_api.text
         elif response_api.status_code == 404:
@@ -24,7 +21,8 @@ class Connection:
             raise Exception("Something else")
         return None
 
-    def get_url_response(self, url, username=None, password=None, headers=None, timeout=None):
+    @classmethod
+    def get_url_response(cls, url, username=None, password=None, headers=None, timeout=None):
         """
 
         :param timeout:
@@ -46,7 +44,8 @@ class Connection:
             print "Cannot connect\n Error #: {}\nMessage: {}\nRequest: {}".format(err.errno, err.message, err.request)
         print "No response from url: {}".format(url)
 
-    def join_url(self, *args):
+    @classmethod
+    def join_url(cls, *args):
         """
         pythonic way to make urls
         WARNING Don't sent any argument starting with /

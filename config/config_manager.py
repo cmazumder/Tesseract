@@ -1,7 +1,5 @@
 from config.manage_json_config import get_json_as_dictionary, get_value_from_json_file
 
-from util.file_actions import file_exists
-
 
 class ConfigLoadError(Exception):
     """Raise if error in loading Configuration file"""
@@ -9,7 +7,7 @@ class ConfigLoadError(Exception):
 
 class ConfigManager(object):
     _instance = None
-    config_load_status = True  # type: bool  # Status if all configs are successfully loaded
+    config_load_status = None  # type: bool  # Status if all configs are successfully loaded
     list_configs_failed = []  # type: list  # List of configs that could not be loaded
 
     master_config_with_path = None  # type: str  # Path of json config, for each individual config files
@@ -27,24 +25,26 @@ class ConfigManager(object):
 
     def __new__(cls, path_to_master_config):
         if cls._instance is None:
-            print('Creating the object')
+            print('Configuration Manager created')
             cls._instance = super(ConfigManager, cls).__new__(cls)
             # Put any initialization here.
             cls.master_config_with_path = path_to_master_config
+            cls.load_all_configurations()
         return cls._instance
 
     @classmethod
     def load_config(cls, setting_name):
-        file_path = get_value_from_json_file(cls.master_config_with_path, [setting_name])
-        if file_path and file_exists(file_path):
-            dictionary = get_json_as_dictionary(file_path)
-            try:
+        relative_path = get_value_from_json_file(cls.master_config_with_path, [setting_name])
+        try:
+            dictionary = get_json_as_dictionary(relative_path)
+            if dictionary:
                 del dictionary["_about"]
-            except KeyError as err:
-                print "Key error: {}".format(err.message)
-            return dictionary
-        else:
-            raise ConfigLoadError("Cannot load --> {}".format(setting_name))
+                return dictionary
+            else:
+                raise ConfigLoadError("Cannot load --> {}\nPath -->{}".format(setting_name, relative_path))
+        except KeyError as err:
+            print "Key error: {}".format(err.message)
+
 
     @classmethod
     def load_teamcity(cls):
@@ -114,23 +114,32 @@ class ConfigManager(object):
         Returns:
         Raises:
         """
+        cls.config_load_status = True
+        # Load TeamCity
         if cls.load_teamcity():
             print "Got Teamcity config"
         else:
             print "Problem with Teamcity config"
             cls.config_load_status = False
             cls.list_configs_failed.append("TeamCity")
-
+        # Load application setting
         if cls.load_artifacts_to_download():
             print "Got application config"
         else:
             print "Problem with application config"
             cls.config_load_status = False
             cls.list_configs_failed.append("Application")
-
+        # Load Database setting
         if cls.load_database():
             print "Got database config"
         else:
             print "Problem with database config"
             cls.config_load_status = False
             cls.list_configs_failed.append("Database")
+        # Load environment setting
+        if cls.load_environment_setting():
+            print "Got environment config"
+        else:
+            print "Problem with environment config"
+            cls.config_load_status = False
+            cls.list_configs_failed.append("Environment")

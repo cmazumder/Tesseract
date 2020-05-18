@@ -35,9 +35,12 @@ def build_path(*args):
     file_path = r''
     try:
         for arg in args:
+            # for windows, replace forward slash with backslash if present
+            arg = arg.replace("/", "\\")
             file_path = path.join(file_path, arg)
     except Exception as E:
         print E.message
+        print "Paths: {}".format(args)
         raise Exception("Error in making os path <build_path>")
     return file_path
 

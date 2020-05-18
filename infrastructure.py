@@ -9,81 +9,62 @@ from website.api.teamcity import TeamCity
 
 
 class Infrastructure:
-    TeamCityConnection = None  # type: TeamCity
-    ConfigurationManager = None  # type: ConfigManager
-    DatabaseConnection = None  # type: Database
 
-    # configs for each
-    teamcity_setting = None
-    application_setting = None
-    database_setting = None
-    env_setting = None
-
-    def __init__(self, config_file_path):
-        self.ConfigurationManager = ConfigManager(path_to_master_config=config_file_path)
-
-        self.teamcity_setting = self.ConfigurationManager.get_teamcity()
+    def __init__(self):
+        self.ConfigurationManager = ConfigManager.get_instance()
         self.application_setting = self.ConfigurationManager.get_artifacts_to_download()
+        self.teamcity_setting = self.ConfigurationManager.get_teamcity()
         self.database_setting = self.ConfigurationManager.get_database()
-
-        self.env_setting = self.ConfigurationManager.get_environment_setting()
-
-        if self.teamcity_setting:
-            self.TeamCityConnection = TeamCity(host=get_dict_value(self.teamcity_setting, ["host"]),
-                                               username=get_dict_value(self.teamcity_setting, ["teamcity_username"]),
-                                               password=get_dict_value(self.teamcity_setting, ["teamcity_password"]))
-        if self.database_setting:
-            self.DatabaseConnection = Database.get_database_connection(
-                server=get_dict_value(self.database_setting, ["db_server"]),
-                username=get_dict_value(self.database_setting, ["db_username"]),
-                password=get_dict_value(self.database_setting, ["db_password"]))
+        self.environment_setting = self.ConfigurationManager.get_environment_setting()
 
     def check_teamcity_available(self):
-
-        response = self.TeamCityConnection.get_url_response(
-            url=get_dict_value(self.teamcity_setting, ["host"]))  # type: response
-        if response:
-            if response.status_code == 200:
-                return True
-            elif response.status_code == 401:
-                print "Incorrect TeamCityConnection login credentials"
-                return False
+        status = False
+        teamcity_connection = TeamCity(host=get_dict_value(self.teamcity_setting, ["host"]),
+                                       username=get_dict_value(self.teamcity_setting, ["teamcity_username"]),
+                                       password=get_dict_value(self.teamcity_setting, ["teamcity_password"]))
+        if teamcity_connection:
+            response = teamcity_connection.get_url_response(
+                url=get_dict_value(self.teamcity_setting, ["host"]))  # type: response
+            if response:
+                if response.status_code == 200:
+                    status = True
+                elif response.status_code == 401:
+                    print "Incorrect TeamCityConnection login credentials"
+                else:
+                    print "Cannot reach TeamCityConnection"
         else:
-            print "Cannot reach TeamCityConnection"
-            return False
+            print "Issue creation of TeamCity connection object {}".format(teamcity_connection)
+        return status
 
-    def check_database_connection(self):
-
-        if self.DatabaseConnection.connection:
-            return True
+    def get_database_connection(self):
+        database_connection = Database.get_database_connection(
+            server=get_dict_value(self.database_setting, ["db_server"]),
+            username=get_dict_value(self.database_setting, ["db_username"]),
+            password=get_dict_value(self.database_setting, ["db_password"]))
+        if database_connection.connection:
+            return database_connection
         else:
             return False
 
     def check_download_location_ready(self):
-        download_location = get_dict_value(self.env_setting, ["download_artifact_root_path"])
+        download_location = get_dict_value(self.environment_setting, ["download_artifact_root_path"])
         copy_all_config_location = Folder.build_path(download_location,
-                                                     get_dict_value(self.env_setting, ["download_artifact_root_path"]))
+                                                     get_dict_value(self.environment_setting, ["artifact_config_folder"]))
+
         if Folder.create_folder(download_location) and Folder.create_folder(copy_all_config_location):
             return True
         else:
             return False
 
-
     def is_ready(self):
         status = True
-        if self.ConfigurationManager.get_load_status():
-            print "Configuration files: Ok"
-        else:
-            print "Configuration files: Error"
-            print "Could not load: {}".format(str(self.ConfigurationManager.get_list_of_failed_configs())[1:-1])
-            status = False
-
+        print "Configuration files: Ok"
         if self.check_teamcity_available():
             print "TeamCity server: Ok"
         else:
             print "TeamCity server: Error"
             status = False
-        if self.check_database_connection():
+        if self.get_database_connection():
             print "Database server: Ok"
         else:
             print "Database server: Error"
@@ -95,14 +76,12 @@ class Infrastructure:
             status = False
         return status
 
-
     def start_setup(self):
-        logger = DeploymentLog(get_dict_value(self.env_setting, ["download_artifact_root_path"]))
+        logger = DeploymentLog(get_dict_value(self.environment_setting, ["download_artifact_root_path"]))
 
         total_database_time = None
-        # def write_time(self, time_download, time_replace, time_db):
 
-        artifact = ManageApplication(app_setting=self.application_setting, env_setting=self.env_setting)
+        artifact = ManageApplication(app_setting=self.application_setting, env_setting=self.environment_setting)
 
         # DownloadApplication all artifacts
         start_time = logger.time_it()
@@ -114,13 +93,13 @@ class Infrastructure:
         artifact.replace_application()
         total_replace_time = logger.total_time(start=start_time, end=logger.time_it())
 
-        sql_path = Folder.build_path(get_dict_value(self.env_setting, ["download_artifact_root_path"]),
-                                     get_dict_value(self.env_setting, ["db_property", "db_script"]))
+        sql_path = Folder.build_path(get_dict_value(self.environment_setting, ["download_artifact_root_path"]),
+                                     get_dict_value(self.environment_setting, ["db_property", "db_script"]))
 
         if File.file_exists(sql_path):
             start_time = logger.time_it()
-            Database.recreate_database_from_script(database_connection=self.DatabaseConnection, sql_path=sql_path,
-                                                   delete_db=get_dict_value(self.env_setting,
+            Database.recreate_database_from_script(database_connection=self.get_database_connection(), sql_path=sql_path,
+                                                   delete_db=get_dict_value(self.environment_setting,
                                                                             ["db_property", "db_to_delete"]))
 
             total_database_time = logger.total_time(start=start_time, end=logger.time_it())
