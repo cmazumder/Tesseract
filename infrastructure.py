@@ -18,23 +18,23 @@ class Infrastructure:
         self.environment_setting = self.ConfigurationManager.get_environment_setting()
 
     def check_teamcity_available(self):
-        status = False
         teamcity_connection = TeamCity(host=get_dict_value(self.teamcity_setting, ["host"]),
                                        username=get_dict_value(self.teamcity_setting, ["teamcity_username"]),
                                        password=get_dict_value(self.teamcity_setting, ["teamcity_password"]))
         if teamcity_connection:
-            response = teamcity_connection.get_url_response(
-                url=get_dict_value(self.teamcity_setting, ["host"]))  # type: response
+            response = teamcity_connection.get_teamcity_response()  # type: response
             if response:
                 if response.status_code == 200:
-                    status = True
+                    return True
                 elif response.status_code == 401:
-                    print "Incorrect TeamCityConnection login credentials"
+                    print "Incorrect TeamCity login credentials | url: {}".format(get_dict_value(self.teamcity_setting, ["host"]))
+                    return False
                 else:
                     print "Cannot reach TeamCityConnection"
+                    return False
         else:
-            print "Issue creation of TeamCity connection object {}".format(teamcity_connection)
-        return status
+            print "No response | Issue with TeamCity while creating TeamCity connection :{}".format(teamcity_connection)
+            return False
 
     def get_database_connection(self):
         database_connection = Database.get_database_connection(
@@ -57,24 +57,25 @@ class Infrastructure:
             return False
 
     def is_ready(self):
-        status = True
         print "Configuration files: Ok"
         if self.check_teamcity_available():
             print "TeamCity server: Ok"
         else:
             print "TeamCity server: Error"
-            status = False
-        if self.get_database_connection():
-            print "Database server: Ok"
-        else:
-            print "Database server: Error"
-            status = False
+            return False
+
         if self.check_download_location_ready():
             print "Download location: Ok"
         else:
             print "Download location: Error"
-            status = False
-        return status
+            return False
+
+        if self.get_database_connection():
+            print "Database server: Ok"
+        else:
+            print "Database server: Error"
+            return False
+        return True
 
     def start_setup(self):
         logger = DeploymentLog(get_dict_value(self.environment_setting, ["download_artifact_root_path"]))

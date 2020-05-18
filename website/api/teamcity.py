@@ -24,7 +24,7 @@ class TeamCity(object, Connection):
             raise RuntimeError('Did you call __new__() ?')
         return TeamCity._instance
 
-    def get_teamcity_response(self, api_url, headers=None, timeout=None):
+    def get_teamcity_response(self, api_url=None, headers=None, timeout=None):
         """
             Re-implementation from superclass
             :param timeout:
@@ -36,7 +36,7 @@ class TeamCity(object, Connection):
             :rtype:
         """
         final_url = self.join_url(self.host, api_url)
-        self.get_url_response(url=final_url, username=self.username, password=self.password, headers=headers,
+        return self.get_url_response(url=final_url, username=self.username, password=self.password, headers=headers,
                               timeout=timeout)
 
     def get_teamcity_json_response(self, api_url):
@@ -48,4 +48,4 @@ class TeamCity(object, Connection):
             :rtype:
         """
         final_url = self.join_url(self.host, api_url)
-        self.get_json_response(url=final_url, username=self.username, password=self.password)
+        return self.get_json_response(url=final_url, username=self.username, password=self.password)

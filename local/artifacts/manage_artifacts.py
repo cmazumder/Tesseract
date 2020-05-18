@@ -18,7 +18,7 @@ class ManageApplication:
 
     def __init__(self, app_setting, env_setting):
         self.env_setting = env_setting
-        self.download_application_root_path = get_dict_value(env_setting, ["download_application_root_path"])
+        self.download_application_root_path = get_dict_value(env_setting, ["download_artifact_root_path"])
         self.config_folder_path = Folder.build_path(self.download_application_root_path,
                                                     get_dict_value(env_setting, ["artifact_config_folder"]))
         self.exclude_file_extension = get_dict_value(env_setting, ["exclude_file_extension"])
@@ -62,10 +62,13 @@ class ManageApplication:
         @return:
         @rtype:
         """
-        return app_name, DownloadApplication(download_artifact_root_path=self.download_application_root_path,
+        ignore_extensions = get_dict_value(self.env_setting, ["exclude_file_extension"])
+        print "Object --> {}".format(app_name)
+        return app_name, DownloadApplication(app_name=app_name, download_artifact_root_path=self.download_application_root_path,
                                              folder_name=get_dict_value(self.application_details,
                                                                         [app_name, "folder_name"]),
-                                             anchor_text=get_dict_value(self.application_details, [app_name, "anchor"]))
+                                             anchor_text=get_dict_value(self.application_details, [app_name, "anchor"]),
+                                             exclude_file_extension=ignore_extensions)
 
     def __make_and_update_application_details_with_replace_handler(self):
         list_of_application_object = dict(

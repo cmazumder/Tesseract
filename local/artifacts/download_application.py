@@ -5,15 +5,17 @@ from website.api.application import Application
 
 
 class DownloadApplication(Thread, Application):
-    def __init__(self, download_artifact_root_path, folder_name, anchor_text):
+    def __init__(self, app_name, download_artifact_root_path, folder_name, anchor_text, exclude_file_extension):
         Thread.__init__(self)
-        self.application_name = folder_name
-        self.download_path = Folder.build_path(download_artifact_root_path, self.application_name)
+        self.application_name = app_name
+        if not folder_name:
+            self.download_path = download_artifact_root_path
+        else:
+            self.download_path = Folder.build_path(download_artifact_root_path, self.application_name)
         self.status = None
         if Folder.create_folder(self.download_path):
-            print "{} created".format(folder_name)
             Application.__init__(self, artifact_download_path=self.download_path,
-                                 ignore_file_extensions=self.exclude_file_extension, anchor_text=anchor_text)
+                                 ignore_file_extensions=exclude_file_extension, anchor_text=anchor_text)
         else:
             print "{} not created".format(folder_name)
 
