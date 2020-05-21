@@ -60,7 +60,7 @@ class ReplaceApplication:
         # compare source and dest file size
         if Folder.isdir(destination):
             destination = Folder.build_path(destination, File.basename(source))
-        if not File.compute_file_size(source) == File.compute_file_size(destination):
+        if File.compute_file_size(source) == File.compute_file_size(destination):
             return True
         else:
             print "File size differ\n" \
