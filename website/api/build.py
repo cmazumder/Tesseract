@@ -72,11 +72,3 @@ class Build:
 
     def get_app_api(self):
         return self.application_api
-
-    def show_build_information(self):
-        """
-        Temp func to print info
-        :return: None
-        """
-        print "BuildID: {} \n" \
-              "Version: {} \n".format(self.build_id, self.version_number)

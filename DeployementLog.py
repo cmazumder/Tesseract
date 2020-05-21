@@ -1,5 +1,6 @@
 from time import time, localtime, strftime
 
+from config.manage_json_config import get_dict_value
 from local.artifacts.download_application import DownloadApplication
 from local.artifacts.replace_application import ReplaceApplication
 from util import file_actions as File
@@ -32,28 +33,31 @@ class DeploymentLog:
 
     def set_artifact_details(self, app_detail):
         self.artifact_details = app_detail
-        self.app_keys = self.artifact_details.key()
+        self.app_keys = self.artifact_details.keys()
 
     def total_time(self, start, end):
-        return self._get_readable_epoch_time(float_time=start - end)
+        return self._get_readable_epoch_time(float_time=end - start)
 
-    def _write_app_version_info(self, artifact_download):
-        app_download = artifact_download  # type: DownloadApplication
-        app_copy = artifact_download  # type: ReplaceApplication
-        File.append_text_to_file(self.log_file, "\t", app_download.application_name, "\t\t\t",
-                                 app_download.version_number, "\t", app_download.get_download_status(), "\t",
-                                 app_copy.get_replace_status())
+    def _write_app_version_info(self, application_key):
+        app_download = get_dict_value(self.artifact_details, [application_key, "Download"])  # type: DownloadApplication
+        app_copy = get_dict_value(self.artifact_details, [application_key, "Replace"])  # type: ReplaceApplication
+        app_name = get_dict_value(self.artifact_details, [application_key, "folder_name"])
+        app_version = app_download.get_version_number()
+        app_download_status = "Success" if (app_download.get_download_status()) else "Failure"
+        app_copy_status = "Success" if (app_copy.get_replace_status()) else "Failure"
+
+        File.append_text_to_file(self.log_file, "\t", app_name, "\t\t\t", app_version, "\t\t", app_download_status,
+                                 "\t\t\t", app_copy_status)
 
     def write_deployment_status(self, app_details=None):
         File.append_text_to_file(self.log_file, self.spacer, "\n", self.spacer)
         File.append_text_to_file(self.log_file, "\t\tApplication information\n")
-        sql_version = None
 
         self.set_artifact_details(app_detail=app_details)
 
         if self.app_keys:
-            File.append_text_to_file(self.log_file, "\t", "Name", "\t\t\t", "Version", "\t", "Download Status:", "\t",
-                                     "Copy Status")
+            File.append_text_to_file(self.log_file, "\t", "Name", "\t\t\t", "Version", "\t\t\t", "Download", "\t\t",
+                                     "Replace")
             map(self._write_app_version_info, self.app_keys)
 
         File.append_text_to_file(self.log_file, self.spacer, "\n", self.spacer)

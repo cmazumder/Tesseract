@@ -9,7 +9,6 @@ class TeamCity(object, Connection):
 
     def __new__(cls, host, username, password):
         if cls._instance is None:
-            print('Team City created')
             cls._instance = super(TeamCity, cls).__new__(cls)
             # Put any initialization here.
             cls.host = host

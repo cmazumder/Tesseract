@@ -1,4 +1,5 @@
-from os import path, makedirs, listdir, walk
+from os import makedirs, listdir, walk
+from os.path import isdir, join
 from shutil import rmtree, copytree, move
 
 from util.file_actions import file_exists, delete_file, compute_file_size
@@ -6,7 +7,7 @@ from util.file_actions import file_exists, delete_file, compute_file_size
 
 def delete_path(dir_path):
     try:
-        if path.isdir(dir_path):
+        if isdir(dir_path):
             rmtree(dir_path)
     except Exception as E:
         print E.message
@@ -37,7 +38,7 @@ def build_path(*args):
         for arg in args:
             # for windows, replace forward slash with backslash if present
             arg = arg.replace("/", "\\")
-            file_path = path.join(file_path, arg)
+            file_path = join(file_path, arg)
     except Exception as E:
         print E.message
         print "Paths: {}".format(args)
@@ -46,7 +47,7 @@ def build_path(*args):
 
 
 def folder_exists(folder_path):
-    if path.isdir(folder_path):
+    if isdir(folder_path):
         return True
     else:
         return False
@@ -60,7 +61,7 @@ def create_folder(folder_path):
             makedirs(folder_path)
             return True
         except OSError as err:
-            if not path.isdir(folder_path):
+            if not isdir(folder_path):
                 raise OSError("Could not create {}".format(folder_path))
             print "OSError: {}".format(err.message)
         except WindowsError as err:
@@ -69,6 +70,7 @@ def create_folder(folder_path):
 
 
 def delete_folder_contents(folder_path):
+    # unused but compare the performace of this vs delete_path
     if folder_exists(folder_path):
         for item in listdir(folder_path):
             path = build_path(folder_path, item)

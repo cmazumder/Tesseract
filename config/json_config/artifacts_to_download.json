@@ -4,6 +4,7 @@
     "folder_name": "DataService",
     "config_file_name": "DataService.config",
     "buildTypeID": "bt6",
+    "tags":null,
     "anchor": "VertexDataService",
     "copy_artifacts_to_path": [
       "D:\\DataService"

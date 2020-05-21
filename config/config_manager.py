@@ -25,7 +25,6 @@ class ConfigManager(object):
 
     def __new__(cls, path_to_master_config):
         if cls._instance is None:
-            print('Configuration Manager created')
             cls._instance = super(ConfigManager, cls).__new__(cls)
             # Put any initialization here.
             cls.master_config_with_path = path_to_master_config
@@ -116,30 +115,22 @@ class ConfigManager(object):
         """
         cls.config_load_status = True
         # Load TeamCity
-        if cls.load_teamcity():
-            print "Got Teamcity config"
-        else:
+        if not cls.load_teamcity():
             print "Problem with Teamcity config"
             cls.config_load_status = False
             cls.list_configs_failed.append("TeamCity")
         # Load application setting
-        if cls.load_artifacts_to_download():
-            print "Got application config"
-        else:
+        if not cls.load_artifacts_to_download():
             print "Problem with application config"
             cls.config_load_status = False
             cls.list_configs_failed.append("Application")
         # Load Database setting
-        if cls.load_database():
-            print "Got database config"
-        else:
+        if not cls.load_database():
             print "Problem with database config"
             cls.config_load_status = False
             cls.list_configs_failed.append("Database")
         # Load environment setting
-        if cls.load_environment_setting():
-            print "Got environment config"
-        else:
+        if not cls.load_environment_setting():
             print "Problem with environment config"
             cls.config_load_status = False
             cls.list_configs_failed.append("Environment")

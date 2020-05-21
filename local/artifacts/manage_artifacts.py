@@ -34,7 +34,7 @@ class ManageApplication:
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details,
                                          [application, "Download"])  # type: DownloadApplication
-            app_handler.start()
+            app_handler.start()  # type: DownloadApplication
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details,
                                          [application, "Download"])  # type: DownloadApplication
@@ -63,11 +63,9 @@ class ManageApplication:
         @rtype:
         """
         ignore_extensions = get_dict_value(self.env_setting, ["exclude_file_extension"])
-        print "Object --> {}".format(app_name)
-        return app_name, DownloadApplication(app_name=app_name, download_artifact_root_path=self.download_application_root_path,
-                                             folder_name=get_dict_value(self.application_details,
-                                                                        [app_name, "folder_name"]),
-                                             anchor_text=get_dict_value(self.application_details, [app_name, "anchor"]),
+        print "Download (obj) handler --> {}".format(app_name)
+        return app_name, DownloadApplication(app_name=app_name,
+                                             download_artifact_root_path=self.download_application_root_path,
                                              exclude_file_extension=ignore_extensions)
 
     def __make_and_update_application_details_with_replace_handler(self):
@@ -117,12 +115,12 @@ class ManageApplication:
             app_object = get_dict_value(self.application_details, [app_name, "Download"])
             config_file_name = get_dict_value(self.application_details, [app_name, "config_file_name"])
             if config_file_name:
-                source_path = File.search_file_first_occurrence(filename=config_file_name,
+                config_source_path = File.search_file_first_occurrence(filename=config_file_name,
                                                                 search_path=app_object.download_path)
-                if source_path:
-                    save_to_path = Folder.build_path(self.config_folder_path, config_file_name)
-                    File.copy_from_to_file(source=source_path, destination=save_to_path)
-                    self.__replace_text_config_file_if_required(app_name=app_name, source_path=source_path)
+                if config_source_path:
+                    config_destination_path = Folder.build_path(self.config_folder_path, config_file_name)
+                    File.copy_from_to_file(source=config_source_path, destination=config_destination_path)
+                    self.__replace_text_config_file_if_required(app_name=app_name, source_path=config_source_path)
 
     def __replace_text_config_file_if_required(self, app_name, source_path):
         # replace text only if required and size of both the list matches
@@ -135,10 +133,11 @@ class ManageApplication:
 
     def replace_application(self):
         # make list of applications to be replaced
+        self.__make_and_update_application_details_with_replace_handler()
         map(self.__close_running_process, self.process_to_terminate)
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details, [application, "Replace"])  # type: ReplaceApplication
             app_handler.replace_artifact()
 
-    def get_application_detail_after_deployment(self):
+    def get_application_details(self):
         return self.application_details
