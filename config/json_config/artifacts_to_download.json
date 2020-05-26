@@ -30,7 +30,7 @@
   "service": {
     "folder_name": "Service",
     "config_file_name": "Controller.config",
-    "buildTypeID": "Vertex_Vertex_Trunk",
+    "buildTypeID": "Vertex_VertexNext",
     "anchor": "Applications/Aristocrat.Vertex.Service",
     "copy_artifacts_to_path": [
       "D:\\Service"
@@ -41,9 +41,9 @@
     ]
   },
   "sql": {
-    "folder_name": null,
+    "folder_name": "SQL",
     "config_file_name": null,
-    "buildTypeID": "Vertex_Vertex_Trunk",
+    "buildTypeID": "Vertex_VertexNext",
     "anchor": "SQL",
     "copy_artifacts_to_path": null,
     "copy_config_to_path": null
@@ -51,7 +51,7 @@
   "shell": {
     "folder_name": "Shell",
     "config_file_name": "Shell.config",
-    "buildTypeID": "Vertex_VertexShell_Trunk",
+    "buildTypeID": "Vertex_Shell_VertexShellNext",
     "anchor": "VertexShell",
     "copy_artifacts_to_path": [
       "D:\\Shell"
@@ -70,7 +70,7 @@
   "ui": {
     "folder_name": "UI",
     "config_file_name": "Web.config",
-    "buildTypeID": "Vertex_VertexUI_Trunk",
+    "buildTypeID": "Vertex_VertexUI_VertexUINext",
     "anchor": "Aristocrat.Vertex.UI.Web",
     "copy_artifacts_to_path": [
       "D:\\UI"

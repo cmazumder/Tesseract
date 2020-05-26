@@ -40,7 +40,7 @@
     ]
   },
   "sql": {
-    "folder_name": null,
+    "folder_name": "SQL",
     "config_file_name": null,
     "buildTypeID": "Vertex_Vertex_Trunk",
     "anchor": "SQL",
