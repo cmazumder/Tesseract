@@ -52,7 +52,7 @@ class DeploymentLog:
         if app_copy:
             app_copy_status = "Success" if (app_copy.get_replace_status()) else "Failure"
         else:
-            app_copy_status = 'None'
+            app_copy_status = 'NA'
 
         File.append_text_to_file(self.log_file, "\t", app_name, "\t\t\t", app_version, "\t\t", app_download_status,
                                  "\t\t\t", app_copy_status)

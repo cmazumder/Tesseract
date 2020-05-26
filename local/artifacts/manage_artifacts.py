@@ -9,6 +9,8 @@ from util import os_process
 
 
 class ManageApplication:
+    spacer_char_hyphen = '-' * 50
+    spacer_char_asterisk = '*' * 65
     download_application_root_path = None
     config_folder_path = None
     exclude_file_extension = []
@@ -31,16 +33,21 @@ class ManageApplication:
 
     def download_application(self):
         """ Download Applications """
+        print self.spacer_char_asterisk
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details,
                                          [application, "Download"])  # type: DownloadApplication
             app_handler.start()  # type: DownloadApplication
+        print self.spacer_char_asterisk
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details,
                                          [application, "Download"])  # type: DownloadApplication
             app_handler.join()
-            app_handler.show_downloaded_info()
+            print self.spacer_char_hyphen
+            print "Application --> {}\n".format(app_handler.application_name)
             app_handler.print_download_status()
+            app_handler.show_downloaded_info()
+            print self.spacer_char_hyphen
 
 
         # extract config files

@@ -5,8 +5,6 @@ from util import folder_actions as Folder, file_actions as File
 
 
 class Application(Build):
-    spacer_char_hyphen = '-' * 50
-    spacer_char_asterisk = '*' * 65
 
     def __init__(self, artifact_download_path, ignore_file_extensions, anchor_text):
         Build.__init__(self)
@@ -122,11 +120,9 @@ class Application(Build):
         Print version information
         :return: None
         """
-        print self.spacer_char_hyphen
         print "Version: {}\nBuild_ID: {}".format(self.version_number, self.build_id)
         print "Teamcity file count : {} \n" \
-              "Downloaded file count : {} \n".format(len(self.artifact_file_details), len(self.downloaded_file_details))
-        print self.spacer_char_hyphen
+              "Downloaded file count : {}".format(len(self.artifact_file_details), len(self.downloaded_file_details))
         # print "---------Downloaded---------\n {}".format(json.dumps(self.downloaded_file_details, indent=4))
 
     def __download_file_from_api(self, file_api, file_relative_path, file_size):
