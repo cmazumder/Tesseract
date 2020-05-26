@@ -31,16 +31,19 @@ class DownloadApplication(Thread, Application):
             self.status = None
 
     def run(self):
-        print self.spacer_char_asterisk
-        print "Application info: {}".format(self.application_name)
-
         api = self.build_success_api()
         if self.has_successful_build(api_url=api):
-            print "Successful build version: {}".format(self.get_version_number())
-            self._get_download_folder_ready()
+            print self.spacer_char_asterisk
+            print "Application: {0} | Has successful build | version: {1}".format(self.application_name,
+                                                                                  self.get_version_number())
+            print self.spacer_char_asterisk
+            # self._get_download_folder_ready()
             self.__initiate_download()
-            self.__print_download_status()
-        print self.spacer_char_asterisk
+            self.__update_download_status()
+        else:
+            print self.spacer_char_asterisk
+            print "Application: {0} | No successful build".format(self.application_name)
+            print self.spacer_char_asterisk
 
     def build_success_api(self):
         temp_teamcity_setting = self.ConfigurationManger.get_teamcity()
@@ -66,7 +69,7 @@ class DownloadApplication(Thread, Application):
         else:
             print "Download folder creation error in \'{}\'".format(self.folder_name)
 
-    def __check_download_status(self):
+    def __update_download_status(self):
         """
         Extract the config file only if count of download list and artifact list matches
         and if config file is there, and file name is passed as an argument
@@ -80,19 +83,22 @@ class DownloadApplication(Thread, Application):
                 self.status = False
 
     def get_download_status(self):
+        """
+
+        @rtype: object
+        """
         if self.status:
             return self.status
 
-    def __print_download_status(self):
-        self.__check_download_status()
+    def print_download_status(self):
+
         print self.spacer_char_hyphen
         if self.status:
-            status_text = "OK"
+            status_text = "GOOD"
         else:
             status_text = "BAD"
-        print "{} \nDownloaded file status: {}".format(self.application_name, status_text)
+        print "Application: {0} | Download status: {1}".format(self.application_name, status_text)
         print self.spacer_char_hyphen
 
     def __initiate_download(self):
         self._start_download()
-        self._show_downloaded_info()

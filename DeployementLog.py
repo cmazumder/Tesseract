@@ -8,7 +8,7 @@ from util import folder_actions as Folder
 
 
 class DeploymentLog:
-    spacer = '-' * 50
+    spacer = '-' * 63
     filename = None
     log_file = None
     artifact_details = {}
@@ -41,17 +41,25 @@ class DeploymentLog:
     def _write_app_version_info(self, application_key):
         app_download = get_dict_value(self.artifact_details, [application_key, "Download"])  # type: DownloadApplication
         app_copy = get_dict_value(self.artifact_details, [application_key, "Replace"])  # type: ReplaceApplication
-        app_name = get_dict_value(self.artifact_details, [application_key, "folder_name"])
-        app_version = app_download.get_version_number()
-        app_download_status = "Success" if (app_download.get_download_status()) else "Failure"
-        app_copy_status = "Success" if (app_copy.get_replace_status()) else "Failure"
+        app_name = get_dict_value(self.artifact_details, [application_key, "folder_name"]) \
+            if get_dict_value(self.artifact_details, [application_key, "folder_name"]) else application_key
+        if app_download:
+            app_version = app_download.get_version_number()
+            app_download_status = "Success" if (app_download.get_download_status()) else "Failure"
+        else:
+            app_version = 'None'
+            app_download_status = 'None'
+        if app_copy:
+            app_copy_status = "Success" if (app_copy.get_replace_status()) else "Failure"
+        else:
+            app_copy_status = 'None'
 
         File.append_text_to_file(self.log_file, "\t", app_name, "\t\t\t", app_version, "\t\t", app_download_status,
                                  "\t\t\t", app_copy_status)
 
     def write_deployment_status(self, app_details=None):
         File.append_text_to_file(self.log_file, self.spacer, "\n", self.spacer)
-        File.append_text_to_file(self.log_file, "\t\tApplication information\n")
+        File.append_text_to_file(self.log_file, "\t\t\t\t\t", "Application information\n")
 
         self.set_artifact_details(app_detail=app_details)
 
@@ -64,25 +72,25 @@ class DeploymentLog:
 
     def write_time(self, time_download=None, time_replace=None, time_db=None):
         print "{}\n{}".format('#' * 45, '  *' * 15)
-        File.append_text_to_file(self.log_file, "\t\tElapsed time (mm:ss)\n")
+        File.append_text_to_file(self.log_file, "\t\t\t\t\t", "Elapsed time (mm:ss)\n")
 
         if time_download:
             print "Artifact download time: {}".format(time_download)
-            File.append_text_to_file(self.log_file, "\tDownloadApplication build -----> ", time_download)
+            File.append_text_to_file(self.log_file, "\tDownload -----> ", time_download)
         if time_replace:
             print "Artifact replacement time: {}".format(time_replace)
-            File.append_text_to_file(self.log_file, "\tReplace build  -----> ", time_replace)
+            File.append_text_to_file(self.log_file, "\tReplace -----> ", time_replace)
         if time_db:
             print "Database re-create time: {}".format(time_db)
             File.append_text_to_file(self.log_file, "\tDatabase recreate --> ", time_db)
         print "{}\n{}".format("  *" * 15, "#" * 45)
 
         end_time_formatted = strftime("%H:%M:%S", localtime())  # The execution local start time
-        total_elapsed_time = self._get_readable_epoch_time(float_time=self.start_time - self.time_it())
+        total_elapsed_time = self._get_readable_epoch_time(float_time=self.time_it() - self.start_time)
 
         File.append_text_to_file(self.log_file, "\tTotal execution ----> ", total_elapsed_time)
         File.append_text_to_file(self.log_file, self.spacer, "\n", self.spacer)
-        File.append_text_to_file(self.log_file, "\t\tTime (local time)\n")
+        File.append_text_to_file(self.log_file, "\t\t\t\t\t", "Time (local time)\n")
         File.append_text_to_file(self.log_file, "\tStart --> ", self.start_time_formatted)
         File.append_text_to_file(self.log_file, "\tEnd ----> ", end_time_formatted)
         File.append_text_to_file(self.log_file, self.spacer, "\n", self.spacer)

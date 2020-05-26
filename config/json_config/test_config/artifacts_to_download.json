@@ -1,0 +1,24 @@
+{
+  "_about": "Vertex controller artifacts",
+  "service": {
+    "folder_name": "Service",
+    "config_file_name": "Controller.config",
+    "buildTypeID": "Vertex_Vertex_Trunk",
+    "anchor": "Applications/Aristocrat.Vertex.Service",
+    "copy_artifacts_to_path": [
+      "C:\\TEAMCITY_TEST\\D_Drive\\Service"
+    ],
+    "copy_config_to_path": [
+      "C:\\TEAMCITY_TEST\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\F_Drive\\Configurations"
+    ]
+  },
+  "sql": {
+    "folder_name": null,
+    "config_file_name": null,
+    "buildTypeID": "Vertex_Vertex_Trunk",
+    "anchor": "SQL",
+    "copy_artifacts_to_path": null,
+    "copy_config_to_path": null
+  }
+}

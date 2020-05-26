@@ -39,6 +39,9 @@ class ManageApplication:
             app_handler = get_dict_value(self.application_details,
                                          [application, "Download"])  # type: DownloadApplication
             app_handler.join()
+            app_handler.show_downloaded_info()
+            app_handler.print_download_status()
+
 
         # extract config files
         map(self.__extract_configuration_file, self.application_name_keys)
@@ -63,33 +66,41 @@ class ManageApplication:
         @rtype:
         """
         ignore_extensions = get_dict_value(self.env_setting, ["exclude_file_extension"])
-        print "Download (obj) handler --> {}".format(app_name)
         return app_name, DownloadApplication(app_name=app_name,
                                              download_artifact_root_path=self.download_application_root_path,
                                              exclude_file_extension=ignore_extensions)
 
     def __make_and_update_application_details_with_replace_handler(self):
-        list_of_application_object = dict(
-            map(self.__create_replace_object, self.application_name_keys))
-        for replace_object in list_of_application_object:
-            self.application_details[replace_object]['Replace'] = list_of_application_object[replace_object]
+        try:
+            list_of_application_object = dict(
+                map(self.__create_replace_object, self.application_name_keys))
+            for replace_object in list_of_application_object:
+                if list_of_application_object[replace_object] is not 'None':
+                    self.application_details[replace_object]['Replace'] = list_of_application_object[replace_object]
+        except TypeError as err:
+            print "Issue creating ReplaceApplication:{}\nArgs{}".format(err.message, err.args)
+
+    def __make_and_update_application_details_with_replace_handler2(self):
+        for item in self.application_name_keys:
+            app_name, replace_object = self.__create_replace_object(app_name=item)
+            if replace_object is not 'None':
+                self.application_details[item]['Replace'] = replace_object
 
     def __create_replace_object(self, app_name):
         app_download_handler = get_dict_value(self.application_details,
                                               [app_name, "Download"])  # type: DownloadApplication
-        if app_download_handler.get_download_status():
+        if app_download_handler.get_download_status() is True:
             curr_app_source = app_download_handler.download_path
             curr_app_destinations = get_dict_value(self.application_details, [app_name, "copy_artifacts_to_path"])
             curr_config_name = get_dict_value(self.application_details, [app_name, "config_file_name"])
             curr_config_source = Folder.build_path(self.config_folder_path, curr_config_name)
             curr_config_destinations = get_dict_value(self.application_details, [app_name, "copy_config_to_path"])
-            if not curr_app_destinations and not curr_config_destinations:
-                # no need to create replacement object, since don't have a destination for the application
-                pass
-            else:
+            if curr_app_destinations:
+                # create replacement object, since have replacement destination
                 return app_name, ReplaceApplication(app_source=curr_app_source, app_destinations=curr_app_destinations,
                                                     config_source=curr_config_source,
                                                     config_destinations=curr_config_destinations)
+        return app_name, 'None'
 
     @staticmethod
     def __close_running_process(process_name):
@@ -133,11 +144,12 @@ class ManageApplication:
 
     def replace_application(self):
         # make list of applications to be replaced
-        self.__make_and_update_application_details_with_replace_handler()
+        self.__make_and_update_application_details_with_replace_handler2()
         map(self.__close_running_process, self.process_to_terminate)
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details, [application, "Replace"])  # type: ReplaceApplication
-            app_handler.replace_artifact()
+            if app_handler:
+                app_handler.replace_artifact()
 
     def get_application_details(self):
         return self.application_details

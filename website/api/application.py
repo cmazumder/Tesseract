@@ -1,4 +1,3 @@
-
 from urllib import unquote
 
 from build import Build
@@ -7,7 +6,7 @@ from util import folder_actions as Folder, file_actions as File
 
 class Application(Build):
     spacer_char_hyphen = '-' * 50
-    spacer_char_asterisk = '*' * 50
+    spacer_char_asterisk = '*' * 65
 
     def __init__(self, artifact_download_path, ignore_file_extensions, anchor_text):
         Build.__init__(self)
@@ -118,9 +117,9 @@ class Application(Build):
         else:
             return False
 
-    def _show_downloaded_info(self):
+    def show_downloaded_info(self):
         """
-        temp func to print some info
+        Print version information
         :return: None
         """
         print self.spacer_char_hyphen
