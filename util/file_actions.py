@@ -1,7 +1,7 @@
+import io
 from os import remove, rename, walk
 from os.path import isdir, basename, dirname, join, isfile, getsize, islink
 from shutil import move, copy2
-import io
 
 
 def append_text_to_file(file_path, *args):

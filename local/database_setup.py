@@ -1,6 +1,6 @@
+from config.manage_json_config import get_dict_value
 from local.database import Database
 from util import file_actions as File
-from config.manage_json_config import get_dict_value
 
 
 class DatabaseSetup:
