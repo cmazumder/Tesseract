@@ -1,5 +1,5 @@
 {
-  "_about": "configuration for controller box",
+  "_about": "configuration for controller box testing",
   "exclude_file_extension": [
     ".pdb"
   ],
@@ -10,7 +10,7 @@
   "download_artifact_root_path": "C:\\TEAMCITY_TEST\\F_Drive\\Artifacts",
   "artifact_config_folder": "Configurations",
   "db_property": {
-    "db_script": "Vertex_and_Games_on_VertexBox.sql",
+    "db_script": "Vertex_and_Games_on_PC.sql",
     "db_to_delete": [
       "Vertex",
       "VertexArch",
@@ -18,20 +18,25 @@
       "Games",
       "Misc"
     ],
-    "db_size": {
-      "reduce": "no",
-      "original_size": "10240MB",
-      "new_size": "100MB"
-    },
-    "find_text": [
-      "VertexXYZ",
-      "GamesXYZ",
-      "MiscXYZ"
-    ],
-    "replace_text": [
-      "Vertex",
-      "Games",
-      "Misc"
-    ]
+    "db_script_mod": {
+      "db_size": {
+        "mod": "yes",
+        "original_size": "10240MB",
+        "new_size": "40MB"
+      },
+      "find_replace": {
+        "mod": "yes",
+        "find_text": [
+          "VertexXYZ",
+          "GamesXYZ",
+          "MiscXYZ"
+        ],
+        "replace_text": [
+          "Vertex",
+          "Games",
+          "Misc"
+        ]
+      }
+    }
   }
 }

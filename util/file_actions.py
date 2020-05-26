@@ -1,6 +1,7 @@
 from os import remove, rename, walk
 from os.path import isdir, basename, dirname, join, isfile, getsize, islink
 from shutil import move, copy2
+import io
 
 
 def append_text_to_file(file_path, *args):
@@ -43,15 +44,15 @@ def move_from_to_file(source, destination):
         print E.message
 
 
-def find_replace_text(file_path, find_text, replace_text):
+def find_replace_text(file_path, find_text, replace_text, encoding='ascii'):
     if file_exists(file_path):
         file_root = dirname(file_path)
 
-        original_file = open(file_path, "r")
+        original_file = io.open(file_path, "r", encoding=encoding)
 
         temp_file_name = basename(file_path) + ".TMP"
         temp_file_name = join(file_root, temp_file_name)
-        temp_file = open(temp_file_name, "w")
+        temp_file = io.open(temp_file_name, "w", encoding=encoding)
 
         for line in original_file:
             if find_text in line:
@@ -64,7 +65,7 @@ def find_replace_text(file_path, find_text, replace_text):
         rename(temp_file_name, file_path)
 
 
-def find_replace_text_many(file_path, find_text_list, replace_text_list):
+def find_replace_text_many(file_path, find_text_list, replace_text_list, encoding='ascii'):
     """
     Replace all occurrences of text in file
     @param file_path: path to file
@@ -77,18 +78,23 @@ def find_replace_text_many(file_path, find_text_list, replace_text_list):
     if file_exists(file_path):
         file_root = dirname(file_path)
 
-        original_file = open(file_path, "r")
+        original_file = io.open(file_path, "r", encoding=encoding)
 
         temp_file_name = basename(file_path) + ".TMP"
         temp_file_name = join(file_root, temp_file_name)
-        temp_file = open(temp_file_name, "w")
-
-        for line in original_file:
-            for find_text, replace_text in zip(find_text_list, replace_text_list):
-                if find_text in line:
-                    line = line.replace(find_text, replace_text)
-            temp_file.write(line)
-
+        temp_file = io.open(temp_file_name, "w", encoding=encoding)
+        try:
+            for line in original_file:
+                for find_text, replace_text in zip(find_text_list, replace_text_list):
+                    try:
+                        if find_text in line:
+                            line = line.replace(find_text, replace_text)
+                    except Exception as err:
+                        print "Replace text many\nErr: {}\nArgs{}".format(err.message, err.args)
+                        print "Find:{}\nReplace:{}\nLine:{}".format(find_text, replace_text, line)
+                temp_file.write(line)
+        except UnicodeDecodeError as err:
+            print "UnicodeDecodeError: {}\nArgs{}".format(err.message, err.args)
         original_file.close()
         temp_file.close()
 
@@ -134,8 +140,8 @@ def search_file_all_occurrence(filename, search_path):
     return result
 
 
-def create_file(file_path):
-    with open(file_path, "w") as file_write:
+def create_file(file_path, encoding='ascii'):
+    with io.open(file_path, "w", encoding=encoding) as file_write:
         file_write.close()
 
 

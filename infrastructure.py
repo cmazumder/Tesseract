@@ -1,9 +1,9 @@
 from DeployementLog import DeploymentLog
 from config.config_manager import ConfigManager
 from config.manage_json_config import get_dict_value
-from local import database_setup as Database
 from local.artifacts.download_application import DownloadApplication
 from local.artifacts.manage_artifacts import ManageApplication
+from local.database_setup import DatabaseSetup as Database
 from util import folder_actions as Folder
 from website.api.teamcity import TeamCity
 
@@ -27,7 +27,8 @@ class Infrastructure:
                 if response.status_code == 200:
                     return True
                 elif response.status_code == 401:
-                    print "Incorrect TeamCity login credentials | url: {}".format(get_dict_value(self.teamcity_setting, ["host"]))
+                    print "Incorrect TeamCity login credentials | url: {}".format(
+                        get_dict_value(self.teamcity_setting, ["host"]))
                     return False
                 else:
                     print "Cannot reach TeamCityConnection"
@@ -41,7 +42,7 @@ class Infrastructure:
             server=get_dict_value(self.database_setting, ["db_server"]),
             username=get_dict_value(self.database_setting, ["db_username"]),
             password=get_dict_value(self.database_setting, ["db_password"]))
-        if database_connection.connection:
+        if database_connection:
             return database_connection
         else:
             return False
@@ -49,7 +50,8 @@ class Infrastructure:
     def check_download_location_ready(self):
         download_location = get_dict_value(self.environment_setting, ["download_artifact_root_path"])
         copy_all_config_location = Folder.build_path(download_location,
-                                                     get_dict_value(self.environment_setting, ["artifact_config_folder"]))
+                                                     get_dict_value(self.environment_setting,
+                                                                    ["artifact_config_folder"]))
 
         if Folder.create_folder(download_location) and Folder.create_folder(copy_all_config_location):
             return True
@@ -109,12 +111,10 @@ class Infrastructure:
 
         if sql_path:
             start_time = logger.time_it()
-            Database.recreate_database_from_script(database_connection=self.get_database_connection(), sql_path=sql_path,
-                                                   delete_db=get_dict_value(self.environment_setting,
-                                                                            ["db_property", "db_to_delete"]))
-
+            Database.recreate_database_from_script(database_connection=self.get_database_connection(),
+                                                   sql_path=sql_path,
+                                                   env_setting=self.environment_setting)
             total_database_time = logger.total_time(start=start_time, end=logger.time_it())
-
 
         logger.write_deployment_status(app_details=application_details)
         logger.write_time(time_download=total_download_time, time_replace=total_replace_time,

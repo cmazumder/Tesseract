@@ -97,12 +97,12 @@ class ManageApplication:
         app_download_handler = get_dict_value(self.application_details,
                                               [app_name, "Download"])  # type: DownloadApplication
         if app_download_handler.get_download_status() is True:
-            curr_app_source = app_download_handler.download_path
             curr_app_destinations = get_dict_value(self.application_details, [app_name, "copy_artifacts_to_path"])
-            curr_config_name = get_dict_value(self.application_details, [app_name, "config_file_name"])
-            curr_config_source = Folder.build_path(self.config_folder_path, curr_config_name)
-            curr_config_destinations = get_dict_value(self.application_details, [app_name, "copy_config_to_path"])
             if curr_app_destinations:
+                curr_app_source = app_download_handler.download_path
+                curr_config_name = get_dict_value(self.application_details, [app_name, "config_file_name"])
+                curr_config_source = Folder.build_path(self.config_folder_path, curr_config_name)
+                curr_config_destinations = get_dict_value(self.application_details, [app_name, "copy_config_to_path"])
                 # create replacement object, since have replacement destination
                 return app_name, ReplaceApplication(app_source=curr_app_source, app_destinations=curr_app_destinations,
                                                     config_source=curr_config_source,

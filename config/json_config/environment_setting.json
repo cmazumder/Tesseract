@@ -18,20 +18,25 @@
       "Games",
       "Misc"
     ],
-    "db_size": {
-      "reduce": "no",
-      "original_size": "10240MB",
-      "new_size": "100MB"
-    },
-    "find_text": [
-      "VertexXYZ",
-      "GamesXYZ",
-      "MiscXYZ"
-    ],
-    "replace_text": [
-      "Vertex",
-      "Games",
-      "Misc"
-    ]
+    "db_script_mod": {
+      "db_size": {
+        "mod": "no",
+        "original_size": "10240MB",
+        "new_size": "40MB"
+      },
+      "find_replace": {
+        "mod": "no",
+        "find_text": [
+          "VertexXYZ",
+          "GamesXYZ",
+          "MiscXYZ"
+        ],
+        "replace_text": [
+          "Vertex",
+          "Games",
+          "Misc"
+        ]
+      }
+    }
   }
 }
