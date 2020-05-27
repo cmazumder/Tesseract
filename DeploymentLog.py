@@ -68,7 +68,8 @@ class DeploymentLog:
         self.set_artifact_details(app_detail=app_details)
 
         if self.app_keys:
-            string = ("\t" + self.tab_text * 4).format("Name", "Version", "Download", "Replace")
+            string = ("\t" + self.tab_text * 4).format("App", "Version", "Download", "Replace\n", "\t", "",
+                                                       " status", " status")
             File.append_text_to_file(self.log_file, string, "\n")
             print "{}\n{}".format("  *" * 20, "#" * 58)
             print string
@@ -78,8 +79,8 @@ class DeploymentLog:
     def write_database_info(self, sql_path):
         if sql_path and File.file_exists(sql_path):
             File.append_text_to_file(self.log_file, self.spacer)
-            string = self.center_align_filler.format(" Database info ")
-            File.append_text_to_file(self.log_file, string)
+            string = self.center_align_filler.format(" Database information ")
+            File.append_text_to_file(self.log_file, string, "\n")
             string = ("\t" + self.tab_text * 2).format("Script:", str(File.basename(sql_path)))
             File.append_text_to_file(self.log_file, string)
             string = ("\t" + self.tab_text * 2).format("Status:", "Recreated")
@@ -88,14 +89,14 @@ class DeploymentLog:
     def write_artifact_info(self, download_path):
         if self.app_keys:
             File.append_text_to_file(self.log_file, self.spacer)
-            string = self.center_align_filler.format(" Artifact info ")
+            string = self.center_align_filler.format(" Artifact information ")
+            File.append_text_to_file(self.log_file, string, "\n")
+            string = ("\t" + self.tab_text * 2).format("Location:", str(download_path))
             File.append_text_to_file(self.log_file, string)
-            string = ("\t" + self.tab_text * 2).format("Download Location:", str(download_path))
-            File.append_text_to_file(self.log_file, string)
-            string = ("\t" + self.tab_text * 2).format("Downloaded folder(s):", str(len(self.app_keys)))
-            File.append_text_to_file(self.log_file, string)
-            string = ("\t" + self.tab_text * 5).format("FolderName", "Download Size", "Copy Size", "Download Files",
-                                                       "Copied Files")
+            string = ("\t" + self.tab_text * 2).format("Folder(s):", str(len(self.app_keys)))
+            File.append_text_to_file(self.log_file, string, "\n")
+            string = ("\t" + self.tab_text * 10).format("FolderName", "Download", "Replace", "Downloaded",
+                                                        "Replaced\n", "\t", " size", " size", " file(s)", " file(s)")
             File.append_text_to_file(self.log_file, string, "\n")
             map(self._write_folder_property, self.app_keys)
 
@@ -127,13 +128,13 @@ class DeploymentLog:
         string = self.center_align_filler.format(" Total elapsed time (mm:ss) ")
         File.append_text_to_file(self.log_file, string, "\n")
         if time_download:
-            string = ("\t" + self.tab_text * 2).format("Download artifacts -->", str(time_download))
+            string = ("\t" + self.tab_text * 2).format("Download -->", str(time_download))
             File.append_text_to_file(self.log_file, string)
         if time_replace:
-            string = ("\t" + self.tab_text * 2).format("Replace artifacts -->", str(time_replace))
+            string = ("\t" + self.tab_text * 2).format("Replace -->", str(time_replace))
             File.append_text_to_file(self.log_file, string)
         if time_db:
-            string = ("\t" + self.tab_text * 2).format("Database recreate -->", str(time_db))
+            string = ("\t" + self.tab_text * 2).format("Database -->", str(time_db))
             File.append_text_to_file(self.log_file, string)
 
         end_time_formatted = strftime("%H:%M:%S", localtime())  # The execution local start time
