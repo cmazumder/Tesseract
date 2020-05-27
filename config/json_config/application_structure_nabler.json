@@ -39,7 +39,9 @@
     "config_file_name": null,
     "buildTypeID": "Utilities_ProcessWatchdog",
     "anchor": "Aristocrat.Watchdog.Service",
-    "copy_artifacts_to_path": null,
+    "copy_artifacts_to_path": [
+      "D:\\Watchdog"
+    ],
     "copy_config_to_path": null
   },
   "valyria": {
