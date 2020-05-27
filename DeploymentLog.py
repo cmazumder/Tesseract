@@ -13,6 +13,9 @@ class DeploymentLog:
     log_file = None
     artifact_details = {}
     app_keys = []
+    center_align = "{:^50s}"
+    center_align_filler = "{:*^50s}"
+    tab_text = "{:15s}"
 
     def __init__(self, file_path):
         self.filename = "BuildDeploymentInfo_" + strftime("%Y-%m-%dT%H%M%S", localtime()) + ".log"
@@ -55,44 +58,51 @@ class DeploymentLog:
         else:
             app_copy_status = 'NA'
 
-        string = "\t" + str(app_name) + "\t\t\t" + str(app_version) + "\t\t" + str(app_download_status) + "\t\t\t" +\
-                 str(app_copy_status)
+        string = ("\t" + self.tab_text * 4).format(str(app_name), str(app_version), str(app_download_status),
+                                                   str(app_copy_status))
         File.append_text_to_file(self.log_file, string)
+        print string
 
     def write_deployment_status(self, app_details=None):
-        File.append_text_to_file(self.log_file, self.spacer, "\n", self.spacer)
-        File.append_text_to_file(self.log_file, "\t\t\t\t\t", "Application information\n")
-
+        File.append_text_to_file(self.log_file, self.spacer)
+        string = self.center_align_filler.format(" Application information ")
+        File.append_text_to_file(self.log_file, string, "\n")
         self.set_artifact_details(app_detail=app_details)
 
         if self.app_keys:
-            File.append_text_to_file(self.log_file, "\t", "Name", "\t\t\t", "Version", "\t\t\t", "Download", "\t\t",
-                                     "Replace")
+            string = ("\t" + self.tab_text * 4).format("Name", "Version", "Download", "Replace")
+            File.append_text_to_file(self.log_file, string, "\n")
+            print "{}\n{}".format("  *" * 20, "#" * 58)
+            print string
             map(self._write_app_version_info, self.app_keys)
-
-        File.append_text_to_file(self.log_file, self.spacer, "\n", self.spacer)
+            print "{}\n{}".format("  *" * 20, "#" * 58)
 
     def write_time(self, time_download=None, time_replace=None, time_db=None):
-        print "{}\n{}".format('#' * 45, '  *' * 15)
-        File.append_text_to_file(self.log_file, "\t\t\t\t\t", "Elapsed time (mm:ss)\n")
-
+        # print elapsed time of activities
+        File.append_text_to_file(self.log_file, self.spacer)
+        string = self.center_align_filler.format(" Total elapsed time (mm:ss) ")
+        File.append_text_to_file(self.log_file, string, "\n")
         if time_download:
-            print "Artifact download time: {}".format(time_download)
-            File.append_text_to_file(self.log_file, "\tDownload (total)  --> ", time_download)
+            string = ("\t" + self.tab_text * 2).format("Download artifacts -->", str(time_download))
+            File.append_text_to_file(self.log_file, string)
         if time_replace:
-            print "Artifact replacement time: {}".format(time_replace)
-            File.append_text_to_file(self.log_file, "\tReplace (total)   --> ", time_replace)
+            string = ("\t" + self.tab_text * 2).format("Replace artifacts -->", str(time_replace))
+            File.append_text_to_file(self.log_file, string)
         if time_db:
-            print "Database re-create time: {}".format(time_db)
-            File.append_text_to_file(self.log_file, "\tDatabase recreate --> ", time_db)
-        print "{}\n{}".format("  *" * 15, "#" * 45)
+            string = ("\t" + self.tab_text * 2).format("Database recreate -->", str(time_db))
+            File.append_text_to_file(self.log_file, string)
 
         end_time_formatted = strftime("%H:%M:%S", localtime())  # The execution local start time
         total_elapsed_time = self._get_readable_epoch_time(float_time=self.time_it() - self.start_time)
+        string = ("\t" + self.tab_text * 2).format("Execution --> ", total_elapsed_time)
+        File.append_text_to_file(self.log_file, string)
 
-        File.append_text_to_file(self.log_file, "\tExecution (total)     --> ", total_elapsed_time)
-        File.append_text_to_file(self.log_file, self.spacer, "\n", self.spacer)
-        File.append_text_to_file(self.log_file, "\t\t\t\t\t", "Clock (local time)\n")
-        File.append_text_to_file(self.log_file, "\tStart --> ", self.start_time_formatted)
-        File.append_text_to_file(self.log_file, "\tEnd   --> ", end_time_formatted)
-        File.append_text_to_file(self.log_file, self.spacer, "\n", self.spacer)
+        # print local time of program execution
+        File.append_text_to_file(self.log_file, self.spacer)
+        string = self.center_align_filler.format(" Clock (local time) ")
+        File.append_text_to_file(self.log_file, string, "\n")
+        string = ("\t" + self.tab_text * 2).format("Start --> ", self.start_time_formatted)
+        File.append_text_to_file(self.log_file, string)
+        string = ("\t" + self.tab_text * 2).format("End   --> ", end_time_formatted)
+        File.append_text_to_file(self.log_file, string)
+        File.append_text_to_file(self.log_file, self.spacer)

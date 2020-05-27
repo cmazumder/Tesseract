@@ -9,11 +9,11 @@ def append_text_to_file(file_path, *args):
         print "Cannot write to dir: {}".format(file_path)
     else:
         try:
-            with open(file_path, "a+") as version_file:
+            with open(file_path, "a+") as file_:
                 for statement in args:
-                    version_file.write(str(statement))
-                version_file.write("\n")
-            version_file.close()
+                    file_.write(str(statement))
+                file_.write("\n")
+            file_.close()
         except IOError as err:
             print "Message: {}\n Args: {}".format(err.message, err.args)
             raise IOError

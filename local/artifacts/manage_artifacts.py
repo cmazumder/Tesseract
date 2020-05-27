@@ -152,6 +152,7 @@ class ManageApplication:
         # make list of applications to be replaced
         self.__make_and_update_application_details_with_replace_handler2()
         map(self.__close_running_process, self.process_to_terminate)
+        print "{}\n{}".format(self.spacer_char_asterisk, self.spacer_char_asterisk)
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details, [application, "Replace"])  # type: ReplaceApplication
             if app_handler:
