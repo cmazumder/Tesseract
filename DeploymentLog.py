@@ -56,8 +56,8 @@ class DeploymentLog:
         else:
             app_copy_status = 'NA'
 
-        string = ("\t" + self.tab_text * 4).format(application_key, app_version, app_download_status,
-                                                   app_copy_status)
+        string = ("\t" + self.tab_text * 4).format(str(application_key), str(app_version), str(app_download_status),
+                                                   str(app_copy_status))
         File.append_text_to_file(self.log_file, string)
         print string
 
@@ -79,7 +79,7 @@ class DeploymentLog:
         if sql_path and File.file_exists(sql_path):
             string = self.center_align_filler.format(" Database info ")
             File.append_text_to_file(self.log_file, string)
-            string = ("\t" + self.tab_text * 2).format("Script:", File.basename(sql_path))
+            string = ("\t" + self.tab_text * 2).format("Script:", str(File.basename(sql_path)))
             File.append_text_to_file(self.log_file, string)
             string = ("\t" + self.tab_text * 2).format("Status:", "Recreated")
             File.append_text_to_file(self.log_file, string)
@@ -88,9 +88,9 @@ class DeploymentLog:
         if self.app_keys:
             string = self.center_align_filler.format(" Artifact info ")
             File.append_text_to_file(self.log_file, string)
-            string = ("\t" + self.tab_text * 2).format("Download Location:", download_path)
+            string = ("\t" + self.tab_text * 2).format("Download Location:", str(download_path))
             File.append_text_to_file(self.log_file, string)
-            string = ("\t" + self.tab_text * 2).format("Downloaded folder(s):", len(self.app_keys))
+            string = ("\t" + self.tab_text * 2).format("Downloaded folder(s):", str(len(self.app_keys)))
             File.append_text_to_file(self.log_file, string)
             string = ("\t" + self.tab_text * 5).format("FolderName", "Download Size", "Copy Size", "Download Files",
                                                        "Copied Files")
@@ -115,8 +115,8 @@ class DeploymentLog:
             copy_size = 'NA'
             copy_files = 'NA'
 
-        string = ("\t" + self.tab_text * 5).format(app_folder_name, download_size, copy_size, download_files,
-                                                   copy_files)
+        string = ("\t" + self.tab_text * 5).format(str(app_folder_name), str(download_size), str(copy_size),
+                                                   str(download_files), str(copy_files))
         File.append_text_to_file(self.log_file, string)
 
     def write_time(self, time_download=None, time_replace=None, time_db=None):
