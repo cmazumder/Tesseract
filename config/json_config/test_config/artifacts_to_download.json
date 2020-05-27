@@ -1,11 +1,22 @@
 {
   "_about": "Vertex controller artifacts",
-  "sql": {
-    "folder_name": "SQL",
-    "config_file_name": null,
-    "buildTypeID": "Vertex_Vertex_Trunk",
-    "anchor": "SQL",
-    "copy_artifacts_to_path": null,
-    "copy_config_to_path": null
+  "shell": {
+    "folder_name": "Shell",
+    "config_file_name": "Shell.config",
+    "buildTypeID": "Vertex_VertexShell_Trunk",
+    "anchor": "VertexShell",
+    "copy_artifacts_to_path": [
+      "C:\\TEAMCITY_TEST\\D_Drive\\Shell"
+    ],
+    "find_text": [
+      "enabled=\"true\""
+    ],
+    "replace_text": [
+      "enabled=\"false\""
+    ],
+    "copy_config_to_path": [
+      "C:\\TEAMCITY_TEST\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\F_Drive\\Configurations"
+    ]
   }
 }

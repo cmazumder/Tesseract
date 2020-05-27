@@ -1,4 +1,4 @@
-from DeployementLog import DeploymentLog
+from DeploymentLog import DeploymentLog
 from config.config_manager import ConfigManager
 from config.manage_json_config import get_dict_value
 from local.artifacts.download_application import DownloadApplication
@@ -52,8 +52,8 @@ class Infrastructure:
         copy_all_config_location = Folder.build_path(download_location,
                                                      get_dict_value(self.environment_setting,
                                                                     ["artifact_config_folder"]))
-
         if Folder.create_folder(download_location) and Folder.create_folder(copy_all_config_location):
+            Folder.delete_folder_contents(folder_path=copy_all_config_location)
             return True
         else:
             return False

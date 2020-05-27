@@ -34,6 +34,7 @@ class DeploymentLog:
     def set_artifact_details(self, app_detail):
         self.artifact_details = app_detail
         self.app_keys = self.artifact_details.keys()
+        self.app_keys.sort()
 
     def total_time(self, start, end):
         return self._get_readable_epoch_time(float_time=end - start)

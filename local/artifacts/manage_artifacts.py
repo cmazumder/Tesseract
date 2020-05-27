@@ -49,8 +49,7 @@ class ManageApplication:
             app_handler.show_downloaded_info()
             print self.spacer_char_hyphen
 
-
-        # extract config files
+        # extract and collect all config files into a folder
         map(self.__extract_configuration_file, self.application_name_keys)
 
     def __make_and_update_application_details_with_download_handler(self):
@@ -138,7 +137,7 @@ class ManageApplication:
                 if config_source_path:
                     config_destination_path = Folder.build_path(self.config_folder_path, config_file_name)
                     File.copy_from_to_file(source=config_source_path, destination=config_destination_path)
-                    self.__replace_text_config_file_if_required(app_name=app_name, source_path=config_source_path)
+                    self.__replace_text_config_file_if_required(app_name=app_name, source_path=config_destination_path)
 
     def __replace_text_config_file_if_required(self, app_name, source_path):
         # replace text only if required and size of both the list matches

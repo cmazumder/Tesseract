@@ -24,7 +24,7 @@ class DownloadApplication(Thread, Application):
             else:
                 self.download_path = Folder.build_path(download_artifact_root_path, self.folder_name)
                 # remove previously downloaded contents in the same folder
-                Folder.delete_path(dir_path=self.download_path)
+                Folder.delete_folder(folder_path=self.download_path)
             Application.__init__(self, artifact_download_path=self.download_path,
                                  ignore_file_extensions=exclude_file_extension,
                                  anchor_text=get_dict_value(self.application_setting, ["anchor"]))
@@ -33,8 +33,7 @@ class DownloadApplication(Thread, Application):
     def run(self):
         api = self.build_success_api()
         if self.has_successful_build(api_url=api):
-            print "Application: {0} | Version: {1}".format(self.application_name,
-                                                                                self.get_version_number())
+            print "Application: {0} | Version: {1}".format(self.application_name,self.get_version_number())
             self.__initiate_download()
             self.__update_download_status()
         else:
@@ -56,7 +55,7 @@ class DownloadApplication(Thread, Application):
     def _get_download_folder_ready(self):
         if self.folder_name:
             # remove previously downloaded contents in the same folder
-            Folder.delete_path(dir_path=self.download_path)
+            Folder.delete_folder(folder_path=self.download_path)
 
         # now recreate the folder
         if Folder.create_folder(self.download_path):

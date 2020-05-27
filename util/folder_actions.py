@@ -5,25 +5,25 @@ from shutil import rmtree, copytree, move
 from util.file_actions import file_exists, delete_file, compute_file_size
 
 
-def delete_path(dir_path):
+def delete_folder(folder_path):
     try:
-        if isdir(dir_path):
-            rmtree(dir_path)
+        if isdir(folder_path):
+            rmtree(folder_path)
     except Exception as E:
         print E.message
 
 
 def move_from_to_location(source, destination):
-    delete_path(destination)
+    delete_folder(destination)
     try:
         move(source, destination)
-        delete_path(source)
+        delete_folder(source)
     except Exception as E:
         print E.message
 
 
 def copy_from_to_location(source, destination):
-    delete_path(destination)
+    delete_folder(destination)
     try:
         copytree(source, destination)
         return True
@@ -70,12 +70,12 @@ def create_folder(folder_path):
 
 
 def delete_folder_contents(folder_path):
-    # unused but compare the performace of this vs delete_path
+    # Delete contents of folder
     if folder_exists(folder_path):
         for item in listdir(folder_path):
             path = build_path(folder_path, item)
             if folder_exists(path):
-                delete_path(path)
+                delete_folder(path)
             elif file_exists(path):
                 delete_file(path)
 
