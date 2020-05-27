@@ -77,6 +77,7 @@ class DeploymentLog:
 
     def write_database_info(self, sql_path):
         if sql_path and File.file_exists(sql_path):
+            File.append_text_to_file(self.log_file, self.spacer)
             string = self.center_align_filler.format(" Database info ")
             File.append_text_to_file(self.log_file, string)
             string = ("\t" + self.tab_text * 2).format("Script:", str(File.basename(sql_path)))
@@ -86,6 +87,7 @@ class DeploymentLog:
 
     def write_artifact_info(self, download_path):
         if self.app_keys:
+            File.append_text_to_file(self.log_file, self.spacer)
             string = self.center_align_filler.format(" Artifact info ")
             File.append_text_to_file(self.log_file, string)
             string = ("\t" + self.tab_text * 2).format("Download Location:", str(download_path))
