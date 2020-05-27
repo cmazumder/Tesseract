@@ -85,3 +85,6 @@ class ReplaceApplication:
 
     def get_replace_status(self):
         return self.status
+
+    def get_replace_folder(self):
+        return self.app_destinations

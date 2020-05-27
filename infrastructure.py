@@ -116,8 +116,11 @@ class Infrastructure:
                                                    env_setting=self.environment_setting)
             total_database_time = logger.total_time(start=start_time, end=logger.time_it())
             print "{}\n{}\nDatabase recreated\n{}\n{}".format(artifact.spacer_char_hyphen, artifact.spacer_char_hyphen,
-                                                          artifact.spacer_char_hyphen, artifact.spacer_char_hyphen)
+                                                              artifact.spacer_char_hyphen, artifact.spacer_char_hyphen)
 
         logger.write_deployment_status(app_details=application_details)
+        download_location = get_dict_value(self.environment_setting, ["download_artifact_root_path"])
+        logger.write_database_info(sql_path=sql_path)
+        logger.write_artifact_info(download_path=download_location)
         logger.write_time(time_download=total_download_time, time_replace=total_replace_time,
                           time_db=total_database_time)

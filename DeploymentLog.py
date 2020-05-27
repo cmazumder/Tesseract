@@ -45,8 +45,6 @@ class DeploymentLog:
     def _write_app_version_info(self, application_key):
         app_download = get_dict_value(self.artifact_details, [application_key, "Download"])  # type: DownloadApplication
         app_copy = get_dict_value(self.artifact_details, [application_key, "Replace"])  # type: ReplaceApplication
-        app_name = get_dict_value(self.artifact_details, [application_key, "folder_name"]) \
-            if get_dict_value(self.artifact_details, [application_key, "folder_name"]) else application_key
         if app_download:
             app_version = app_download.get_version_number()
             app_download_status = "Success" if (app_download.get_download_status()) else "Failure"
@@ -58,8 +56,8 @@ class DeploymentLog:
         else:
             app_copy_status = 'NA'
 
-        string = ("\t" + self.tab_text * 4).format(str(app_name), str(app_version), str(app_download_status),
-                                                   str(app_copy_status))
+        string = ("\t" + self.tab_text * 4).format(application_key, app_version, app_download_status,
+                                                   app_copy_status)
         File.append_text_to_file(self.log_file, string)
         print string
 
@@ -76,6 +74,50 @@ class DeploymentLog:
             print string
             map(self._write_app_version_info, self.app_keys)
             print "{}\n{}".format("  *" * 20, "#" * 58)
+
+    def write_database_info(self, sql_path):
+        if sql_path and File.file_exists(sql_path):
+            string = self.center_align_filler.format(" Database info ")
+            File.append_text_to_file(self.log_file, string)
+            string = ("\t" + self.tab_text * 2).format("Script:", File.basename(sql_path))
+            File.append_text_to_file(self.log_file, string)
+            string = ("\t" + self.tab_text * 2).format("Status:", "Recreated")
+            File.append_text_to_file(self.log_file, string)
+
+    def write_artifact_info(self, download_path):
+        if self.app_keys:
+            string = self.center_align_filler.format(" Artifact info ")
+            File.append_text_to_file(self.log_file, string)
+            string = ("\t" + self.tab_text * 2).format("Download Location:", download_path)
+            File.append_text_to_file(self.log_file, string)
+            string = ("\t" + self.tab_text * 2).format("Downloaded folder(s):", len(self.app_keys))
+            File.append_text_to_file(self.log_file, string)
+            string = ("\t" + self.tab_text * 5).format("FolderName", "Download Size", "Copy Size", "Download Files",
+                                                       "Copied Files")
+            File.append_text_to_file(self.log_file, string, "\n")
+            map(self._write_folder_property, self.app_keys)
+
+    def _write_folder_property(self, application_key):
+        app_download = get_dict_value(self.artifact_details, [application_key, "Download"])  # type: DownloadApplication
+        app_copy = get_dict_value(self.artifact_details, [application_key, "Replace"])  # type: ReplaceApplication
+        app_folder_name = get_dict_value(self.artifact_details, [application_key, "folder_name"]) \
+            if get_dict_value(self.artifact_details, [application_key, "folder_name"]) else application_key
+        if app_download:
+            download_files, fld, download_size = Folder.get_folder_properties(app_download.get_download_folder())
+            download_size = Folder.convert_bytes(download_size)
+        else:
+            download_size = 'NA'
+            download_files = 'NA'
+        if app_copy:
+            copy_files, fld, copy_size = Folder.get_folder_properties(app_copy.get_replace_folder()[0])
+            copy_size = Folder.convert_bytes(copy_size)
+        else:
+            copy_size = 'NA'
+            copy_files = 'NA'
+
+        string = ("\t" + self.tab_text * 5).format(app_folder_name, download_size, copy_size, download_files,
+                                                   copy_files)
+        File.append_text_to_file(self.log_file, string)
 
     def write_time(self, time_download=None, time_replace=None, time_db=None):
         # print elapsed time of activities

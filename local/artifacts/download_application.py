@@ -78,11 +78,15 @@ class DownloadApplication(Thread, Application):
 
     def get_download_status(self):
         """
-
         @rtype: object
         """
-        if self.status:
-            return self.status
+        return self.status
+
+    def get_download_folder(self):
+        """
+        @rtype: object
+        """
+        return self.download_path
 
     def print_download_status(self):
         if self.status:
@@ -90,7 +94,6 @@ class DownloadApplication(Thread, Application):
         else:
             status_text = "BAD"
         print "Download status: {}".format(status_text)
-
 
     def __initiate_download(self):
         self._start_download()

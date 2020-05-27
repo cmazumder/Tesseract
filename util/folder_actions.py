@@ -120,3 +120,15 @@ def get_folder_properties(folder_path):
             file_path = build_path(dir_path, filename)
             total_size += compute_file_size(file_path)
     return no_of_file, no_of_folder, total_size
+
+
+def convert_bytes(num):
+    """
+    this function will convert bytes to MB.... GB... etc
+    """
+    step_unit = 1000.0  # 1024 bad the size
+
+    for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:
+        if num < step_unit:
+            return "%3.1f %s" % (num, x)
+        num /= step_unit
