@@ -37,15 +37,15 @@ class ManageApplication:
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details,
                                          [application, "Download"])  # type: DownloadApplication
-            print "Downloading {}, please wait".format(app_handler.application_name)
             app_handler.start()
+            print "Downloading {}, please wait".format(app_handler.application_name)
 
         print self.spacer_char_asterisk
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details,
                                          [application, "Download"])  # type: DownloadApplication
-            print "Completing {}, please wait".format(app_handler.application_name)
             app_handler.join()
+            print "Completing {}, please wait".format(app_handler.application_name)
             print self.spacer_char_hyphen
             print "Application --> {}\n".format(app_handler.application_name)
             app_handler.print_download_status()
