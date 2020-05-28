@@ -47,6 +47,8 @@ def kill_process_tree(pid, sig=signal.SIGTERM, include_parent=True,
     return status(pid)
 
 
+
+
 def test_close_process():
     spacer = '-' * 50
     # This is just a test function, and not to be used in code
