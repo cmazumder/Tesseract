@@ -1,0 +1,9 @@
+{
+  "_about": "configuration for TeamCity server",
+  "host": "http://uslv-addv12-02.dev.local/",
+  "teamcity_username": "guest",
+  "teamcity_password": "guest",
+  "api_artifacts": "/httpAuth/app/rest/builds/id:{0}/artifacts/children",
+  "api_buildId_without_tags": "/httpAuth/app/rest/builds/buildType:{0},status:success",
+  "api_buildId_with_tags": "/httpAuth/app/rest/builds/buildType:{0},status:success,tags:({1})"
+}

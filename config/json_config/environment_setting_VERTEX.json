@@ -1,0 +1,42 @@
+{
+  "_about": "configuration for controller box",
+  "exclude_file_extension": [
+    ".pdb"
+  ],
+  "windows_process_to_stop": [
+    "VertexShell.exe",
+    "Aristocrat.Vertex.Service.exe"
+  ],
+  "download_artifact_root_path": "F:\\Artifacts",
+  "artifact_config_folder": "Configurations",
+  "db_property": {
+    "db_script": "Vertex_and_Games_on_VertexBox.sql",
+    "db_to_delete": [
+      "Vertex",
+      "VertexArch",
+      "GamesArch",
+      "Games",
+      "Misc"
+    ],
+    "db_script_mod": {
+      "db_size": {
+        "mod": "no",
+        "original_size": "10240MB",
+        "new_size": "40MB"
+      },
+      "find_replace": {
+        "mod": "no",
+        "find_text": [
+          "VertexXYZ",
+          "GamesXYZ",
+          "MiscXYZ"
+        ],
+        "replace_text": [
+          "Vertex",
+          "Games",
+          "Misc"
+        ]
+      }
+    }
+  }
+}

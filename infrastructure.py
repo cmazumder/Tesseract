@@ -1,202 +1,126 @@
-import os
-from time import time, localtime, strftime
-
+from DeploymentLog import DeploymentLog
 from config.config_manager import ConfigManager
-from config.framework_config import deployment_env_paths, local_database_setting
-from local import setup_database as Database
-from local.artifacts.manage_artifacts import ManageArtifacts
-from util import file_actions as File
+from config.manage_json_config import get_dict_value
+from local.artifacts.download_application import DownloadApplication
+from local.artifacts.manage_artifacts import ManageApplication
+from local.database_setup import DatabaseSetup as Database
 from util import folder_actions as Folder
-
-try:
-    from config.framework_config import Environment, process_to_stop
-except (ImportError, Environment) as err:
-    print "Error: {}\nMissing framework_config.py, recreate".format(err.message)
-
-spacer = '-' * 50
+from website.api.teamcity import TeamCity
 
 
-def write_to_file_setup_info(to_file, artifacts=None, sql_path=None, test_mode=False):
-    File.append_text_to_file(to_file, spacer, "\n", spacer)
-    File.append_text_to_file(to_file, "\t\tApp version(s) TeamCity\n")
-    sql_version = None
-    if not test_mode:
-        write_downloaded_application_version_info(file_path=to_file, artifact=artifacts)
-        sql_version = (lambda value: artifacts.application.service.version_number if
-        artifacts.application.service.version_number else None)(artifacts.application.service.version_number)
-    elif test_mode:
-        sql_version = "Test.2.2"
-        write_dummy_info_to_file(to_file)
+class Infrastructure:
 
-    File.append_text_to_file(to_file, spacer, "\n", spacer)
+    def __init__(self):
+        self.ConfigurationManager = ConfigManager.get_instance()
+        self.application_setting = self.ConfigurationManager.get_artifacts_to_download()
+        self.teamcity_setting = self.ConfigurationManager.get_teamcity()
+        self.database_setting = self.ConfigurationManager.get_database()
+        self.environment_setting = self.ConfigurationManager.get_environment_setting()
 
-    File.append_text_to_file(to_file, "\t\tDownloaded new apps\n")
-    File.append_text_to_file(to_file, "\tLocation: ", deployment_env_paths["path_download_root"])
-    File.append_text_to_file(to_file, spacer, "\n", spacer)
-
-    File.append_text_to_file(to_file, "\t\tReplaced old apps\n")
-    File.append_text_to_file(to_file, "\tLocation: ", deployment_env_paths["path_vertexApp"])
-    File.append_text_to_file(to_file, spacer, "\n", spacer)
-
-    if sql_path:
-        File.append_text_to_file(to_file, "\t\tDatabase\n")
-        File.append_text_to_file(to_file, "\tScript: ", File.path.basename(sql_path))
-        File.append_text_to_file(to_file, "\tService #: ", sql_version)
-        File.append_text_to_file(to_file, "\tStatus: Re-created with latest")
-        File.append_text_to_file(to_file, spacer, "\n", spacer)
-
-
-def write_downloaded_application_version_info(file_path, artifact):
-    try:
-        if artifact.application.dataservice.compare_file_count():
-            File.append_text_to_file(file_path, "\t", artifact.application.dataservice.folder, "\t\t\t",
-                                     artifact.application.dataservice.version_number)
+    def check_teamcity_available(self):
+        teamcity_connection = TeamCity(host=get_dict_value(self.teamcity_setting, ["host"]),
+                                       username=get_dict_value(self.teamcity_setting, ["teamcity_username"]),
+                                       password=get_dict_value(self.teamcity_setting, ["teamcity_password"]))
+        if teamcity_connection:
+            response = teamcity_connection.get_teamcity_response()  # type: response
+            if response:
+                if response.status_code == 200:
+                    return True
+                elif response.status_code == 401:
+                    print "Incorrect TeamCity login credentials | url: {}".format(
+                        get_dict_value(self.teamcity_setting, ["host"]))
+                    return False
+                else:
+                    print "Cannot reach TeamCityConnection"
+                    return False
         else:
-            File.append_text_to_file(file_path, "\t", artifact.application.dataservice.folder, "\t\t\t",
-                                     "NA")
-    except (AttributeError, ValueError, TypeError) as err:
-        print "Error in writing version info <DataService>: {}\nargs{}".format(err.message, err.args)
-    try:
-        if artifact.application.reports.compare_file_count():
-            File.append_text_to_file(file_path, "\t", artifact.application.reports.folder, "\t\t\t\t",
-                                     artifact.application.reports.version_number)
+            print "No response | Issue with TeamCity while creating TeamCity connection :{}".format(teamcity_connection)
+            return False
+
+    def get_database_connection(self):
+        database_connection = Database.get_database_connection(
+            server=get_dict_value(self.database_setting, ["db_server"]),
+            username=get_dict_value(self.database_setting, ["db_username"]),
+            password=get_dict_value(self.database_setting, ["db_password"]))
+        if database_connection:
+            return database_connection
         else:
-            File.append_text_to_file(file_path, "\t", artifact.application.reports.folder, "\t\t\t",
-                                     "NA")
-    except (AttributeError, ValueError, TypeError) as err:
-        print "Error in writing version info <Reports>: {}\nargs{}".format(err.message, err.args)
-    try:
-        if artifact.application.service.compare_file_count():
-            File.append_text_to_file(file_path, "\t", artifact.application.service.folder, "\t\t\t\t",
-                                     artifact.application.service.version_number)
+            return False
+
+    def check_download_location_ready(self):
+        download_location = get_dict_value(self.environment_setting, ["download_artifact_root_path"])
+        copy_all_config_location = Folder.build_path(download_location,
+                                                     get_dict_value(self.environment_setting,
+                                                                    ["artifact_config_folder"]))
+        if Folder.create_folder(download_location) and Folder.create_folder(copy_all_config_location):
+            Folder.delete_folder_contents(folder_path=copy_all_config_location)
+            return True
         else:
-            File.append_text_to_file(file_path, "\t", artifact.application.service.folder, "\t\t\t",
-                                     "NA")
-    except (AttributeError, ValueError, TypeError) as err:
-        print "Error in writing version info <Service>: {}\nargs{}".format(err.message, err.args)
-    try:
-        if artifact.application.shell.compare_file_count():
-            File.append_text_to_file(file_path, "\t", artifact.application.shell.folder, "\t\t\t\t",
-                                     artifact.application.shell.version_number)
-        else:
-            File.append_text_to_file(file_path, "\t", artifact.application.shell.folder, "\t\t\t",
-                                     "NA")
-    except (AttributeError, ValueError, TypeError) as err:
-        print "Error in writing version info <Shell>: {}\nargs{}".format(err.message, err.args)
-    try:
-        if artifact.application.ui.compare_file_count():
-            File.append_text_to_file(file_path, "\t", artifact.application.ui.folder, "\t\t\t\t\t",
-                                     artifact.application.ui.version_number)
-        else:
-            File.append_text_to_file(file_path, "\t", artifact.application.ui.folder, "\t\t\t",
-                                     "NA")
-    except (AttributeError, ValueError, TypeError) as err:
-        print "Error in writing version info <UI>: {}\nargs{}".format(err.message, err.args)
+            return False
 
-
-def write_dummy_info_to_file(file_path):
-    File.append_text_to_file(file_path, "\tF1", "\t\t\t\t", "123")
-    File.append_text_to_file(file_path, "\tF2", "\t\t\t\t", "123")
-    File.append_text_to_file(file_path, "\tF3", "\t\t\t\t", "321")
-
-
-def start_controller_setup(test_mode):
-    file_name = "BuildDeploymentInfo_" + strftime("%Y-%m-%dT%H%M%S", localtime()) + ".txt"
-    # File to save the stats such as apps downloaded and their version, db script used and etc
-    file_save_deployment_stats = Folder.build_path(deployment_env_paths["path_download_root"], file_name)
-
-    start_s = time()  # The execution epoch start time
-    start_time = strftime("%H:%M:%S", localtime())  # The execution local start time
-
-    artifact = ManageArtifacts()
-
-    # Download all artifacts
-    start = time()  # Download epoch start time
-    artifact.download_artifacts()
-    end = time()  # Download epoch finish time
-    time_download = end - start
-
-    # Replace old with new artifacts
-    start = time()  # Build replacement epoch start time
-    artifact.replace_artifacts()
-    end = time()  # Build replacement epoch start time
-    time_replace = end - start
-
-    sql_path = os.path.join(deployment_env_paths["path_download_root"], local_database_setting["db_to_setup"])
-    time_db = None
-    if File.file_exists(sql_path):
-        start = time()  # Download epoch start time
-        Database.recreate_database_from_script(sql_path)
-        end = time()  # Download epoch start time
-        time_db = end - start
-        write_to_file_setup_info(to_file=file_save_deployment_stats, artifacts=artifact, sql_path=sql_path,
-                                 test_mode=test_mode)
-
-    print "{}\n{}".format('#' * 45, '  *' * 15)
-    print "Artifact download time: {}".format(get_readable_epoch_time(time_download))
-    print "Artifact replacement time: {}".format(get_readable_epoch_time(time_replace))
-    print "Database re-create time: {}".format(get_readable_epoch_time(time_db))
-    print "{}\n{}".format("  *" * 15, "#" * 45)
-
-    File.append_text_to_file(file_save_deployment_stats, "\t\tElapsed time (hh:mm:ss)\n")
-    File.append_text_to_file(file_save_deployment_stats, "\tDownload build -----> ",
-                             get_readable_epoch_time(time_download))
-    File.append_text_to_file(file_save_deployment_stats, "\tReplace build  -----> ",
-                             get_readable_epoch_time(time_replace))
-    File.append_text_to_file(file_save_deployment_stats, "\tDatabase recreate --> ", get_readable_epoch_time(time_db))
-    end_s = time()
-    time_s = end_s - start_s
-    File.append_text_to_file(file_save_deployment_stats, "\tTotal execution ----> ", get_readable_epoch_time(time_s))
-    File.append_text_to_file(file_save_deployment_stats, spacer, "\n", spacer)
-
-    File.append_text_to_file(file_save_deployment_stats, "\t\tTime (local time)\n")
-    File.append_text_to_file(file_save_deployment_stats, "\tStart --> ", start_time)
-    end_time = strftime("%H:%M:%S", localtime())
-    File.append_text_to_file(file_save_deployment_stats, "\tEnd ----> ", end_time)
-    File.append_text_to_file(file_save_deployment_stats, spacer, "\n", spacer)
-
-
-def get_readable_epoch_time(float_time):
-    hours, rem = divmod(float_time, 3600)
-    minutes, seconds = divmod(rem, 60)
-    return "{:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds)
-
-
-def check_database_connection():
-    database = Database.get_database_connection()
-    if database.connection:
-        return True
-    else:
-        return False
-
-
-def controller_infrastructure_ready():
-    configuration = ConfigManager()
-    status = True
-    if configuration.update_framework_config():
+    def is_ready(self):
         print "Configuration files: Ok"
-    else:
-        print "Configuration files: Bad"
-        return False
-    if configuration.check_teamcity_available():
-        print "TeamCity server: Ok"
-    else:
-        print "TeamCity server: Bad"
-        return False
-    if check_database_connection():
-        print "Database server: Ok"
-    else:
-        print "Database server: Bad"
-        return False
-    return status
+        if self.check_teamcity_available():
+            print "TeamCity server: Ok"
+        else:
+            print "TeamCity server: Error"
+            return False
 
+        if self.check_download_location_ready():
+            print "Download location: Ok"
+        else:
+            print "Download location: Error"
+            return False
 
-def config_file_select(test_mode):
-    destination_path = Folder.build_path("config/", 'framework_config.py')
-    if test_mode:
-        source_path = Folder.build_path("config/", 'framework_config_TEST.py')
-    # File.copy_from_to_file(source=source_path, destination=destination_path)
-    else:
-        source_path = Folder.build_path("config/", 'framework_config_PROD.py')
-    # File.copy_from_to_file(source=source_path, destination=destination_path)
-    print "Run: {}\nProcess: {}".format(Environment, process_to_stop)
+        if self.get_database_connection():
+            print "Database server: Ok"
+        else:
+            print "Database server: Error"
+            return False
+        return True
+
+    def get_sql_script(self, app_details):
+        # check if sql data is available
+        download_handler = get_dict_value(app_details, ["sql", "Download"])  # type: DownloadApplication
+        if download_handler and download_handler.get_download_status():
+            sql_path = Folder.build_path(download_handler.download_path,
+                                         get_dict_value(self.environment_setting, ["db_property", "db_script"]))
+            return sql_path
+        return None
+
+    def start_setup(self):
+        logger = DeploymentLog(get_dict_value(self.environment_setting, ["download_artifact_root_path"]))
+
+        total_database_time = None
+
+        artifact = ManageApplication(app_setting=self.application_setting, env_setting=self.environment_setting)
+
+        # DownloadApplication all artifacts
+        start_time = logger.time_it()
+        artifact.download_application()
+        total_download_time = logger.total_time(start=start_time, end=logger.time_it())
+
+        # Replace old with new artifacts
+        start_time = logger.time_it()
+        artifact.replace_application()
+        total_replace_time = logger.total_time(start=start_time, end=logger.time_it())
+
+        application_details = artifact.get_application_details()  # type: dict
+
+        sql_path = self.get_sql_script(app_details=application_details)
+
+        if sql_path:
+            start_time = logger.time_it()
+            Database.recreate_database_from_script(database_connection=self.get_database_connection(),
+                                                   sql_path=sql_path,
+                                                   env_setting=self.environment_setting)
+            total_database_time = logger.total_time(start=start_time, end=logger.time_it())
+            print "{}\n{}\nDatabase recreated\n{}\n{}".format(artifact.spacer_char_hyphen, artifact.spacer_char_hyphen,
+                                                              artifact.spacer_char_hyphen, artifact.spacer_char_hyphen)
+
+        logger.write_deployment_status(app_details=application_details)
+        download_location = get_dict_value(self.environment_setting, ["download_artifact_root_path"])
+        logger.write_database_info(sql_path=sql_path)
+        logger.write_artifact_info(download_path=download_location)
+        logger.write_time(time_download=total_download_time, time_replace=total_replace_time,
+                          time_db=total_database_time)

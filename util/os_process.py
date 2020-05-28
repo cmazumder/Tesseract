@@ -5,7 +5,7 @@ import time
 import psutil
 
 
-def get_processid_by_name(image_name):
+def get_processid_by_name(process_name):
     '''
     Get a list of all the PIDs of the running process whose name contains
     the given string processName
@@ -17,7 +17,7 @@ def get_processid_by_name(image_name):
         try:
             info = process.as_dict(attrs=['pid', 'name', 'create_time'])
             # Check if process name contains the given name string.
-            if image_name.lower() in info['name'].lower():
+            if process_name.lower() in info['name'].lower():
                 list_of_processes.append(info)
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
@@ -47,10 +47,8 @@ def kill_process_tree(pid, sig=signal.SIGTERM, include_parent=True,
     return status(pid)
 
 
-spacer = '-' * 50
-
-
 def test_close_process():
+    spacer = '-' * 50
     # This is just a test function, and not to be used in code
     # to-do remove while refactoring
     # listOfProcessIds = get_processid_by_name('chrome', 'conhost', 'pycharm64.exe', 'WinMergeU')

@@ -1,76 +1,136 @@
-from config import setup_choice
-from framework_config import teamcity_setting, vertex_buildTypeID, teamcity_download_setting
-from local.database import Database
-from util.connection import Connection
+from config.manage_json_config import get_json_as_dictionary, get_value_from_json_file
 
 
-class ConfigManager:
-    def __init__(self):
-        pass
+class ConfigLoadError(Exception):
+    """Raise if error in loading Configuration file"""
 
-    def update_download_setting(self):
-        """
 
-        :return:
-        :rtype:
-        """
+class ConfigManager(object):
+    _instance = None
+    config_load_status = None  # type: bool  # Status if all configs are successfully loaded
+    list_configs_failed = []  # type: list  # List of configs that could not be loaded
+
+    master_config_with_path = None  # type: str  # Path of json config, for each individual config files
+    artifacts_to_download_setting = None  # type: dict # config/json_config/artifacts_to_download_VERTEX.json
+    environment_setting = None  # type: dict  # Load config/json_config/environment_setting_VERTEX.json
+    database_setting = None  # type: dict  # Load config/json_config/database_setting.json
+    teamcity_setting = None  # type: dict  # Load config/json_config/teamcity_setting.json    
+
+    @staticmethod
+    def get_instance():
+        """ Static access method. """
+        if not ConfigManager._instance:
+            raise RuntimeError('Did you call __new__() ?')
+        return ConfigManager._instance
+
+    def __new__(cls, path_to_master_config):
+        if cls._instance is None:
+            cls._instance = super(ConfigManager, cls).__new__(cls)
+            # Put any initialization here.
+            cls.master_config_with_path = path_to_master_config
+            cls.load_all_configurations()
+        return cls._instance
+
+    @classmethod
+    def load_config(cls, setting_name):
+        relative_path = get_value_from_json_file(cls.master_config_with_path, [setting_name])
         try:
-            # download vertex trunk builds
-            if setup_choice["vertex"]["download"].lower() == 'yes':
+            dictionary = get_json_as_dictionary(relative_path)
+            if dictionary:
+                del dictionary["_about"]
+                return dictionary
+            else:
+                raise ConfigLoadError("Cannot load --> {}\nPath -->{}".format(setting_name, relative_path))
+        except KeyError as err:
+            print "Key error: {}".format(err.message)
 
-                teamcity_download_setting.update(vertex_buildTypeID)
-                teamcity_download_setting.update({"sql": {  # BuildTypeID for Vertex DataService
-                    "buildTypeID": None,
-                    "anchor": "SQL"
-                }})
-                return True
-            # if user marked both Vertex and Nabler download as yes
-            elif setup_choice["vertex"]["download"].lower() == 'yes' and \
-                    setup_choice["nabler"]["download"].lower() == 'yes':
-                print "Cannot setup Vertex and N-Abler artifacts together! Check config file"
-                return False
-        except (KeyError, NameError) as err:
-            print "Error <ConfigManager> <update_download_setting>: {0}\nLists: {1}".format(err.message, err.args)
-            return False
 
-    def get_teamcity_api(self):
+    @classmethod
+    def load_teamcity(cls):
         try:
-            if setup_choice["buildTypeID"].lower() == 'yes':
-                teamcity_setting["api_buildId"] = r"app/rest/builds/buildType:{0},status:success"
-                return True
-            elif setup_choice["tag"]["download"].lower() == 'yes':
-                teamcity_setting["api_buildId"] = r"app/rest/builds/buildType:{0},tags:({1})"
-                return True
-            elif setup_choice["buildTypeID"].lower() == 'yes' and \
-                    setup_choice["tag"]["download"].lower() == 'yes':
-                print "Cannot download using BuildTypeID and Tags together! Check config file"
-                return False
-        except (KeyError, NameError) as err:
-            print "Error <ConfigManager> <update_download_setting>: {0}\nLists: {1}".format(err.message, err.args)
-            return False
-
-    def update_framework_config(self):
-        if self.get_teamcity_api() and self.update_download_setting():
+            cls.teamcity_setting = cls.load_config("teamcity_setting")
             return True
-        else:
+        except ConfigLoadError as err:
+            print "Error: {0}".format(err.message)
             return False
 
-    def check_teamcity_available(self):
-        teamcity = Connection()
-        response = teamcity.get_url_response(url=teamcity_setting["host"],
-                                             username=teamcity_setting["teamcity_username"],
-                                             password=teamcity_setting["teamcity_username"])
-        if response:
-            if response.status_code == 200:
-                return True
-            elif response.status_code == 401:
-                print "Incorrect TeamCity login credentials"
-                return False
-        else:
-            print "Cannot reach TeamCity"
-            return False
-
-    def check_database_connection(self):
-        db = Database()
-        if db.connect_to_db():
+    @classmethod
+    def load_database(cls):
+        try:
+            cls.database_setting = cls.load_config("database_setting")
             return True
+        except ConfigLoadError as err:
+            print "Error: {0}".format(err.message)
+            return False
+
+    @classmethod
+    def load_artifacts_to_download(cls):
+        try:
+            cls.artifacts_to_download_setting = cls.load_config("artifacts_to_download")
+            return True
+        except ConfigLoadError as err:
+            print "Error: {0}".format(err.message)
+            return False
+
+    @classmethod
+    def load_environment_setting(cls):
+        try:
+            cls.environment_setting = cls.load_config("environment_setting")
+            return True
+        except ConfigLoadError as err:
+            print "Error: {0}".format(err.message)
+            return False
+
+    @classmethod
+    def get_teamcity(cls):
+        return cls.teamcity_setting
+
+    @classmethod
+    def get_database(cls):
+        return cls.database_setting
+
+    @classmethod
+    def get_artifacts_to_download(cls):
+        return cls.artifacts_to_download_setting
+
+    @classmethod
+    def get_environment_setting(cls):
+        return cls.environment_setting
+
+    @classmethod
+    def get_load_status(cls):
+        return cls.config_load_status
+
+    @classmethod
+    def get_list_of_failed_configs(cls):
+        return cls.list_configs_failed
+
+    @classmethod
+    def load_all_configurations(cls):
+        """Load all json configuration files.
+
+        Args:
+        Returns:
+        Raises:
+        """
+        cls.config_load_status = True
+        # Load TeamCity
+        if not cls.load_teamcity():
+            print "Problem with Teamcity config"
+            cls.config_load_status = False
+            cls.list_configs_failed.append("TeamCity")
+        # Load application setting
+        if not cls.load_artifacts_to_download():
+            print "Problem with application config"
+            cls.config_load_status = False
+            cls.list_configs_failed.append("Application")
+        # Load Database setting
+        if not cls.load_database():
+            print "Problem with database config"
+            cls.config_load_status = False
+            cls.list_configs_failed.append("Database")
+        # Load environment setting
+        if not cls.load_environment_setting():
+            print "Problem with environment config"
+            cls.config_load_status = False
+            cls.list_configs_failed.append("Environment")
