@@ -33,8 +33,10 @@ class DownloadApplication(Thread, Application):
     def run(self):
         api = self.build_success_api()
         if self.has_successful_build(api_url=api):
-            print "Application: {0} | Version: {1}\n".format(self.application_name,self.get_version_number())
+            print "Downloading \'{0}\' | Version: {1} | please wait".format(self.application_name,
+                                                                            self.get_version_number())
             self.__initiate_download()
+            print "Updating \'{0}\' download status".format(self.application_name)
             self.__update_download_status()
         else:
             print "Application: {0} | No successful build".format(self.application_name)

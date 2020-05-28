@@ -66,7 +66,7 @@ class ReplaceApplication:
             print "File size differ\n" \
                   "Source (size): {0} ({1})\n" \
                   "Destination (size): {2} ({3})".format(source, File.compute_file_size(source),
-                                                  destination, File.compute_file_size(destination))
+                                                         destination, File.compute_file_size(destination))
             return False
 
     def replace_artifact(self):

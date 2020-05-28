@@ -6,7 +6,9 @@
     "buildTypeID": "Vertex_AuditUI_AuditUITrunk",
     "tags": null,
     "anchor": "AuditUI_Publish",
-    "copy_artifacts_to_path": null,
+    "copy_artifacts_to_path": [
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\AuditUI"
+    ],
     "copy_config_to_path": null
   },
   "CMS": {
@@ -16,11 +18,11 @@
     "tags": null,
     "anchor": "CMSServiceHost",
     "copy_artifacts_to_path": [
-      "D:\\CMS"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\CMS"
     ],
     "copy_config_to_path": [
-      "D:\\Backup\\Configurations",
-      "F:\\Configurations"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\NABLER\\F_Drive\\Configurations"
     ]
   },
   "InterfaceBoard": {
@@ -30,11 +32,11 @@
     "tags": null,
     "anchor": "InterfaceBoardServiceHost",
     "copy_artifacts_to_path": [
-      "D:\\InterfaceBoardService"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\InterfaceBoardService"
     ],
     "copy_config_to_path": [
-      "D:\\Backup\\Configurations",
-      "F:\\Configurations"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\NABLER\\F_Drive\\Configurations"
     ]
   },
   "Watchdog": {
@@ -44,7 +46,7 @@
     "tags": null,
     "anchor": "Aristocrat.Watchdog.Service",
     "copy_artifacts_to_path": [
-      "D:\\Watchdog"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Watchdog"
     ],
     "copy_config_to_path": null
   },
@@ -55,11 +57,11 @@
     "tags": null,
     "anchor": "ValyriaTray/Release",
     "copy_artifacts_to_path": [
-      "D:\\Valyria"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Valyria"
     ],
     "copy_config_to_path": [
-      "D:\\Backup\\Configurations",
-      "F:\\Configurations"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\NABLER\\F_Drive\\Configurations"
     ]
   },
   "DataService": {
@@ -69,7 +71,7 @@
     "tags": null,
     "anchor": "VertexDataService",
     "copy_artifacts_to_path": [
-      "D:\\DataService"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\DataService"
     ],
     "copy_config_to_path": null
   },
@@ -80,11 +82,11 @@
     "tags": null,
     "anchor": "Aristocrat.Vertex.Reports.Web",
     "copy_artifacts_to_path": [
-      "D:\\Reports"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Reports"
     ],
     "copy_config_to_path": [
-      "D:\\Backup\\Configurations",
-      "F:\\Configurations"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\NABLER\\F_Drive\\Configurations"
     ]
   },
   "Service": {
@@ -94,11 +96,11 @@
     "tags": null,
     "anchor": "Applications/Aristocrat.Vertex.Service/Release",
     "copy_artifacts_to_path": [
-      "D:\\Service"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Service"
     ],
     "copy_config_to_path": [
-      "D:\\Backup\\Configurations",
-      "F:\\Configurations"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\NABLER\\F_Drive\\Configurations"
     ]
   },
   "SQL": {
@@ -117,11 +119,11 @@
     "tags": null,
     "anchor": "VertexShell",
     "copy_artifacts_to_path": [
-      "D:\\Shell"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Shell"
     ],
     "copy_config_to_path": [
-      "D:\\Backup\\Configurations",
-      "F:\\Configurations"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\NABLER\\F_Drive\\Configurations"
     ],
     "find_text": [
       "enabled=\"true\""
@@ -137,11 +139,11 @@
     "tags": null,
     "anchor": "Aristocrat.Vertex.UI.Web",
     "copy_artifacts_to_path": [
-      "D:\\UI"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\UI"
     ],
     "copy_config_to_path": [
-      "D:\\Backup\\Configurations",
-      "F:\\Configurations"
+      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\NABLER\\F_Drive\\Configurations"
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "_about": "path to all configuration files",
-  "artifacts_to_download": "config/json_config/artifacts_to_download.json",
-  "environment_setting": "config/json_config/environment_setting.json",
+  "artifacts_to_download": "config/json_config/artifacts_to_download_VERTEX.json",
+  "environment_setting": "config/json_config/environment_setting_VERTEX.json",
   "database_setting": "config/json_config/database_setting.json",
   "teamcity_setting": "config/json_config/teamcity_setting.json"
 }

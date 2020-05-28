@@ -1,0 +1,82 @@
+{
+  "_about": "Vertex controller artifacts",
+  "dataservice": {
+    "folder_name": "DataService",
+    "config_file_name": "DataService.config",
+    "buildTypeID": "bt6",
+    "anchor": "VertexDataService",
+    "copy_artifacts_to_path": [
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\DataService"
+    ],
+    "copy_config_to_path": [
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Configurations"
+    ]
+  },
+  "reports": {
+    "folder_name": "Reports",
+    "config_file_name": "Reports.config",
+    "buildTypeID": "Vertex_ReportsTrunk",
+    "anchor": "Aristocrat.Vertex.Reports.Web",
+    "copy_artifacts_to_path": [
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\Reports"
+    ],
+    "copy_config_to_path": [
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Configurations"
+    ]
+  },
+  "service": {
+    "folder_name": "Service",
+    "config_file_name": "Controller.config",
+    "buildTypeID": "Vertex_Vertex_Trunk",
+    "anchor": "Applications/Aristocrat.Vertex.Service",
+    "copy_artifacts_to_path": [
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\Service"
+    ],
+    "copy_config_to_path": [
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Configurations"
+    ]
+  },
+  "sql": {
+    "folder_name": "SQL",
+    "config_file_name": null,
+    "buildTypeID": "Vertex_Vertex_Trunk",
+    "anchor": "SQL",
+    "copy_artifacts_to_path": null,
+    "copy_config_to_path": null
+  },
+  "shell": {
+    "folder_name": "Shell",
+    "config_file_name": "Shell.config",
+    "buildTypeID": "Vertex_VertexShell_Trunk",
+    "anchor": "VertexShell",
+    "copy_artifacts_to_path": [
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\Shell"
+    ],
+    "find_text": [
+      "enabled=\"true\""
+    ],
+    "replace_text": [
+      "enabled=\"false\""
+    ],
+    "copy_config_to_path": [
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Configurations"
+    ]
+  },
+  "ui": {
+    "folder_name": "UI",
+    "config_file_name": "Web.config",
+    "buildTypeID": "Vertex_VertexUI_Trunk",
+    "anchor": "Aristocrat.Vertex.UI.Web",
+    "copy_artifacts_to_path": [
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\UI"
+    ],
+    "copy_config_to_path": [
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Configurations"
+    ]
+  }
+}

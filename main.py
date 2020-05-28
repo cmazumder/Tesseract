@@ -6,7 +6,7 @@ from infrastructure import Infrastructure
 
 def main(test_mode=False):
     if test_mode:
-        config_file_path = r"json_config/test_config/config_path.json"
+        config_file_path = r"json_config/test_config/config_path_TEST.json"
     else:
         config_file_path = r'json_config/config_path.json'
 
@@ -23,4 +23,4 @@ def main(test_mode=False):
 
 
 if __name__ == '__main__':
-    main(test_mode=False)
+    main(test_mode=True)

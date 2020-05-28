@@ -29,31 +29,38 @@ class ManageApplication:
 
         self.application_details = app_setting
         self.application_name_keys = app_setting.keys()
-        self.__get_and_update_download_list()
 
     def download_application(self):
         """ Download Applications """
-        print self.spacer_char_asterisk
+        self.__get_and_update_download_list()
+        download_instances = []
         for application in self.application_name_keys:
-            app_handler = get_dict_value(self.application_details,
-                                         [application, "Download"])  # type: DownloadApplication
-            app_handler.start()
-            print "Downloading {}, please wait".format(app_handler.application_name)
+            download_instances.append(get_dict_value(self.application_details,
+                                                     [application, "Download"]))  # type: DownloadApplication
 
         print self.spacer_char_asterisk
-        for application in self.application_name_keys:
-            app_handler = get_dict_value(self.application_details,
-                                         [application, "Download"])  # type: DownloadApplication
-            app_handler.join()
-            print "Completing {}, please wait".format(app_handler.application_name)
-            print self.spacer_char_hyphen
-            print "Application --> {}\n".format(app_handler.application_name)
-            app_handler.print_download_status()
-            app_handler.show_downloaded_info()
-            print self.spacer_char_hyphen
+        map(self._start_thread, download_instances)
+        map(self._join_thread, download_instances)
+        # print "Completing {}, please wait".format(app_handler.application_name)
+        print self.spacer_char_hyphen
+        map(self._print_download_info, download_instances)
 
         # extract and collect all config files into a folder
         map(self.__extract_configuration_file, self.application_name_keys)
+
+    def _start_thread(self, instance):
+        application_instance = instance  # type: DownloadApplication
+        application_instance.start()
+
+    def _join_thread(self, instance):
+        application_instance = instance  # type: DownloadApplication
+        application_instance.join()
+
+    def _print_download_info(self, instance):
+        application_instance = instance  # type: DownloadApplication
+        print "Application --> {}\n".format(application_instance.application_name)
+        application_instance.print_download_status()
+        application_instance.show_downloaded_info()
 
     def __get_and_update_download_list(self):
         """
@@ -87,9 +94,9 @@ class ManageApplication:
         except TypeError as err:
             print "Issue creating ReplaceApplication:{}\nArgs{}".format(err.message, err.args)
 
-            for replace_object in list_of_application_object:
-                if list_of_application_object[replace_object] is not 'None':
-                    self.application_details[replace_object]['Replace'] = list_of_application_object[replace_object]
+        for replace_object in list_of_application_object:
+            if list_of_application_object[replace_object] is not 'None':
+                self.application_details[replace_object]['Replace'] = list_of_application_object[replace_object]
 
     def __get_and_update_replace_list2(self):
         # tester function and should be removed in future
@@ -103,17 +110,19 @@ class ManageApplication:
                                               [app_name, "Download"])  # type: DownloadApplication
         if app_download_handler.get_download_status() is True:
             curr_app_destinations = get_dict_value(self.application_details, [app_name, "copy_artifacts_to_path"])
-            if curr_app_destinations:
+            curr_config_name = get_dict_value(self.application_details, [app_name, "config_file_name"])
+            if curr_app_destinations or curr_config_name:
                 curr_app_source = app_download_handler.download_path
-                curr_config_name = get_dict_value(self.application_details, [app_name, "config_file_name"])
-                curr_config_source = Folder.build_path(self.config_folder_path, curr_config_name)
                 curr_config_destinations = get_dict_value(self.application_details, [app_name, "copy_config_to_path"])
+                curr_config_source = None
+                if curr_config_name and curr_config_destinations:
+                    curr_config_source = Folder.build_path(self.config_folder_path, curr_config_name)
                 # create replacement object, since have replacement destination
                 return app_name, ReplaceApplication(app_source=curr_app_source, app_destinations=curr_app_destinations,
                                                     config_source=curr_config_source,
                                                     config_destinations=curr_config_destinations)
             else:
-                print "\'{}\' has empty destination, skip replacement instance".format(app_name)
+                print "\'{}\' not meant to be replaced, skip replacement instance".format(app_name)
                 return app_name, 'None'
         else:
             print "\'{}\' not downloaded properly, skip replacement instance".format(app_name)
@@ -144,7 +153,7 @@ class ManageApplication:
             config_file_name = get_dict_value(self.application_details, [app_name, "config_file_name"])
             if config_file_name:
                 config_source_path = File.search_file_first_occurrence(filename=config_file_name,
-                                                                search_path=app_object.download_path)
+                                                                       search_path=app_object.download_path)
                 if config_source_path:
                     config_destination_path = Folder.build_path(self.config_folder_path, config_file_name)
                     File.copy_from_to_file(source=config_source_path, destination=config_destination_path)

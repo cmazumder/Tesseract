@@ -7,10 +7,12 @@ from util.file_actions import file_exists, delete_file, compute_file_size
 
 def delete_folder(folder_path):
     try:
-        if isdir(folder_path):
+        if folder_exists(folder_path):
             rmtree(folder_path)
-    except Exception as E:
-        print E.message
+        else:
+            print "Cannot delete. Non-existent or not a folder: {}".format(folder_path)
+    except WindowsError as err:
+        print "Cannot delete folder: {}\nErr: {}".format(folder_path, err.message)
 
 
 def move_from_to_location(source, destination):
@@ -27,9 +29,10 @@ def copy_from_to_location(source, destination):
     try:
         copytree(source, destination)
         return True
-    except Exception as E:
-        print E.message
-        return False
+    except WindowsError as err:
+        print "Issue with SOURCE: {} DESTINATION: {}".format(source, destination)
+        print "Err: {}".format(err.args)
+    return False
 
 
 def build_path(*args):
@@ -71,13 +74,18 @@ def create_folder(folder_path):
 
 def delete_folder_contents(folder_path):
     # Delete contents of folder
-    if folder_exists(folder_path):
-        for item in listdir(folder_path):
-            path = build_path(folder_path, item)
-            if folder_exists(path):
-                delete_folder(path)
-            elif file_exists(path):
-                delete_file(path)
+    try:
+        if folder_exists(folder_path):
+            for item in listdir(folder_path):
+                path = build_path(folder_path, item)
+                if folder_exists(path):
+                    delete_folder(path)
+                elif file_exists(path):
+                    delete_file(path)
+        else:
+            print "Cannot delete non existent folder: {}".format(folder_path)
+    except WindowsError as err:
+        print "Cannot delete folder: {}\nErr: {}".format(folder_path, err.message)
 
 
 def get_folder_properties_file_count(folder_path):
