@@ -11,8 +11,8 @@ class ConfigManager(object):
     list_configs_failed = []  # type: list  # List of configs that could not be loaded
 
     master_config_with_path = None  # type: str  # Path of json config, for each individual config files
-    artifacts_to_download_setting = None  # type: dict # config/json_config/artifacts_to_download.json
-    environment_setting = None  # type: dict  # Load config/json_config/environment_setting.json
+    artifacts_to_download_setting = None  # type: dict # config/json_config/artifacts_to_download_VERTEX.json
+    environment_setting = None  # type: dict  # Load config/json_config/environment_setting_VERTEX.json
     database_setting = None  # type: dict  # Load config/json_config/database_setting.json
     teamcity_setting = None  # type: dict  # Load config/json_config/teamcity_setting.json    
 

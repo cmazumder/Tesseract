@@ -29,7 +29,7 @@ class ManageApplication:
 
         self.application_details = app_setting
         self.application_name_keys = app_setting.keys()
-        self.__make_and_update_application_details_with_download_handler()
+        self.__get_and_update_download_list()
 
     def download_application(self):
         """ Download Applications """
@@ -37,11 +37,14 @@ class ManageApplication:
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details,
                                          [application, "Download"])  # type: DownloadApplication
-            app_handler.start()  # type: DownloadApplication
+            print "Downloading {}, please wait".format(app_handler.application_name)
+            app_handler.start()
+
         print self.spacer_char_asterisk
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details,
                                          [application, "Download"])  # type: DownloadApplication
+            print "Completing {}, please wait".format(app_handler.application_name)
             app_handler.join()
             print self.spacer_char_hyphen
             print "Application --> {}\n".format(app_handler.application_name)
@@ -52,7 +55,7 @@ class ManageApplication:
         # extract and collect all config files into a folder
         map(self.__extract_configuration_file, self.application_name_keys)
 
-    def __make_and_update_application_details_with_download_handler(self):
+    def __get_and_update_download_list(self):
         """
         Download application
         @return:
@@ -76,17 +79,20 @@ class ManageApplication:
                                              download_artifact_root_path=self.download_application_root_path,
                                              exclude_file_extension=ignore_extensions)
 
-    def __make_and_update_application_details_with_replace_handler(self):
+    def __get_and_update_replace_list(self):
+        list_of_application_object = dict
         try:
             list_of_application_object = dict(
                 map(self.__create_replace_object, self.application_name_keys))
-            for replace_object in list_of_application_object:
-                if list_of_application_object[replace_object] is not 'None':
-                    self.application_details[replace_object]['Replace'] = list_of_application_object[replace_object]
         except TypeError as err:
             print "Issue creating ReplaceApplication:{}\nArgs{}".format(err.message, err.args)
 
-    def __make_and_update_application_details_with_replace_handler2(self):
+            for replace_object in list_of_application_object:
+                if list_of_application_object[replace_object] is not 'None':
+                    self.application_details[replace_object]['Replace'] = list_of_application_object[replace_object]
+
+    def __get_and_update_replace_list2(self):
+        # tester function and should be removed in future
         for item in self.application_name_keys:
             app_name, replace_object = self.__create_replace_object(app_name=item)
             if replace_object is not 'None':
@@ -106,7 +112,12 @@ class ManageApplication:
                 return app_name, ReplaceApplication(app_source=curr_app_source, app_destinations=curr_app_destinations,
                                                     config_source=curr_config_source,
                                                     config_destinations=curr_config_destinations)
-        return app_name, 'None'
+            else:
+                print "\'{}\' has empty destination, skip replacement instance".format(app_name)
+                return app_name, 'None'
+        else:
+            print "\'{}\' not downloaded properly, skip replacement instance".format(app_name)
+            return app_name, 'None'
 
     @staticmethod
     def __close_running_process(process_name):
@@ -150,7 +161,7 @@ class ManageApplication:
 
     def replace_application(self):
         # make list of applications to be replaced
-        self.__make_and_update_application_details_with_replace_handler2()
+        self.__get_and_update_replace_list()
         map(self.__close_running_process, self.process_to_terminate)
         print "{}\n{}".format(self.spacer_char_asterisk, self.spacer_char_asterisk)
         for application in self.application_name_keys:

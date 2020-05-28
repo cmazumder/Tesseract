@@ -68,8 +68,8 @@ class DeploymentLog:
         self.set_artifact_details(app_detail=app_details)
 
         if self.app_keys:
-            string = ("\t" + self.tab_text * 8).format("App", "Version", "Download", "Replace\n", "\t", "",
-                                                       " status", " status")
+            string = ("\t" + self.tab_text * 8).format("App", "Version", "Download", "Replace\n", "", "",
+                                                       "status", "status")
             File.append_text_to_file(self.log_file, string, "\n")
             print "{}\n{}".format("  *" * 20, "#" * 58)
             print string
@@ -96,7 +96,7 @@ class DeploymentLog:
             string = ("\t" + self.tab_text * 2).format("Folder(s):", str(len(self.app_keys)))
             File.append_text_to_file(self.log_file, string, "\n")
             string = ("\t" + self.tab_text * 10).format("FolderName", "Download", "Replace", "Downloaded",
-                                                        "Replaced\n", "", " size", " size", " file(s)", " file(s)")
+                                                        "Replaced\n", "", "size", "size", "file(s)", "file(s)")
             File.append_text_to_file(self.log_file, string, "\n")
             map(self._write_folder_property, self.app_keys)
 
