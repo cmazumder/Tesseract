@@ -81,7 +81,7 @@ class Infrastructure:
 
     def get_sql_script(self, app_details):
         # check if sql data is available
-        download_handler = get_dict_value(app_details, ["sql", "Download"])  # type: DownloadApplication
+        download_handler = get_dict_value(app_details, ["SQL", "Download"])  # type: DownloadApplication
         if download_handler and download_handler.get_download_status():
             sql_path = Folder.build_path(download_handler.download_path,
                                          get_dict_value(self.environment_setting, ["db_property", "db_script"]))
