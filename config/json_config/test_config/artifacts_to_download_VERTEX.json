@@ -39,7 +39,7 @@
       "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Configurations"
     ]
   },
-  "sql": {
+  "SQL": {
     "folder_name": "SQL",
     "config_file_name": null,
     "buildTypeID": "Vertex_Vertex_Trunk",
