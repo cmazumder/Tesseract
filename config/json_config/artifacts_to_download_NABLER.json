@@ -106,7 +106,7 @@
   "SQL": {
     "folder_name": "SQL",
     "config_file_name": null,
-    "buildTypeID": "Vertex_VertexNext",
+    "buildTypeID": "Vertex_Service_VertexXSeries",
     "tags": null,
     "anchor": "SQL",
     "copy_artifacts_to_path": null,

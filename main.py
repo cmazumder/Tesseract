@@ -23,4 +23,4 @@ def main(test_mode=False):
 
 
 if __name__ == '__main__':
-    main(test_mode=False)
+    main(test_mode=True)
