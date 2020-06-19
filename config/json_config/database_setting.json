@@ -1,5 +1,5 @@
 {
-  "_about": "Configuration for controller (local) database server",
+  "_comment": "Configuration for controller (local) database server",
   "db_server": "localhost\\SQLEXPRESS",
   "db_username": "sa",
   "db_password": "Password1"

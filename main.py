@@ -6,7 +6,8 @@ from infrastructure import Infrastructure
 
 def main(test_mode=False):
     if test_mode:
-        config_file_path = r"json_config/test_config/config_path_TEST.json"
+        print "TEST MODE"
+        config_file_path = r"json_config/test_config/config_path_TEST_VERTEX.json"
     else:
         config_file_path = r"json_config/config_path.json"
 

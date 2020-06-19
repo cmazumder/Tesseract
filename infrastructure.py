@@ -4,7 +4,7 @@ from config.manage_json_config import get_dict_value
 from local.artifacts.download_application import DownloadApplication
 from local.artifacts.manage_artifacts import ManageApplication
 from local.database_setup import DatabaseSetup as Database
-from util import folder_actions as Folder
+from util import folder_actions as Folder, file_actions as File
 from website.api.teamcity import TeamCity
 
 
@@ -83,9 +83,12 @@ class Infrastructure:
         # check if sql data is available
         download_handler = get_dict_value(app_details, ["SQL", "Download"])  # type: DownloadApplication
         if download_handler and download_handler.get_download_status():
-            sql_path = Folder.build_path(download_handler.download_path,
-                                         get_dict_value(self.environment_setting, ["db_property", "db_script"]))
-            return sql_path
+            sql_script_name = get_dict_value(self.environment_setting, ["db_property", "db_script"])
+            file_extension = sql_script_name.rsplit(".", 1)[1]
+            if file_extension.lower() == 'sql':
+                sql_path = Folder.build_path(download_handler.download_path, sql_script_name)
+                if File.isfile(sql_path):
+                    return sql_path
         return None
 
     def start_setup(self):

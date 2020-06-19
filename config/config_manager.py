@@ -37,7 +37,7 @@ class ConfigManager(object):
         try:
             dictionary = get_json_as_dictionary(relative_path)
             if dictionary:
-                del dictionary["_about"]
+                del dictionary["_comment"]
                 return dictionary
             else:
                 raise ConfigLoadError("Cannot load --> {}\nPath -->{}".format(setting_name, relative_path))

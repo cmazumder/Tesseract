@@ -2,6 +2,7 @@ from urllib import unquote
 
 from build import Build
 from util import folder_actions as Folder, file_actions as File
+from util.progress_bar import ProgressBar
 
 
 class Application(Build):
@@ -26,6 +27,7 @@ class Application(Build):
         self.save_to_path = artifact_download_path  # type : str
         self.anchor_text = anchor_text  # type : str
         self.exclude_file_extension = ignore_file_extensions  # type : list
+        self.progress = ProgressBar()
 
     def __del__(self):
         print "Files in artifact: {} \n" \
@@ -100,14 +102,17 @@ class Application(Build):
         artifact_url = self.teamcity_handler.join_url(self.application_api, self.anchor_text)
 
         if self.__complete_download_prerequisite(artifact_repository_url=artifact_url):
+            self.progress.bar.start()
             for items in self.artifact_file_details:
                 path_as_key = self.__download_file_from_api(file_api=self.artifact_file_details[items][0],
                                                             file_relative_path=items,
                                                             file_size=self.artifact_file_details[items][1])
+                self.progress.bar.update(+1)
                 if path_as_key:
                     # key : value => file_path : file_name
                     # split from right into 2 slices, the first element from right. Get just the filename
                     self.downloaded_file_details[path_as_key] = self.artifact_file_details[items][0].rsplit("/", 1)[-1]
+            self.progress.bar.finish()
 
     def _count_of_download_and_artifact_list_match(self):
         if len(self.artifact_file_details) == len(self.downloaded_file_details):

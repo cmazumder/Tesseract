@@ -1,5 +1,5 @@
 {
-  "_about": "configuration for TeamCity server",
+  "_comment": "configuration for TeamCity server",
   "host": "http://uslv-addv12-02.dev.local/",
   "teamcity_username": "guest",
   "teamcity_password": "guest",

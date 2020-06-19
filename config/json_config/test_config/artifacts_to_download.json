@@ -1,5 +1,5 @@
 {
-  "_about": "Test controller artifacts",
+  "_comment": "Test controller artifacts",
   "CMS": {
     "folder_name": "CMS",
     "config_file_name": "CmsDataService.config",

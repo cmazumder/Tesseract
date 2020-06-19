@@ -1,5 +1,5 @@
 {
-  "_about": "configuration for controller box",
+  "_comment": "configuration for controller box",
   "exclude_file_extension": [
     ".pdb"
   ],

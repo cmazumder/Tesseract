@@ -1,5 +1,5 @@
 {
-  "_about": "path to all configuration files",
+  "_comment": "path to all configuration files",
   "artifacts_to_download": "config/json_config/artifacts_to_download_NABLER.json",
   "environment_setting": "config/json_config/environment_setting_NABLER.json",
   "database_setting": "config/json_config/database_setting.json",
