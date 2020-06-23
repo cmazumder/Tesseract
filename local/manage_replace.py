@@ -1,14 +1,13 @@
 import time
 
 from config.manage_json_config import get_dict_value
-from local.artifacts.download_application import DownloadApplication
-from local.artifacts.replace_application import ReplaceApplication
+from local.artifacts.replace import ReplaceApplication
 from util import file_actions as File
 from util import folder_actions as Folder
-from util import os_process
+from util.os_process import close_running_process
 
 
-class ManageApplication:
+class ManageApplicationReplace:
     spacer_char_hyphen = '-' * 50
     spacer_char_asterisk = '*' * 65
     download_application_root_path = None
@@ -29,62 +28,6 @@ class ManageApplication:
 
         self.application_details = app_setting
         self.application_name_keys = app_setting.keys()
-
-    def download_application(self):
-        """ Download Applications """
-        self.__get_and_update_download_list()
-        download_instances = []
-        for application in self.application_name_keys:
-            download_instances.append(get_dict_value(self.application_details,
-                                                     [application, "Download"]))  # type: DownloadApplication
-
-        print self.spacer_char_asterisk
-        map(self._start_thread, download_instances)
-        map(self._join_thread, download_instances)
-        # print "Completing {}, please wait".format(app_handler.application_name)
-        print self.spacer_char_hyphen
-        map(self._print_download_info, download_instances)
-
-        # extract and collect all config files into a folder
-        map(self.__extract_configuration_file, self.application_name_keys)
-
-    def _start_thread(self, instance):
-        application_instance = instance  # type: DownloadApplication
-        application_instance.start()
-
-    def _join_thread(self, instance):
-        application_instance = instance  # type: DownloadApplication
-        application_instance.join()
-
-    def _print_download_info(self, instance):
-        application_instance = instance  # type: DownloadApplication
-        print "Application --> {}\n".format(application_instance.application_name)
-        application_instance.print_download_status()
-        application_instance.show_downloaded_info()
-
-    def __get_and_update_download_list(self):
-        """
-        Download application
-        @return:
-        @rtype:
-        """
-        list_of_application_object = dict(
-            map(self.__create_download_object, self.application_name_keys))
-        for download_object in list_of_application_object:
-            self.application_details[download_object]['Download'] = list_of_application_object[download_object]
-
-    def __create_download_object(self, app_name):
-        """
-        Create download object
-        @param app_name:
-        @type app_name:
-        @return:
-        @rtype:
-        """
-        ignore_extensions = get_dict_value(self.env_setting, ["exclude_file_extension"])
-        return app_name, DownloadApplication(app_name=app_name,
-                                             download_artifact_root_path=self.download_application_root_path,
-                                             exclude_file_extension=ignore_extensions)
 
     def __get_and_update_replace_list(self):
         list_of_application_object = dict
@@ -128,24 +71,6 @@ class ManageApplication:
             print "\'{}\' not downloaded properly, skip replacement instance".format(app_name)
             return app_name, 'None'
 
-    @staticmethod
-    def __close_running_process(process_name):
-        # process_detail = get_processid_by_name('chrome', 'conhost', 'pycharm64.exe', 'WinMergeU')
-        try:
-            process_detail = os_process.get_processid_by_name(process_name=process_name)
-            if len(process_detail) > 0:
-                for element in process_detail:
-                    curr_pid = element['pid']
-                    curr_name = element['name']
-                    curr_created_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(element['create_time']))
-                    print curr_pid, curr_name, curr_created_time
-                    status = os_process.kill_process_tree(pid=curr_pid)
-                    print "Process: {0}\tpid: {1}\tStatus:{2}".format(process_name, curr_pid, status)
-            else:
-                print"No running process found: {}".format(process_name)
-        except (ValueError, TypeError, AttributeError) as err:
-            print "Error closing process: {}\nargs:".format(err.message, err.args)
-
     def __extract_configuration_file(self, app_name):
         # If config file name is supplied
         if Folder.folder_exists(self.config_folder_path):
@@ -171,7 +96,9 @@ class ManageApplication:
     def replace_application(self):
         # make list of applications to be replaced
         self.__get_and_update_replace_list()
-        map(self.__close_running_process, self.process_to_terminate)
+        # extract and collect all config files into a folder
+        map(self.__extract_configuration_file, self.application_name_keys)
+        map(close_running_process, self.process_to_terminate)
         print "{}\n{}".format(self.spacer_char_asterisk, self.spacer_char_asterisk)
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details, [application, "Replace"])  # type: ReplaceApplication

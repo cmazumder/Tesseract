@@ -1,7 +1,7 @@
 import json
 
 from config.manage_json_config import get_dict_value
-from website.api.teamcity import TeamCity
+from web.api.teamcity import TeamCity
 
 
 class Build:

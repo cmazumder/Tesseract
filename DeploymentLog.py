@@ -1,8 +1,8 @@
 from time import time, localtime, strftime
 
 from config.manage_json_config import get_dict_value
-from local.artifacts.download_application import DownloadApplication
-from local.artifacts.replace_application import ReplaceApplication
+from local.artifacts.download import DownloadApplication
+from local.artifacts.replace import ReplaceApplication
 from util import file_actions as File
 from util import folder_actions as Folder
 

@@ -47,6 +47,22 @@ def kill_process_tree(pid, sig=signal.SIGTERM, include_parent=True,
     return status(pid)
 
 
+def close_running_process(process_name):
+    # process_detail = get_processid_by_name('chrome', 'conhost', 'pycharm64.exe', 'WinMergeU')
+    try:
+        process_detail = get_processid_by_name(process_name=process_name)
+        if len(process_detail) > 0:
+            for element in process_detail:
+                curr_pid = element['pid']
+                curr_name = element['name']
+                curr_created_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(element['create_time']))
+                print curr_pid, curr_name, curr_created_time
+                status = kill_process_tree(pid=curr_pid)
+                print "Process: {0}\tpid: {1}\tStatus:{2}".format(process_name, curr_pid, status)
+        else:
+            print"No running process found: {}".format(process_name)
+    except (ValueError, TypeError, AttributeError) as err:
+        print "Error closing process: {}\nargs:".format(err.message, err.args)
 
 
 def test_close_process():

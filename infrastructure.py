@@ -1,11 +1,12 @@
 from DeploymentLog import DeploymentLog
 from config.config_manager import ConfigManager
 from config.manage_json_config import get_dict_value
-from local.artifacts.download_application import DownloadApplication
-from local.artifacts.manage_artifacts import ManageApplication
+from local.artifacts.download import DownloadApplication
 from local.database_setup import DatabaseSetup as Database
+from local.manage_download import ManageApplicationDownload
+from local.manage_replace import ManageApplicationReplace
 from util import folder_actions as Folder, file_actions as File
-from website.api.teamcity import TeamCity
+from web.api.teamcity import TeamCity
 
 
 class Infrastructure:
@@ -96,19 +97,26 @@ class Infrastructure:
 
         total_database_time = None
 
-        artifact = ManageApplication(app_setting=self.application_setting, env_setting=self.environment_setting)
+        artifact_download = ManageApplicationDownload(app_setting=self.application_setting,
+                                                      env_setting=self.environment_setting)
 
         # DownloadApplication all artifacts
         start_time = logger.time_it()
-        artifact.download_application()
+        artifact_download.download_application()
+        # total download time
         total_download_time = logger.total_time(start=start_time, end=logger.time_it())
 
+        application_details = artifact_download.get_application_details()  # type: dict
+
         # Replace old with new artifacts
+        artifact_replace = ManageApplicationReplace(app_setting=application_details,
+                                                    env_setting=self.environment_setting)
         start_time = logger.time_it()
-        artifact.replace_application()
+        artifact_replace.replace_application()
+        # total artifact replace time
         total_replace_time = logger.total_time(start=start_time, end=logger.time_it())
 
-        application_details = artifact.get_application_details()  # type: dict
+        application_details = artifact_replace.get_application_details()  # type: dict
 
         sql_path = self.get_sql_script(app_details=application_details)
 
@@ -118,8 +126,10 @@ class Infrastructure:
                                                    sql_path=sql_path,
                                                    env_setting=self.environment_setting)
             total_database_time = logger.total_time(start=start_time, end=logger.time_it())
-            print "{}\n{}\nDatabase recreated\n{}\n{}".format(artifact.spacer_char_hyphen, artifact.spacer_char_hyphen,
-                                                              artifact.spacer_char_hyphen, artifact.spacer_char_hyphen)
+            print "{}\n{}\nDatabase recreated\n{}\n{}".format(artifact_download.spacer_char_hyphen,
+                                                              artifact_download.spacer_char_hyphen,
+                                                              artifact_download.spacer_char_hyphen,
+                                                              artifact_download.spacer_char_hyphen)
 
         logger.write_deployment_status(app_details=application_details)
         download_location = get_dict_value(self.environment_setting, ["download_artifact_root_path"])

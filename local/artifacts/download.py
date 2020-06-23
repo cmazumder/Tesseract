@@ -3,7 +3,7 @@ from threading import Thread
 from config.config_manager import ConfigManager
 from config.manage_json_config import get_dict_value
 from util import folder_actions as Folder
-from website.api.application import Application
+from web.api.application import Application
 
 
 class DownloadApplication(Thread, Application):
@@ -15,7 +15,6 @@ class DownloadApplication(Thread, Application):
         temp_application_setting = self.ConfigurationManger.get_artifacts_to_download()
         self.application_setting = get_dict_value(temp_application_setting, [app_name])
         if self.application_setting:
-            self.application_name = app_name
             self.folder_name = get_dict_value(self.application_setting, ["folder_name"])
             self.build_type_id = get_dict_value(self.application_setting, ["buildTypeID"])
             self.tags = get_dict_value(self.application_setting, ["tags"])
@@ -25,7 +24,7 @@ class DownloadApplication(Thread, Application):
                 self.download_path = Folder.build_path(download_artifact_root_path, self.folder_name)
                 # remove previously downloaded contents in the same folder
                 Folder.delete_folder(folder_path=self.download_path)
-            Application.__init__(self, artifact_download_path=self.download_path,
+            Application.__init__(self, app_name=app_name,artifact_download_path=self.download_path,
                                  ignore_file_extensions=exclude_file_extension,
                                  anchor_text=get_dict_value(self.application_setting, ["anchor"]))
             self.status = None
@@ -33,10 +32,8 @@ class DownloadApplication(Thread, Application):
     def run(self):
         api = self.build_success_api()
         if self.has_successful_build(api_url=api):
-            print "Downloading \'{0}\' | Version: {1} | please wait".format(self.application_name,
-                                                                            self.get_version_number())
+            print "App: \'{0}\' | Version: {1}".format(self.application_name, self.get_version_number())
             self.__initiate_download()
-            print "Updating \'{0}\' download status".format(self.application_name)
             self.__update_download_status()
         else:
             print "Application: {0} | No successful build".format(self.application_name)

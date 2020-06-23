@@ -2,12 +2,12 @@ from urllib import unquote
 
 from build import Build
 from util import folder_actions as Folder, file_actions as File
-from util.progress_bar import ProgressBar
+from tqdm import tqdm
 
 
 class Application(Build):
 
-    def __init__(self, artifact_download_path, ignore_file_extensions, anchor_text):
+    def __init__(self, app_name, artifact_download_path, ignore_file_extensions, anchor_text):
         Build.__init__(self)
 
         """ 
@@ -20,6 +20,7 @@ class Application(Build):
         downloaded_file_details will save the information of the files downloaded in a dict
         absolute_path : FileName
         """
+        self.application_name = app_name
         self.downloaded_file_details = {}  # type : dict
 
         # self.artifact_url_complete = None  # type : str
@@ -27,7 +28,7 @@ class Application(Build):
         self.save_to_path = artifact_download_path  # type : str
         self.anchor_text = anchor_text  # type : str
         self.exclude_file_extension = ignore_file_extensions  # type : list
-        self.progress = ProgressBar()
+        self.total_size = 0
 
     def __del__(self):
         print "Files in artifact: {} \n" \
@@ -60,8 +61,8 @@ class Application(Build):
                                     b'9389',
                                     ]
                                     """
-                                    file_info = [items["content"]["href"], bytes(items["size"])]
-
+                                    file_info = [items["content"]["href"], items["size"]]
+                                    self.total_size += items["size"]
                                     # Make the key as file path Eg Aristocrat.Vertex.UI.Web.csproj
                                     file_path = items["href"].split(self.url_resource_text, 1)[1][1:]
                                     self.artifact_file_details[file_path] = file_info
@@ -102,17 +103,18 @@ class Application(Build):
         artifact_url = self.teamcity_handler.join_url(self.application_api, self.anchor_text)
 
         if self.__complete_download_prerequisite(artifact_repository_url=artifact_url):
-            self.progress.bar.start()
-            for items in self.artifact_file_details:
-                path_as_key = self.__download_file_from_api(file_api=self.artifact_file_details[items][0],
-                                                            file_relative_path=items,
-                                                            file_size=self.artifact_file_details[items][1])
-                self.progress.bar.update(+1)
+            progress_bar = tqdm(desc=self.application_name, total=self.total_size, unit_scale=True)
+            for item in self.artifact_file_details:
+                path_as_key = self.__download_file_from_api(file_api=self.artifact_file_details[item][0],
+                                                            file_relative_path=item,
+                                                            file_size=self.artifact_file_details[item][1])
+                progress_bar.update(self.artifact_file_details[item][1])
+
                 if path_as_key:
                     # key : value => file_path : file_name
                     # split from right into 2 slices, the first element from right. Get just the filename
-                    self.downloaded_file_details[path_as_key] = self.artifact_file_details[items][0].rsplit("/", 1)[-1]
-            self.progress.bar.finish()
+                    self.downloaded_file_details[path_as_key] = self.artifact_file_details[item][0].rsplit("/", 1)[-1]
+            progress_bar.close()
 
     def _count_of_download_and_artifact_list_match(self):
         if len(self.artifact_file_details) == len(self.downloaded_file_details):
@@ -174,7 +176,7 @@ class Application(Build):
                                                                                                   api_url)
 
     def __file_size_match(self, file_path, file_size):
-        file_size_computed = bytes(File.compute_file_size(file_path=file_path))
+        file_size_computed = File.compute_file_size(file_path=file_path)
         if file_size_computed == file_size:
             return True
         else:

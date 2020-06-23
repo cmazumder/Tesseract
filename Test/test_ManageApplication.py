@@ -1,4 +1,5 @@
-from local.artifacts.manage_artifacts import ManageApplication
+from local.manage_download import ManageApplicationDownload
+from local.manage_replace import ManageApplicationReplace
 
 
 class Obj:
@@ -55,7 +56,8 @@ def test_replace():
     spacer_char_hyphen = '-' * 50
     spacer_char_asterisk = '*' * 65
 
-    artifact = ManageApplication(app_setting=application_details, env_setting=env_setting)
+    artifact = ManageApplicationReplace(app_setting=application_details, env_setting=env_setting)
     artifact.replace_application()
+
 
 test_replace()

@@ -1,4 +1,4 @@
-from website.connection import Connection
+from web.connection import Connection
 
 
 class TeamCity(object, Connection):

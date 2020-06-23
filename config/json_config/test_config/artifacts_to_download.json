@@ -1,23 +1,9 @@
 {
   "_comment": "Test controller artifacts",
-  "CMS": {
-    "folder_name": "CMS",
-    "config_file_name": "CmsDataService.config",
-    "buildTypeID": "CmsService",
-    "tags": null,
-    "anchor": "CMSServiceHost",
-    "copy_artifacts_to_path": [
-      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\CMS"
-    ],
-    "copy_config_to_path": [
-      "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Backup\\Configurations",
-      "C:\\TEAMCITY_TEST\\NABLER\\F_Drive\\Configurations"
-    ]
-  },
   "SQL": {
     "folder_name": "SQL",
     "config_file_name": null,
-    "buildTypeID": "Vertex_VertexNext",
+    "buildTypeID": "Vertex_Vertex_Trunk",
     "tags": null,
     "anchor": "SQL",
     "copy_artifacts_to_path": null,
