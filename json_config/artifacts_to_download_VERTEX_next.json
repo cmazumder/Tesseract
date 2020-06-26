@@ -1,0 +1,88 @@
+{
+  "_comment": "Vertex controller artifacts",
+  "DataService": {
+    "folder_name": "DataService",
+    "config_file_name": "DataService.config",
+    "buildTypeID": "bt6",
+    "tags":null,
+    "anchor": "VertexDataService",
+    "copy_artifacts_to_path": [
+      "D:\\DataService"
+    ],
+    "copy_config_to_path": [
+      "D:\\Backup\\Configurations",
+      "F:\\Configurations"
+    ]
+  },
+  "Reports": {
+    "folder_name": "Reports",
+    "config_file_name": "Reports.config",
+    "buildTypeID": "Vertex_ReportsTrunk",
+    "tags":null,
+    "anchor": "Aristocrat.Vertex.Reports.Web",
+    "copy_artifacts_to_path": [
+      "D:\\Reports"
+    ],
+    "copy_config_to_path": [
+      "D:\\Backup\\Configurations",
+      "F:\\Configurations"
+    ]
+  },
+  "Service": {
+    "folder_name": "Service",
+    "config_file_name": "Controller.config",
+    "buildTypeID": "Vertex_VertexNext",
+    "tags":null,
+    "anchor": "Applications/Aristocrat.Vertex.Service",
+    "copy_artifacts_to_path": [
+      "D:\\Service"
+    ],
+    "copy_config_to_path": [
+      "D:\\Backup\\Configurations",
+      "F:\\Configurations"
+    ]
+  },
+  "SQL": {
+    "folder_name": "SQL",
+    "config_file_name": null,
+    "buildTypeID": "Vertex_VertexNext",
+    "tags":null,
+    "anchor": "SQL",
+    "copy_artifacts_to_path": null,
+    "copy_config_to_path": null
+  },
+  "Shell": {
+    "folder_name": "Shell",
+    "config_file_name": "Shell.config",
+    "buildTypeID": "Vertex_Shell_VertexShellNext",
+    "tags":null,
+    "anchor": "VertexShell",
+    "copy_artifacts_to_path": [
+      "D:\\Shell"
+    ],
+    "find_text": [
+      "enabled=\"true\""
+    ],
+    "replace_text": [
+      "enabled=\"false\""
+    ],
+    "copy_config_to_path": [
+      "D:\\Backup\\Configurations",
+      "F:\\Configurations"
+    ]
+  },
+  "UI": {
+    "folder_name": "UI",
+    "config_file_name": "Web.config",
+    "buildTypeID": "Vertex_VertexUI_VertexUINext",
+    "tags":null,
+    "anchor": "Aristocrat.Vertex.UI.Web",
+    "copy_artifacts_to_path": [
+      "D:\\UI"
+    ],
+    "copy_config_to_path": [
+      "D:\\Backup\\Configurations",
+      "F:\\Configurations"
+    ]
+  }
+}

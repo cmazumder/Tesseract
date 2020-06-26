@@ -2,17 +2,19 @@ from urllib import unquote
 
 from build import Build
 from util import folder_actions as Folder, file_actions as File
-from tqdm import tqdm
+from util.file_actions import basename
+from util.progress_bar import ProgressBar2
 
 
 class Application(Build):
+    application_count = 0
 
     def __init__(self, app_name, artifact_download_path, ignore_file_extensions, anchor_text):
         Build.__init__(self)
 
         """ 
         artifact_file_details will save the information of the files to be downloaded in a dict
-        artifact relative_path : [artifact api, file size, ] 
+        artifact relative_path : [artifact api, file size, file name] 
         """
         self.artifact_file_details = {}
 
@@ -29,6 +31,7 @@ class Application(Build):
         self.anchor_text = anchor_text  # type : str
         self.exclude_file_extension = ignore_file_extensions  # type : list
         self.total_size = 0
+        self.actual_application_count = 0
 
     def __del__(self):
         print "Files in artifact: {} \n" \
@@ -46,22 +49,21 @@ class Application(Build):
                 if "size" in items:  # it's a file
                     # exclude file with extension (if any extension is specified in config)
                     try:
-                        if any(ext not in File.basename(items["content"]["href"]) for ext in
+                        if any(ext not in basename(items["content"]["href"]) for ext in
                                self.exclude_file_extension) \
                                 or len(self.exclude_file_extension) == 0:
                             try:
                                 if len(filename_to_get) == 0 or \
-                                        any(file_name == File.basename(items["content"]["href"]) for file_name in
+                                        any(file_name == basename(items["content"]["href"]) for file_name in
                                             filename_to_get):
                                     """
                                     Make values as list [
                                     u'/guestAuth/app/rest/builds/id:21210/artifacts/content/
                                     Aristocrat.Vertex.UI.Web/Aristocrat.Vertex.UI.Web.csproj',
-                                    
                                     b'9389',
                                     ]
                                     """
-                                    file_info = [items["content"]["href"], items["size"]]
+                                    file_info = [items["content"]["href"], items["size"], items["name"]]
                                     self.total_size += items["size"]
                                     # Make the key as file path Eg Aristocrat.Vertex.UI.Web.csproj
                                     file_path = items["href"].split(self.url_resource_text, 1)[1][1:]
@@ -94,7 +96,7 @@ class Application(Build):
             status = False
         return status
 
-    def _start_download(self):
+    def _initiate_download(self):
         """
         start app file(s) download
         :return: None
@@ -103,18 +105,26 @@ class Application(Build):
         artifact_url = self.teamcity_handler.join_url(self.application_api, self.anchor_text)
 
         if self.__complete_download_prerequisite(artifact_repository_url=artifact_url):
-            progress_bar = tqdm(desc=self.application_name, total=self.total_size, unit_scale=True)
-            for item in self.artifact_file_details:
-                path_as_key = self.__download_file_from_api(file_api=self.artifact_file_details[item][0],
-                                                            file_relative_path=item,
-                                                            file_size=self.artifact_file_details[item][1])
-                progress_bar.update(self.artifact_file_details[item][1])
+            Application.application_count += 1
+            self.actual_application_count = Application.application_count
+            self.__start_download()
 
-                if path_as_key:
-                    # key : value => file_path : file_name
-                    # split from right into 2 slices, the first element from right. Get just the filename
-                    self.downloaded_file_details[path_as_key] = self.artifact_file_details[item][0].rsplit("/", 1)[-1]
-            progress_bar.close()
+    def __start_download(self):
+        # progress bar
+        progress = ProgressBar2(desc=self.application_name, total=self.total_size,
+                                position=self.actual_application_count, leave=True)
+        for item in self.artifact_file_details:
+            path_as_key = self.__download_file_from_api(file_api=self.artifact_file_details[item][0],
+                                                        file_relative_path=item,
+                                                        file_size=self.artifact_file_details[item][1])
+            progress.bar.set_postfix_str(str(self.artifact_file_details[item][2]), refresh=False)
+            progress.bar.update(self.artifact_file_details[item][1])
+
+            if path_as_key:
+                # key : value => file_path : file_name
+                # split from right into 2 slices, the first element from right. Get just the filename
+                self.downloaded_file_details[path_as_key] = self.artifact_file_details[item][0].rsplit("/", 1)[-1]
+        progress.bar.close()
 
     def _count_of_download_and_artifact_list_match(self):
         if len(self.artifact_file_details) == len(self.downloaded_file_details):
@@ -172,8 +182,9 @@ class Application(Build):
                 response = self.get_api_response(api_url)  # type: 'requests.models.Response'
                 local_file.write(response.content)
         except Exception as E:
-            print "Error <__save_file_to_system> \n\tMessage: {}\n\t f_path: {}\n\t url: {}".format(E.message, file_path,
-                                                                                                  api_url)
+            print "Error <__save_file_to_system> \n\tMessage: {}\n\t f_path: {}\n\t url: {}".format(E.message,
+                                                                                                    file_path,
+                                                                                                    api_url)
 
     def __file_size_match(self, file_path, file_size):
         file_size_computed = File.compute_file_size(file_path=file_path)

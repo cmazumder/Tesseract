@@ -8,7 +8,6 @@ from web.api.application import Application
 
 class DownloadApplication(Thread, Application):
     ConfigurationManger = None
-
     def __init__(self, app_name, download_artifact_root_path, exclude_file_extension):
         Thread.__init__(self)
         self.ConfigurationManger = ConfigManager.get_instance()  # type: ConfigManager
@@ -33,7 +32,7 @@ class DownloadApplication(Thread, Application):
         api = self.build_success_api()
         if self.has_successful_build(api_url=api):
             print "App: \'{0}\' | Version: {1}".format(self.application_name, self.get_version_number())
-            self.__initiate_download()
+            self._initiate_download()
             self.__update_download_status()
         else:
             print "Application: {0} | No successful build".format(self.application_name)
@@ -93,6 +92,3 @@ class DownloadApplication(Thread, Application):
         else:
             status_text = "BAD"
         print "Download status: {}".format(status_text)
-
-    def __initiate_download(self):
-        self._start_download()

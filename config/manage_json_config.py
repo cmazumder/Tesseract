@@ -1,5 +1,5 @@
 import json
-from os.path import normcase, dirname
+from os.path import normcase, dirname, abspath
 
 import util.file_actions as File
 import util.folder_actions as Folder
@@ -24,27 +24,27 @@ def get_dict_value(dictionary, keys, ascii=False, default=None):
     return get_dict_value(dictionary.get(keys[0]), keys[1:], default)
 
 
-def get_value_from_json_file(json_file_path, val):
+def get_path_from_json_file(json_file_path, val):
     """
     val is list
     """
-    abs_file_path = force_abs_path(file_path=json_file_path)
-    try:
-        with open(abs_file_path, 'r') as config_file:
-            dictionary = json.load(config_file)
-            if dictionary:
-                return get_dict_value(dictionary, val)
-    except IOError as err:
-        print "I/O error({0}): {1}".format(err.errno, err.strerror)
-
+    abs_file_path = get_abs_path(file_path=json_file_path)
+    if abs_file_path:
+        try:
+            with open(abs_file_path, 'r') as config_file:
+                dictionary = json.load(config_file)
+                if dictionary:
+                    return get_dict_value(dictionary, val)
+        except IOError as err:
+            print "I/O error({0}): {1}".format(err.errno, err.strerror)
+    else:
+        return False
 
 def get_json_as_dictionary(json_file_path):
     abs_file_path = get_abs_path(file_path=json_file_path)
-    try:
+    if abs_file_path:
         with open(abs_file_path, 'r') as config_file:
             return json.load(config_file)
-    except IOError as err:
-        print "I/O error: {0}. File path: {1}".format(err.strerror, abs_file_path)
 
 
 def update_value_in_json_fie(json_file_path, dictionary):
@@ -58,13 +58,20 @@ def update_value_in_json_fie(json_file_path, dictionary):
 
 
 def get_abs_path(file_path):
+    file_path = abspath(file_path)
     if File.file_exists(file_path):
         return file_path
     else:
-        script_dir = normcase(dirname(__file__))  # <-- absolute dir the script is in
-        return Folder.build_path(script_dir, file_path)
+        return False
 
 
 def force_abs_path(file_path):
     script_dir = normcase(dirname(__file__))  # <-- absolute dir the script is in
     return Folder.build_path(script_dir, file_path)
+
+def construct_abs_path(file_path):
+    file_path = abspath(file_path)
+    if File.file_exists(file_path):
+        return file_path
+    else:
+        return False

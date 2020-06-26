@@ -37,6 +37,7 @@ class ManageApplicationDownload:
         map(self._start_thread, download_instances)
         map(self._join_thread, download_instances)
         # print "Completing {}, please wait".format(app_handler.application_name)
+        print "\n" * DownloadApplication.application_count
         print self.spacer_char_hyphen
         map(self._print_download_info, download_instances)
 

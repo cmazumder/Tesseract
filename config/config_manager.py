@@ -1,4 +1,4 @@
-from config.manage_json_config import get_json_as_dictionary, get_value_from_json_file
+from config.manage_json_config import get_json_as_dictionary, get_path_from_json_file
 
 
 class ConfigLoadError(Exception):
@@ -33,23 +33,24 @@ class ConfigManager(object):
 
     @classmethod
     def load_config(cls, setting_name):
-        relative_path = get_value_from_json_file(cls.master_config_with_path, [setting_name])
-        try:
-            dictionary = get_json_as_dictionary(relative_path)
-            if dictionary:
-                del dictionary["_comment"]
-                return dictionary
-            else:
-                raise ConfigLoadError("Cannot load --> {}\nPath -->{}".format(setting_name, relative_path))
-        except KeyError as err:
-            print "Key error: {}".format(err.message)
+        relative_path = get_path_from_json_file(cls.master_config_with_path, [setting_name])
+        dictionary = get_json_as_dictionary(relative_path)
+        if dictionary:
+            del dictionary["_comment"]
+            return dictionary
+        else:
+            raise ConfigLoadError("Cannot load --> {}\nPath -->{}".format(setting_name, relative_path))
+
 
 
     @classmethod
     def load_teamcity(cls):
         try:
             cls.teamcity_setting = cls.load_config("teamcity_setting")
-            return True
+            if cls.teamcity_setting:
+                return True
+            else:
+                return False
         except ConfigLoadError as err:
             print "Error: {0}".format(err.message)
             return False

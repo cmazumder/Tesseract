@@ -1,19 +1,34 @@
-import progressbar
-from tqdm import tqdm
+import sys
+from random import randrange, choice
 from time import sleep
-from random import randrange
+
+import progressbar
+from colorama import Fore
+from tqdm import tqdm
 
 
 class ProgressBar:
     def __init__(self):
-        self.bar = progressbar.ProgressBar(maxval=20, widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
+        self.bar = progressbar.ProgressBar(maxval=20,
+                                           widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 
 
-class ProgressBar_2:
-    @staticmethod
-    def func_call(position, total):
-        text = 'progressbar #{position}'.format(position=position)
-        with tqdm(total=total, position=position, desc=text) as progress:
-            for _ in range(0, total, 5):
-                progress.update(5)
-                sleep(randrange(3))
+class ProgressBar2:
+    color_bars = [Fore.BLACK,
+                  Fore.RED,
+                  Fore.GREEN,
+                  Fore.YELLOW,
+                  Fore.BLUE,
+                  Fore.MAGENTA,
+                  Fore.CYAN,
+                  Fore.WHITE]
+
+    def __init__(self, desc, total, position=None, leave=True, ascii=True, unit=" byte", colour=True):
+
+        if colour:
+            bar_format = "{l_bar}%s{bar}%s{r_bar}" % (choice(ProgressBar2.color_bars), Fore.RESET)
+            self.bar = tqdm(desc=desc, total=total, position=position, unit=unit, unit_scale=True, ascii=ascii,
+                            bar_format=bar_format, leave=leave, file=sys.stdout)
+        else:
+            self.bar = tqdm(desc=desc, total=total, position=position, unit=unit, unit_scale=True, ascii=ascii,
+                            leave=leave, file=sys.stdout)

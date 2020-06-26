@@ -1,5 +1,3 @@
-import time
-
 from config.manage_json_config import get_dict_value
 from local.artifacts.replace import ReplaceApplication
 from util import file_actions as File

@@ -20,10 +20,12 @@ def append_text_to_file(file_path, *args):
 
 
 def file_exists(file_path):
-    if isfile(file_path):
-        return True
-    else:
-        return False
+    try:
+        if isfile(file_path):
+            return True
+    except IOError as err:
+        print "I/O error: {0}. File path: {1}".format(err.strerror, err.filename)
+    return False
 
 
 def delete_file(file_path):

@@ -1,4 +1,3 @@
-from local.manage_download import ManageApplicationDownload
 from local.manage_replace import ManageApplicationReplace
 
 
