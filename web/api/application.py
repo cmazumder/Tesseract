@@ -1,9 +1,9 @@
 from urllib import unquote
 
 from build import Build
-from util import folder_actions as Folder, file_actions as File
-from util.file_actions import basename
-from util.progress_bar import ProgressBar2
+from util import FolderActions as Folder, FileActions as File
+from util.FileActions import basename
+from util.ProgressBar import ProgressBar2
 
 
 class Application(Build):

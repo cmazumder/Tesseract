@@ -2,7 +2,7 @@ from threading import Thread
 
 from config.config_manager import ConfigManager
 from config.manage_json_config import get_dict_value
-from util import folder_actions as Folder
+from util import FolderActions as Folder
 from web.api.application import Application
 
 

@@ -2,7 +2,7 @@ from os import makedirs, listdir, walk
 from os.path import isdir, join
 from shutil import rmtree, copytree, move
 
-from util.file_actions import file_exists, delete_file, compute_file_size
+from util.FileActions import file_exists, delete_file, compute_file_size
 
 
 def delete_folder(folder_path):

@@ -1,11 +1,11 @@
 from DeploymentLog import DeploymentLog
 from config.config_manager import ConfigManager
 from config.manage_json_config import get_dict_value
-from local.artifacts.download import DownloadApplication
-from local.database_setup import DatabaseSetup as Database
-from local.manage_download import ManageApplicationDownload
-from local.manage_replace import ManageApplicationReplace
-from util import folder_actions as Folder, file_actions as File
+from local.DatabaseSetup import DatabaseSetup as Database
+from local.ManageApplicationDownload import ManageApplicationDownload
+from local.ManageApplicationReplace import ManageApplicationReplace
+from local.artifacts.DownloadApplication import DownloadApplication
+from util import FolderActions as Folder, FileActions as File
 from web.api.teamcity import TeamCity
 
 

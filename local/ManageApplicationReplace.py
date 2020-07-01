@@ -1,8 +1,8 @@
 from config.manage_json_config import get_dict_value
-from local.artifacts.replace import ReplaceApplication
-from util import file_actions as File
-from util import folder_actions as Folder
-from util.os_process import close_running_process
+from local.artifacts.ReplaceApplication import ReplaceApplication
+from util import FileActions as File
+from util import FolderActions as Folder
+from util.OSProcess import close_running_process
 
 
 class ManageApplicationReplace:

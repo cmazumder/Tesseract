@@ -1,8 +1,8 @@
 import json
 from os.path import normcase, dirname, abspath
 
-import util.file_actions as File
-import util.folder_actions as Folder
+import util.FileActions as File
+import util.FolderActions as Folder
 
 
 def get_dict_value(dictionary, keys, ascii=False, default=None):

@@ -1,6 +1,6 @@
 from config.manage_json_config import get_dict_value
-from local.artifacts.download import DownloadApplication
-from util import folder_actions as Folder
+from local.artifacts.DownloadApplication import DownloadApplication
+from util import FolderActions as Folder
 
 
 class ManageApplicationDownload:
@@ -42,14 +42,26 @@ class ManageApplicationDownload:
         map(self._print_download_info, download_instances)
 
     def _start_thread(self, instance):
+        """
+        start download thread
+        @param instance: object of DowbloadApplication
+        """
         application_instance = instance  # type: DownloadApplication
         application_instance.start()
 
     def _join_thread(self, instance):
+        """
+        join all thread of download
+        @param instance: object of DowbloadApplication
+        """
         application_instance = instance  # type: DownloadApplication
         application_instance.join()
 
     def _print_download_info(self, instance):
+        """
+        Print download status and information of application
+        @param instance: object of DowbloadApplication
+        """
         application_instance = instance  # type: DownloadApplication
         print "Application --> {}\n".format(application_instance.application_name)
         application_instance.print_download_status()
@@ -58,8 +70,7 @@ class ManageApplicationDownload:
     def __get_and_update_download_list(self):
         """
         Download application
-        @return:
-        @rtype:
+        @return: None
         """
         list_of_application_object = dict(
             map(self.__create_download_object, self.application_name_keys))

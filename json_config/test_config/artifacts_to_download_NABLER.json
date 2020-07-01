@@ -1,5 +1,5 @@
 {
-  "_comment": "Additional VertexApps D drive folder structure for NAbler",
+  "_comment": "N-Abler artifacts to download and replace",
   "AuditUI": {
     "folder_name": "AuditUI",
     "config_file_name": null,

@@ -1,5 +1,5 @@
 {
-  "_comment": "Vertex controller artifacts",
+  "_comment": "Vertex artifacts to download and replace",
   "DataService": {
     "folder_name": "DataService",
     "config_file_name": "DataService.config",

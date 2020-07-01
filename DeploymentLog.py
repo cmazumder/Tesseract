@@ -1,10 +1,10 @@
 from time import time, localtime, strftime
 
 from config.manage_json_config import get_dict_value
-from local.artifacts.download import DownloadApplication
-from local.artifacts.replace import ReplaceApplication
-from util import file_actions as File
-from util import folder_actions as Folder
+from local.artifacts.DownloadApplication import DownloadApplication
+from local.artifacts.ReplaceApplication import ReplaceApplication
+from util import FileActions as File
+from util import FolderActions as Folder
 
 
 class DeploymentLog:

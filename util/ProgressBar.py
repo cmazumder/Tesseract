@@ -1,6 +1,5 @@
 import sys
-from random import randrange, choice
-from time import sleep
+from random import choice
 
 import progressbar
 from colorama import Fore

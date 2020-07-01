@@ -1,5 +1,5 @@
-from util import file_actions as File
-from util import folder_actions as Folder
+from util import FileActions as File
+from util import FolderActions as Folder
 
 
 class ReplaceApplication:

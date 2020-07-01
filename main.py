@@ -1,7 +1,7 @@
 import sys
-import argparse
+
+from Infrastructure import Infrastructure
 from config.config_manager import ConfigManager
-from infrastructure import Infrastructure
 
 
 def main(test_mode=False):

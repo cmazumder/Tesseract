@@ -1,4 +1,4 @@
-from local.manage_replace import ManageApplicationReplace
+from local.ManageApplicationReplace import ManageApplicationReplace
 
 
 class Obj:
