@@ -110,12 +110,12 @@ class Infrastructure:
         application_details = artifact_download.get_application_details()  # type: dict
 
         # Post download task, eg. update config file
-        post_download = ManagePostDownload(
-            config_update_setting=get_dict_value(self.environment_setting, ["modify_config"]))
-        post_download.modify_xml_config()
+        post_download = ManagePostDownload(environment_setting=self.environment_setting,
+                                           application_details=application_details)
+        post_download.start_post_download_task()
 
         # Replace old with new artifacts
-        artifact_replace = ManageApplicationReplace(app_setting=application_details,
+        artifact_replace = ManageApplicationReplace(application_details=application_details,
                                                     env_setting=self.environment_setting)
         start_time = logger.time_it()
         artifact_replace.replace_application()

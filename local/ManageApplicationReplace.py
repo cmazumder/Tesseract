@@ -1,7 +1,6 @@
 from config.manage_json_config import get_dict_value
 from local.artifacts.DownloadApplication import DownloadApplication
 from local.artifacts.ReplaceApplication import ReplaceApplication
-from util import FileActions as File
 from util import FolderActions as Folder
 from util.OSProcess import close_running_process
 
@@ -16,7 +15,7 @@ class ManageApplicationReplace:
     application_name_keys = []
     process_to_terminate = []
 
-    def __init__(self, app_setting, env_setting):
+    def __init__(self, application_details, env_setting):
         self.env_setting = env_setting
         self.download_application_root_path = get_dict_value(env_setting, ["download_artifact_root_path"])
         self.config_folder_path = Folder.build_path(self.download_application_root_path,
@@ -25,8 +24,8 @@ class ManageApplicationReplace:
 
         self.process_to_terminate = get_dict_value(env_setting, ["windows_process_to_stop"])
 
-        self.application_details = app_setting
-        self.application_name_keys = app_setting.keys()
+        self.application_details = application_details
+        self.application_name_keys = application_details.keys()
 
     def __get_and_update_replace_list(self):
         list_of_application_object = dict
@@ -70,23 +69,9 @@ class ManageApplicationReplace:
             print "\'{}\' not downloaded properly, skip replacement instance".format(app_name)
             return app_name, 'None'
 
-    def __extract_configuration_file(self, app_name):
-        # If config file name is supplied
-        if Folder.folder_exists(self.config_folder_path):
-            app_object = get_dict_value(self.application_details, [app_name, "Download"])
-            config_file_name = get_dict_value(self.application_details, [app_name, "config_file_name"])
-            if config_file_name:
-                config_source_path = File.search_file_first_occurrence(filename=config_file_name,
-                                                                       search_path=app_object.download_path)
-                if config_source_path:
-                    config_destination_path = Folder.build_path(self.config_folder_path, config_file_name)
-                    File.copy_from_to_file(source=config_source_path, destination=config_destination_path)
-
     def replace_application(self):
         # make list of applications to be replaced
         self.__get_and_update_replace_list()
-        # extract and collect all config files into a folder
-        map(self.__extract_configuration_file, self.application_name_keys)
         map(close_running_process, self.process_to_terminate)
         print "{}\n{}".format(self.spacer_char_asterisk, self.spacer_char_asterisk)
         for application in self.application_name_keys:

@@ -55,7 +55,7 @@ def test_replace():
     spacer_char_hyphen = '-' * 50
     spacer_char_asterisk = '*' * 65
 
-    artifact = ManageApplicationReplace(app_setting=application_details, env_setting=env_setting)
+    artifact = ManageApplicationReplace(application_details=application_details, env_setting=env_setting)
     artifact.replace_application()
 
 
