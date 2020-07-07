@@ -124,12 +124,6 @@
     "copy_config_to_path": [
       "C:\\TEAMCITY_TEST\\NABLER\\D_Drive\\Backup\\Configurations",
       "C:\\TEAMCITY_TEST\\NABLER\\F_Drive\\Configurations"
-    ],
-    "find_text": [
-      "enabled=\"true\""
-    ],
-    "replace_text": [
-      "enabled=\"false\""
     ]
   },
   "UI": {

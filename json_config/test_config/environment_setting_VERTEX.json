@@ -38,5 +38,41 @@
         ]
       }
     }
+  },
+  "modify_config": {
+    "Shell": {
+      "config_name": "Shell.config",
+      "config_path": "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Artifacts\\Configurations",
+      "attributes": {
+        "setting_1": {
+          "xpath": ".//fileNameConstraints[@enabled='true']",
+          "tag": "fileNameConstraints",
+          "attribute": {
+            "enabled": "false"
+          }
+        }
+      }
+    },
+    "Valyria": {
+      "config_name": "Valyria.config",
+      "config_path": "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Artifacts\\Configurations",
+      "attributes": {
+        "setting_1": {
+          "xpath": ".//appSettings",
+          "tag": "add",
+          "attribute": {
+            "key": "QuixantDoorPin",
+            "value": "Pin7"
+          }
+        },
+        "setting_2": {
+          "xpath": ".//appSettings/add[@key='PowerBackup']",
+          "tag": "add",
+          "attribute": {
+            "value": ""
+          }
+        }
+      }
+    }
   }
 }

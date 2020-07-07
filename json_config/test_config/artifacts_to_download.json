@@ -1,14 +1,16 @@
 {
   "_comment": "Test controller artifacts",
- "AuditUI": {
-    "folder_name": "AuditUI",
-    "config_file_name": null,
-    "buildTypeID": "Vertex_AuditUI_AuditUITrunk",
-    "tags": null,
-    "anchor": "AuditUI_Publish",
+ "shell": {
+    "folder_name": "Shell",
+    "config_file_name": "Shell.config",
+    "buildTypeID": "Vertex_VertexShell_Trunk",
+    "anchor": "VertexShell",
     "copy_artifacts_to_path": [
-      "D:\\AuditUI"
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\Shell"
     ],
-    "copy_config_to_path": null
+    "copy_config_to_path": [
+      "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\Backup\\Configurations",
+      "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Configurations"
+    ]
   }
 }

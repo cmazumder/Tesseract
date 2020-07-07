@@ -7,12 +7,14 @@ from tqdm import tqdm
 
 
 class ProgressBar:
+    # native progress bar, and unused. If bug is not fixed in tqdm have to move to this
     def __init__(self):
         self.bar = progressbar.ProgressBar(maxval=20,
                                            widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 
 
 class ProgressBar2:
+    # progress bar using tqdm. Has bug as per GitHub open issue list
     color_bars = [Fore.BLACK,
                   Fore.RED,
                   Fore.GREEN,

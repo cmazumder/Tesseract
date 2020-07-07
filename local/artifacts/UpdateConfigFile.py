@@ -1,5 +1,4 @@
-import util.file_actions as File
-import util.folder_actions as Folder
+
 from config.manage_json_config import get_dict_value
 from util.XmlParser import XmlParser
 
@@ -7,10 +6,9 @@ from util.XmlParser import XmlParser
 class UpdateConfigFile:
     def __init__(self, file_name, file_path, xml_attributes):
         self.file_name = file_name
-        self.file_path = Folder.build_path(file_path, file_name)
+        self.file_path = file_path
         self.xml_attributes = xml_attributes
-        if File.file_exists(self.file_path):
-            self.xml = XmlParser(file_path=self.file_path)
+        self.xml = XmlParser(file_path=self.file_path)
 
     def __del__(self):
         self.xml.__del__()

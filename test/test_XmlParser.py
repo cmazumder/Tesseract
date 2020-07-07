@@ -35,14 +35,16 @@ def tmp_test_valyria():
 def tmp_test_shell():
     f1 = r"C:\Users\mazumderc\Desktop\PythonSample\Configurations\Shell - Copy.config"
     xpath = ".//fileNameConstraints[@enabled='true']"
-    tag = "fileNameConstraints"
+    tag1 = "fileNameConstraints"
+    tag = ""
     attribute = {"enabled": "false"}
+
     # xml_parser.set_attribute(xpath=".//fileNameConstraints[@enabled='true']", element_attribute="enabled", element_value="false")
 
     xml_parser = XmlParser(file_path=f1)
-    xml_parser.modify_xml(xpath=xpath, attrib_dict=attribute)
+    xml_parser.modify_xml(xpath=xpath, tag=tag1, attrib_dict=attribute)
 
-tmp_test_valyria()
-# tmp_test_shell()
+# tmp_test_valyria()
+tmp_test_shell()
 
 

@@ -46,6 +46,7 @@
       "attributes": {
         "setting_1": {
           "xpath": ".//fileNameConstraints[@enabled='true']",
+          "tag": "fileNameConstraints",
           "attribute": {
             "enabled": "false"
           }

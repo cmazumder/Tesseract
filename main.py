@@ -21,6 +21,7 @@ def main(test_mode=False):
         print "PROD MODE"
         config_file_path = r"json_config/config_path.json"
 
+    print "Using {}".format(config_file_path)
     configuration_manager = ConfigManager(path_to_master_config=config_file_path)
     if configuration_manager.get_load_status():
         controller_infrastructure = Infrastructure()
