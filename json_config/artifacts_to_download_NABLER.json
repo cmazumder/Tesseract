@@ -124,12 +124,6 @@
     "copy_config_to_path": [
       "D:\\Backup\\Configurations",
       "F:\\Configurations"
-    ],
-    "find_text": [
-      "enabled=\"true\""
-    ],
-    "replace_text": [
-      "enabled=\"false\""
     ]
   },
   "UI": {

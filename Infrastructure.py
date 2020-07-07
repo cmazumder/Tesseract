@@ -4,6 +4,7 @@ from config.manage_json_config import get_dict_value
 from local.DatabaseSetup import DatabaseSetup as Database
 from local.ManageApplicationDownload import ManageApplicationDownload
 from local.ManageApplicationReplace import ManageApplicationReplace
+from local.ManagePostDownload import ManagePostDownload
 from local.artifacts.DownloadApplication import DownloadApplication
 from util import FolderActions as Folder, FileActions as File
 from web.api.teamcity import TeamCity
@@ -107,6 +108,11 @@ class Infrastructure:
         total_download_time = logger.total_time(start=start_time, end=logger.time_it())
 
         application_details = artifact_download.get_application_details()  # type: dict
+
+        # Post download task, eg. update config file
+        post_download = ManagePostDownload(
+            config_update_setting=get_dict_value(self.environment_setting, ["modify_config"]))
+        post_download.modify_xml_config()
 
         # Replace old with new artifacts
         artifact_replace = ManageApplicationReplace(app_setting=application_details,

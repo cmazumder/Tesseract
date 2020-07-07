@@ -21,4 +21,5 @@ def test_close_process():
     else:
         print('No Running Process found with given text')
 
-# test_close_process()
+
+test_close_process()

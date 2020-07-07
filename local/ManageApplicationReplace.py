@@ -1,4 +1,5 @@
 from config.manage_json_config import get_dict_value
+from local.artifacts.DownloadApplication import DownloadApplication
 from local.artifacts.ReplaceApplication import ReplaceApplication
 from util import FileActions as File
 from util import FolderActions as Folder
@@ -80,16 +81,6 @@ class ManageApplicationReplace:
                 if config_source_path:
                     config_destination_path = Folder.build_path(self.config_folder_path, config_file_name)
                     File.copy_from_to_file(source=config_source_path, destination=config_destination_path)
-                    self.__replace_text_config_file_if_required(app_name=app_name, source_path=config_destination_path)
-
-    def __replace_text_config_file_if_required(self, app_name, source_path):
-        # replace text only if required and size of both the list matches
-        find_text = get_dict_value(self.application_details, [app_name, "find_text"])
-        replace_text = get_dict_value(self.application_details, [app_name, "replace_text"])
-        if find_text and replace_text and len(find_text) == len(replace_text):
-            # better to search and replace via xpath, which has to be implemented
-            File.find_replace_text_many(file_path=source_path, find_text_list=find_text,
-                                        replace_text_list=replace_text)
 
     def replace_application(self):
         # make list of applications to be replaced

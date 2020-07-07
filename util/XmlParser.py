@@ -11,7 +11,7 @@ class DuplicateElement(Exception):
         self.message = message
 
     def __str__(self):
-        error = self.message + "\nxpath -> {0}\nExisting element --> {1}".format(self.xpath, self.element)
+        error = self.message + "\nxpath -> {0}\nExists --> {1}".format(self.xpath, self.element)
         return error
 
     def make_emelemt_string(self, tag, attribute):
@@ -21,20 +21,6 @@ class DuplicateElement(Exception):
             attribute_list += " "
         string = "<" + tag + " " + attribute_list + "/>"
         return string
-
-
-class ModifySelfAttributeIdentifierValue(Exception):
-    def __init__(self, xpath, key, value, message="Trying to modify self identifier supplied in xpath?"):
-        self.mod_key = self.make_string(key, value)
-        self.xpath = xpath
-        self.message = message
-
-    def __str__(self):
-        error = self.message + "\nxpath -> {0}\nAttribute -> {1}".format(self.xpath, self.mod_key)
-        return error
-
-    def make_string(self, key, value):
-        return "@{0}=\'{1}\'".format(key,value)
 
 
 class CommentedTreeBuilder(ET.TreeBuilder):
@@ -68,7 +54,7 @@ class XmlParser:
         try:
             return ET.parse(source=self.file_path, parser=self.parser)
         except ET.ParseError as err:
-            print "Error parsing code: {}\t Position: {}".format(err.code, err.position)
+            print "XML parse Error: {}\t Position: {}".format(err.code, err.position)
 
     def get_xml_tree(self):
         return self.read_xml_file()
@@ -76,22 +62,35 @@ class XmlParser:
     def find_element_by_xpath(self, xpath):
         return self.root.find(xpath)
 
-    def check_self_identifier_attribute_modification(self, xpath, tag, attrib_dict):
-        pattern_key = "@(.*?)="
-        key = re.search(pattern_key, xpath)
-        if key:
-            key = key.group(1)
-            pattern_value = "{}=\'(.*?)\'".format(key)
-            value = re.search(pattern_value, xpath)
-            if value:
-                value = value.group(1)
-                try:
-                    if attrib_dict[key] != value:
-                        raise ModifySelfAttributeIdentifierValue(xpath=xpath, key=key, value=attrib_dict[key])
-                except KeyError:
-                    pass
+    @staticmethod
+    def get_tag_from_xpath(xpath):
+        pattern_tag = r"/.*/(.*?)\["
+        tag_curr = re.search(pattern_tag, xpath)
+        if tag_curr is not None:
+            return tag_curr.group(1)
+        else:
+            return None
 
-    def check_duplicate_element(self, xpath, parent_node, tag, attrib_dict):
+    @staticmethod
+    def get_key_from_xpath(xpath):
+        pattern_key = r"@(.*?)="
+        key = re.search(pattern_key, xpath)
+        if key is not None:
+            return key.group(1)
+        else:
+            return None
+
+    @staticmethod
+    def get_value_from_xpath(xpath):
+        pattern_value = r"{}=\'(.*?)\'".format(XmlParser.get_key_from_xpath(xpath))
+        value = re.search(pattern_value, xpath)
+        if value is not None:
+            return value.group(1)
+        else:
+            return None
+
+    @staticmethod
+    def check_duplicate_element(xpath, parent_node, tag, attrib_dict):
         sub_node_iter = parent_node.iterfind(str(tag))
         for element in sub_node_iter:
             if attrib_dict == element.attrib:
@@ -99,25 +98,24 @@ class XmlParser:
 
     def get_parent_node(self, xpath, tag, attrib_dict):
         parent_node = self.find_element_by_xpath(xpath)
-        self.check_self_identifier_attribute_modification(xpath=xpath, tag=tag, attrib_dict=attrib_dict)
-        self.check_duplicate_element(xpath=xpath, parent_node=parent_node, tag=tag, attrib_dict=attrib_dict)
+        if parent_node is not None:
+            XmlParser.check_duplicate_element(xpath=xpath, parent_node=parent_node, tag=tag, attrib_dict=attrib_dict)
         return parent_node
 
-    def modify_xml(self, xpath, tag, attrib_dict):
+    def modify_xml(self, xpath, attrib_dict, tag=""):
+        if tag == "":
+            tag = XmlParser.get_tag_from_xpath(xpath=xpath)
         try:
             parent_node = self.get_parent_node(xpath=xpath, tag=tag, attrib_dict=attrib_dict)
-            if parent_node.tag != tag:
-                self.check_duplicate_element(parent_node=parent_node, tag=tag, attrib_dict=attrib_dict)
+            if parent_node is not None and parent_node.tag != tag:
                 self.add_element(parent_node=parent_node, tag=tag, attribute_dict=attrib_dict)
-            elif parent_node.tag == tag:
+            elif parent_node is not None:
                 for key, value in attrib_dict.iteritems():
                     self.set_attribute(node=parent_node, element_attribute=key, element_value=value)
 
         except DuplicateElement as err:
             print err
-            print "Add element error. Path {0}\tTag:{1}\tAttributes {2}\n".format(xpath, tag, attrib_dict)
-        except ModifySelfAttributeIdentifierValue as err:
-            print err
+            print "Add --> | Tag:{1} |Attributes {2}\n".format(xpath, tag, attrib_dict)
 
     def set_attribute(self, node, element_attribute, element_value):
         node.set(str(element_attribute), str(element_value))

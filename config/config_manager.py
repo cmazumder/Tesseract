@@ -41,8 +41,6 @@ class ConfigManager(object):
         else:
             raise ConfigLoadError("Cannot load --> {}\nPath -->{}".format(setting_name, relative_path))
 
-
-
     @classmethod
     def load_teamcity(cls):
         try:
