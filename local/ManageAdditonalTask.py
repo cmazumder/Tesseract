@@ -64,5 +64,5 @@ class ManageAdditionalTask:
         database_replace_status = self._setup_new_database()
         if database_replace_status is True:
             database_backup_status = self._create_database_backup()
-            print "Created backup: ".format(database_backup_status)
+            print "Created backup: {}".format(database_backup_status)
         return database_replace_status
