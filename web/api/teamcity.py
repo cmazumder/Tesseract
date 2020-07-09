@@ -36,7 +36,7 @@ class TeamCity(object, Connection):
         """
         final_url = self.join_url(self.host, api_url)
         return self.get_url_response(url=final_url, username=self.username, password=self.password, headers=headers,
-                              timeout=timeout)
+                                     timeout=timeout)
 
     def get_teamcity_json_response(self, api_url):
         """

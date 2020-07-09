@@ -9,7 +9,7 @@
   ],
   "download_artifact_root_path": "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Artifacts",
   "artifact_config_folder": "Configurations",
-  "db_property": {
+  "db_to_setup": {
     "db_script": "Vertex_and_Games_on_PC.sqla",
     "db_to_delete": [
       "Vertex",
@@ -42,7 +42,7 @@
   "modify_config": {
     "Shell": {
       "config_name": "Shell.config",
-      "config_path": "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Artifacts\\Configurations",
+      "config_path": "F:\\Artifacts\\Configurations",
       "attributes": {
         "setting_1": {
           "xpath": ".//fileNameConstraints[@enabled='true']",
@@ -55,7 +55,7 @@
     },
     "Valyria": {
       "config_name": "Valyria.config",
-      "config_path": "C:\\TEAMCITY_TEST\\VERTEX\\F_Drive\\Artifacts\\Configurations",
+      "config_path": "F:\\Artifacts\\Configurations",
       "attributes": {
         "setting_1": {
           "xpath": ".//appSettings",
@@ -74,5 +74,6 @@
         }
       }
     }
-  }
+  },
+  "sql_scripts_run": "configuration/Backup_VertexDB_RAMClear.sql"
 }

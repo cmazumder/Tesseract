@@ -101,7 +101,7 @@ def get_folder_properties_file_count(folder_path):
     no_of_file = 0
     for dir_path, dir_names, file_names in walk(folder_path):
         for dirs in dir_names:
-           pass
+            pass
         for filename in file_names:
             no_of_file += 1
             return no_of_file

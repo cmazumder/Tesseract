@@ -2,9 +2,7 @@ from util.XmlParser import XmlParser
 
 
 def tmp_test_valyria():
-
     f2 = r"C:\Users\mazumderc\Desktop\PythonSample\Configurations\Valyria - Copy.config"
-
 
     xml_parser = XmlParser(file_path=f2)
     # tree = xml_parser.read_xml_file()
@@ -19,7 +17,6 @@ def tmp_test_valyria():
     xpath_add = ".//appSettings"
     tag = 'add'
 
-
     # old implementation
     # xml_parser.set_attribute(xpath=".//appSettings/add[@key='PowerBackup']", element_attribute="value",
     #                          element_value="")
@@ -31,6 +28,7 @@ def tmp_test_valyria():
     tag = None
     xml_parser.modify_xml(xpath=xpath_modify, tag=tag, attrib_dict=d_add)
     # xml_parser.modify_xml(xpath=xpath_modify, attrib_dict=d_add)
+
 
 def tmp_test_shell():
     f1 = r"C:\Users\mazumderc\Desktop\PythonSample\Configurations\Shell - Copy.config"
@@ -44,7 +42,6 @@ def tmp_test_shell():
     xml_parser = XmlParser(file_path=f1)
     xml_parser.modify_xml(xpath=xpath, tag=tag1, attrib_dict=attribute)
 
+
 # tmp_test_valyria()
 tmp_test_shell()
-
-

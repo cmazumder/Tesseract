@@ -1,4 +1,4 @@
-from config.manage_json_config import get_json_as_dictionary, get_path_from_json_file
+from ManageJsonConfig import get_json_as_dictionary, get_path_from_json_file
 
 
 class ConfigLoadError(Exception):
@@ -11,10 +11,10 @@ class ConfigManager(object):
     list_configs_failed = []  # type: list  # List of configs that could not be loaded
 
     master_config_with_path = None  # type: str  # Path of json config, for each individual config files
-    artifacts_to_download_setting = None  # type: dict # config/json_config/artifacts_to_download_VERTEX.json
-    environment_setting = None  # type: dict  # Load config/json_config/environment_setting_VERTEX.json
-    database_setting = None  # type: dict  # Load config/json_config/database_setting.json
-    teamcity_setting = None  # type: dict  # Load config/json_config/teamcity_setting.json    
+    artifacts_to_download_setting = None  # type: dict # configuration/artifacts_to_download_VERTEX.json
+    environment_setting = None  # type: dict  # Load configuration/environment_setting_VERTEX.json
+    database_setting = None  # type: dict  # Load configuration/database_setting.json
+    teamcity_setting = None  # type: dict  # Load configuration/teamcity_setting.json
 
     @staticmethod
     def get_instance():

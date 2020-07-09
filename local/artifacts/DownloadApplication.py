@@ -1,13 +1,14 @@
 from threading import Thread
 
-from config.config_manager import ConfigManager
-from config.manage_json_config import get_dict_value
+from ConfigManager.ConfigManager import ConfigManager
+from ConfigManager.ManageJsonConfig import get_dict_value
 from util import FolderActions as Folder
 from web.api.application import Application
 
 
 class DownloadApplication(Thread, Application):
     ConfigurationManger = None
+
     def __init__(self, app_name, download_artifact_root_path, exclude_file_extension):
         Thread.__init__(self)
         self.ConfigurationManger = ConfigManager.get_instance()  # type: ConfigManager
@@ -23,7 +24,7 @@ class DownloadApplication(Thread, Application):
                 self.download_path = Folder.build_path(download_artifact_root_path, self.folder_name)
                 # remove previously downloaded contents in the same folder
                 Folder.delete_folder(folder_path=self.download_path)
-            Application.__init__(self, app_name=app_name,artifact_download_path=self.download_path,
+            Application.__init__(self, app_name=app_name, artifact_download_path=self.download_path,
                                  ignore_file_extensions=exclude_file_extension,
                                  anchor_text=get_dict_value(self.application_setting, ["anchor"]))
             self.status = None

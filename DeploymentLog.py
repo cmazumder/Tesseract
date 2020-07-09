@@ -1,6 +1,6 @@
 from time import time, localtime, strftime
 
-from config.manage_json_config import get_dict_value
+from ConfigManager.ManageJsonConfig import get_dict_value
 from local.artifacts.DownloadApplication import DownloadApplication
 from local.artifacts.ReplaceApplication import ReplaceApplication
 from util import FileActions as File

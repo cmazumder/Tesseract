@@ -4,16 +4,16 @@
     ".pdb"
   ],
   "windows_process_to_stop": [
-  "Aristocrat.Watchdog.Service.exe",
+    "Aristocrat.Watchdog.Service.exe",
     "VertexShell.exe",
-    "Aristocrat.Vertex.Service.exe", 
-	"Aristocrat.Cms.ServiceHost.exe",
-	"Aristocrat.InterfaceBoard.ServiceHost.exe",
-	"ValyriaTray.exe"
+    "Aristocrat.Vertex.Service.exe",
+    "Aristocrat.Cms.ServiceHost.exe",
+    "Aristocrat.InterfaceBoard.ServiceHost.exe",
+    "ValyriaTray.exe"
   ],
   "download_artifact_root_path": "F:\\Artifacts",
   "artifact_config_folder": "Configurations",
-  "db_property": {
+  "db_to_setup": {
     "db_script": "XSeries_and_Games_on_XSeriesBox.sql",
     "db_to_delete": [
       "Vertex",

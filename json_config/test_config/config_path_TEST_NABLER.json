@@ -1,7 +1,0 @@
-{
-  "_comment": "path to all configuration files",
-  "artifacts_to_download": "json_config/test_config/artifacts_to_download_NABLER.json",
-  "environment_setting": "json_config/test_config/environment_setting_NABLER.json",
-  "database_setting": "json_config/test_config/database_setting.json",
-  "teamcity_setting": "json_config/teamcity_setting.json"
-}

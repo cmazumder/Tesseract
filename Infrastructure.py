@@ -1,12 +1,12 @@
+from ConfigManager.ConfigManager import ConfigManager
+from ConfigManager.ManageJsonConfig import get_dict_value
 from DeploymentLog import DeploymentLog
-from config.config_manager import ConfigManager
-from config.manage_json_config import get_dict_value
 from local.DatabaseSetup import DatabaseSetup as Database
+from local.ManageAdditonalTask import ManageAdditionalTask
 from local.ManageApplicationDownload import ManageApplicationDownload
 from local.ManageApplicationReplace import ManageApplicationReplace
 from local.ManagePostDownload import ManagePostDownload
-from local.artifacts.DownloadApplication import DownloadApplication
-from util import FolderActions as Folder, FileActions as File
+from util import FolderActions as Folder
 from web.api.teamcity import TeamCity
 
 
@@ -81,18 +81,6 @@ class Infrastructure:
             return False
         return True
 
-    def get_sql_script(self, app_details):
-        # check if sql data is available
-        download_handler = get_dict_value(app_details, ["SQL", "Download"])  # type: DownloadApplication
-        if download_handler and download_handler.get_download_status():
-            sql_script_name = get_dict_value(self.environment_setting, ["db_property", "db_script"])
-            file_extension = sql_script_name.rsplit(".", 1)[1]
-            if file_extension.lower() == 'sql':
-                sql_path = Folder.build_path(download_handler.download_path, sql_script_name)
-                if File.isfile(sql_path):
-                    return sql_path
-        return None
-
     def start_setup(self):
         logger = DeploymentLog(get_dict_value(self.environment_setting, ["download_artifact_root_path"]))
 
@@ -124,22 +112,19 @@ class Infrastructure:
 
         application_details = artifact_replace.get_application_details()  # type: dict
 
-        sql_path = self.get_sql_script(app_details=application_details)
+        additional_task = ManageAdditionalTask(application_details=application_details,
+                                               environment_setting=self.environment_setting,
+                                               database_connection=self.get_database_connection())
 
-        if sql_path:
-            start_time = logger.time_it()
-            Database.recreate_database_from_script(database_connection=self.get_database_connection(),
-                                                   sql_path=sql_path,
-                                                   env_setting=self.environment_setting)
-            total_database_time = logger.total_time(start=start_time, end=logger.time_it())
-            print "{}\n{}\nDatabase recreated\n{}\n{}".format(artifact_download.spacer_char_hyphen,
-                                                              artifact_download.spacer_char_hyphen,
-                                                              artifact_download.spacer_char_hyphen,
-                                                              artifact_download.spacer_char_hyphen)
+        start_time = logger.time_it()
+        database_replace = additional_task.database_task()
+        total_database_time = logger.total_time(start=start_time, end=logger.time_it())
 
         logger.write_deployment_status(app_details=application_details)
         download_location = get_dict_value(self.environment_setting, ["download_artifact_root_path"])
-        logger.write_database_info(sql_path=sql_path)
+
+        if database_replace:
+            logger.write_database_info(sql_path=database_replace)
         logger.write_artifact_info(download_path=download_location)
         logger.write_time(time_download=total_download_time, time_replace=total_replace_time,
                           time_db=total_database_time)

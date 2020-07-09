@@ -35,7 +35,7 @@ def test_replace():
 
     download_application_root_path = u'C:\\TEAMCITY_TEST\\NABLER\\F_Drive\\Artifacts'
 
-    env_setting = {u'db_property': {u'db_to_delete': [u'Vertex', u'VertexArch', u'GamesArch', u'Games', u'Misc'],
+    env_setting = {u'db_to_setup': {u'db_to_delete': [u'Vertex', u'VertexArch', u'GamesArch', u'Games', u'Misc'],
                                     u'db_script': u'XSeries_and_Games_on_PC.sql', u'db_script_mod': {
             u'find_replace': {u'find_text': [u'VertexXYZ', u'GamesXYZ', u'MiscXYZ'],
                               u'replace_text': [u'Vertex', u'Games', u'Misc'], u'mod': u'no'},

@@ -9,7 +9,7 @@
   ],
   "download_artifact_root_path": "F:\\Artifacts",
   "artifact_config_folder": "Configurations",
-  "db_property": {
+  "db_to_setup": {
     "db_script": "Vertex_and_Games_on_VertexBox.sql",
     "db_to_delete": [
       "Vertex",
@@ -74,5 +74,6 @@
         }
       }
     }
-  }
+  },
+  "sql_scripts_run": "configuration/Backup_VertexDB_RAMClear.sql"
 }

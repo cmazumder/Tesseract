@@ -1,6 +1,6 @@
 {
   "_comment": "Test controller artifacts",
- "shell": {
+  "shell": {
     "folder_name": "Shell",
     "config_file_name": "Shell.config",
     "buildTypeID": "Vertex_VertexShell_Trunk",

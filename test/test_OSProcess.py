@@ -1,5 +1,6 @@
 from util.OSProcess import get_processid_by_name, kill_process_tree, time
 
+
 def test_close_process():
     spacer = '-' * 50
     # This is just a test function, and not to be used in code

@@ -1,6 +1,6 @@
 import util.FileActions as File
 import util.FolderActions as Folder
-from config.manage_json_config import get_dict_value
+from ConfigManager.ManageJsonConfig import get_dict_value
 from local.artifacts.ExtractConfigFiles import ExtractConfigFile
 from local.artifacts.UpdateConfigFile import UpdateConfigFile
 

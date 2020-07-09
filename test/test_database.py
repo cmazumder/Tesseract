@@ -1,5 +1,6 @@
 from local.database import Database
 
+
 def test_Database():
     # This is test function for this class
     db = Database(server="localhost\\SQLEXPRESS", username="sa", password="Password1")

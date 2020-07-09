@@ -40,6 +40,19 @@ def get_path_from_json_file(json_file_path, val):
     else:
         return False
 
+
+def get_abspath_from_config(dictionary, val):
+    """
+    val is list
+    """
+    file_path = get_dict_value(dictionary, val)
+    abs_file_path = get_abs_path(file_path=file_path)
+    if abs_file_path:
+        return file_path
+    else:
+        return False
+
+
 def get_json_as_dictionary(json_file_path):
     abs_file_path = get_abs_path(file_path=json_file_path)
     if abs_file_path:
@@ -68,6 +81,7 @@ def get_abs_path(file_path):
 def force_abs_path(file_path):
     script_dir = normcase(dirname(__file__))  # <-- absolute dir the script is in
     return Folder.build_path(script_dir, file_path)
+
 
 def construct_abs_path(file_path):
     file_path = abspath(file_path)

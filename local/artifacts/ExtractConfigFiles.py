@@ -1,6 +1,6 @@
+from ConfigManager.ManageJsonConfig import get_dict_value
 from util import FileActions as File
 from util import FolderActions as Folder
-from config.manage_json_config import get_dict_value
 
 
 class ExtractConfigFile:

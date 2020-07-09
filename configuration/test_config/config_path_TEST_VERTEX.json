@@ -1,0 +1,7 @@
+{
+  "_comment": "path to all configuration files",
+  "artifacts_to_download": "configuration/test_config/artifacts_to_download_VERTEX.json",
+  "environment_setting": "configuration/test_config/environment_setting_VERTEX.json",
+  "database_setting": "configuration/test_config/database_setting.json",
+  "teamcity_setting": "configuration/teamcity_setting.json"
+}

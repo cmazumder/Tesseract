@@ -1,25 +1,25 @@
 import sys
 
+from ConfigManager.ConfigManager import ConfigManager
 from Infrastructure import Infrastructure
-from config.config_manager import ConfigManager
 
 
 def main(test_mode=False):
     if test_mode == 'v':
         print "TEST MODE VERTEX"
-        config_file_path = r"json_config/test_config/config_path_TEST_VERTEX.json"
+        config_file_path = r"configuration/test_config/config_path_TEST_VERTEX.json"
     elif test_mode == 'n':
         print "TEST MODE NABLER"
-        config_file_path = r"json_config/test_config/config_path_TEST_NABLER.json"
+        config_file_path = r"configuration/test_config/config_path_TEST_NABLER.json"
     elif test_mode or test_mode == 't':
         print "TEST MODE"
-        config_file_path = r"json_config/test_config/config_path_TEST.json"
+        config_file_path = r"configuration/test_config/config_path_TEST.json"
     elif test_mode == 'p':
         print "PROD MODE"
-        config_file_path = r"json_config/config_path.json"
+        config_file_path = r"configuration/config_path.json"
     else:
         print "PROD MODE"
-        config_file_path = r"json_config/config_path.json"
+        config_file_path = r"configuration/config_path.json"
 
     print "Using {}".format(config_file_path)
     configuration_manager = ConfigManager(path_to_master_config=config_file_path)
@@ -44,4 +44,3 @@ if __name__ == '__main__':
         print "no arg"
     finally:
         main(test_mode=arg)
-
