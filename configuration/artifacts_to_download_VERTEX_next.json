@@ -59,6 +59,10 @@
     "anchor": "VertexShell",
     "copy_artifacts_to_path": [
       "D:\\Shell"
+    ],
+    "copy_config_to_path": [
+      "D:\\Backup\\Configurations",
+      "F:\\Configurations"
     ]
   },
   "UI": {

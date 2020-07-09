@@ -1,6 +1,6 @@
 {
   "_comment": "path to all configuration files",
-  "artifacts_to_download": "configuration/artifacts_to_download_VERTEX_trunk.json",
+  "artifacts_to_download": "configuration/artifacts_to_download_VERTEX.json",
   "environment_setting": "configuration/environment_setting_VERTEX.json",
   "database_setting": "configuration/database_setting.json",
   "teamcity_setting": "configuration/teamcity_setting.json"
