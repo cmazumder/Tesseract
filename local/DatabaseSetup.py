@@ -34,7 +34,7 @@ class DatabaseSetup:
     def recreate_database_from_script(database_connection, sql_path, env_setting):
         DatabaseSetup.setup_sql_script(sql_path, env_setting)
         DatabaseSetup.delete_existing_database(database_connection=database_connection, env_setting=env_setting)
-        DatabaseSetup.execute_sql_script(database_connection=database_connection, sql_script_path=sql_path)
+        DatabaseSetup.execute_sql_script(database_connection=database_connection, sql_path=sql_path)
 
     @staticmethod
     def execute_sql_script(database_connection, sql_path):
