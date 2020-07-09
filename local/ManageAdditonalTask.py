@@ -58,8 +58,7 @@ class ManageAdditionalTask:
             file_extension = sql_script_path.rsplit(".", 1)[1]
             if file_extension.lower() == 'sql':
                 return sql_script_path
-            else:
-                return False
+        return False
 
     def database_task(self):
         database_replace_status = self._setup_new_database()
