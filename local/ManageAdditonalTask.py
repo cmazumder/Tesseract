@@ -76,7 +76,10 @@ class ManageAdditionalTask:
 
     @staticmethod
     def __delete_content(directory_list):
-        Folder.delete_folder_contents(folder_path=directory_list[0], exclude_content=directory_list[1])
+        if len(directory_list) > 1:
+            Folder.delete_folder_contents(folder_path=directory_list[0], exclude_content=directory_list[1])
+        else:
+            Folder.delete_folder_contents(folder_path=directory_list[0])
 
     def close_running_process(self):
         if len(self.process_to_terminate) > 0:
