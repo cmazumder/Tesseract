@@ -2,7 +2,6 @@ from ConfigManager.ManageJsonConfig import get_dict_value
 from local.artifacts.DownloadApplication import DownloadApplication
 from local.artifacts.ReplaceApplication import ReplaceApplication
 from util import FolderActions as Folder
-from util.OSProcess import close_running_process
 
 
 class ManageApplicationReplace:
@@ -10,20 +9,14 @@ class ManageApplicationReplace:
     spacer_char_asterisk = '*' * 65
     download_application_root_path = None
     config_folder_path = None
-    exclude_file_extension = []
     application_details = {}
     application_name_keys = []
-    process_to_terminate = []
 
     def __init__(self, application_details, env_setting):
         self.env_setting = env_setting
         self.download_application_root_path = get_dict_value(env_setting, ["download_artifact_root_path"])
         self.config_folder_path = Folder.build_path(self.download_application_root_path,
                                                     get_dict_value(env_setting, ["artifact_config_folder"]))
-        self.exclude_file_extension = get_dict_value(env_setting, ["exclude_file_extension"])
-
-        self.process_to_terminate = get_dict_value(env_setting, ["windows_process_to_stop"])
-
         self.application_details = application_details
         self.application_name_keys = application_details.keys()
 
@@ -72,7 +65,6 @@ class ManageApplicationReplace:
     def replace_application(self):
         # make list of applications to be replaced
         self.__get_and_update_replace_list()
-        map(close_running_process, self.process_to_terminate)
         print "{}\n{}".format(self.spacer_char_asterisk, self.spacer_char_asterisk)
         for application in self.application_name_keys:
             app_handler = get_dict_value(self.application_details, [application, "Replace"])  # type: ReplaceApplication

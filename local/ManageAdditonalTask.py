@@ -4,6 +4,7 @@ from ConfigManager.ManageJsonConfig import get_dict_value, get_abspath_from_conf
 from local.DatabaseSetup import DatabaseSetup as Database
 from local.ManageApplicationDownload import ManageApplicationDownload
 from local.artifacts.DownloadApplication import DownloadApplication
+from util.OSProcess import close_running_process
 
 
 class ManageAdditionalTask:
@@ -15,6 +16,7 @@ class ManageAdditionalTask:
         self.application_details = application_details
         self.environment_setting = environment_setting
         self.database_connection = database_connection
+        self.process_to_terminate = get_dict_value(self.environment_setting, ["windows_process_to_stop"])
 
     def _setup_new_database(self):
         sql_path = self.__make_downloaded_sql_script_path()
@@ -66,3 +68,16 @@ class ManageAdditionalTask:
             database_backup_status = self._create_database_backup()
             print "Created backup: {}".format(database_backup_status)
         return database_replace_status
+
+    def delete_directory_contents(self):
+        directory_to_clean = get_dict_value(self.environment_setting, ["cleanup_directories"])
+        if len(directory_to_clean) > 0:
+            map(ManageAdditionalTask.__delete_content, directory_to_clean)
+
+    @staticmethod
+    def __delete_content(directory_list):
+        Folder.delete_folder_contents(folder_path=directory_list[0], exclude_content=directory_list[1])
+
+    def close_running_process(self):
+        if len(self.process_to_terminate) > 0:
+            map(close_running_process, self.process_to_terminate)

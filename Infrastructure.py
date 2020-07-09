@@ -102,6 +102,14 @@ class Infrastructure:
                                            application_details=application_details)
         post_download.start_post_download_task()
 
+        # Add-on task with environment
+        additional_task = ManageAdditionalTask(application_details=application_details,
+                                               environment_setting=self.environment_setting,
+                                               database_connection=self.get_database_connection())
+
+        additional_task.close_running_process()
+        additional_task.delete_directory_contents()
+
         # Replace old with new artifacts
         artifact_replace = ManageApplicationReplace(application_details=application_details,
                                                     env_setting=self.environment_setting)
@@ -112,9 +120,6 @@ class Infrastructure:
 
         application_details = artifact_replace.get_application_details()  # type: dict
 
-        additional_task = ManageAdditionalTask(application_details=application_details,
-                                               environment_setting=self.environment_setting,
-                                               database_connection=self.get_database_connection())
 
         start_time = logger.time_it()
         database_replace = additional_task.database_task()

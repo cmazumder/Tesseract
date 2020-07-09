@@ -72,16 +72,25 @@ def create_folder(folder_path):
     return False
 
 
-def delete_folder_contents(folder_path):
+def delete_folder_contents(folder_path, exclude_content=None):
     # Delete contents of folder
     try:
         if folder_exists(folder_path):
-            for item in listdir(folder_path):
-                path = build_path(folder_path, item)
-                if folder_exists(path):
-                    delete_folder(path)
-                elif file_exists(path):
-                    delete_file(path)
+            if exclude_content is not None:
+                for item in listdir(folder_path):
+                    if item not in exclude_content:
+                        path = build_path(folder_path, item)
+                        if folder_exists(path):
+                            delete_folder(path)
+                        elif file_exists(path):
+                            delete_file(path)
+            else:
+                for item in listdir(folder_path):
+                    path = build_path(folder_path, item)
+                    if folder_exists(path):
+                        delete_folder(path)
+                    elif file_exists(path):
+                        delete_file(path)
         else:
             print "Cannot delete non existent folder: {}".format(folder_path)
     except WindowsError as err:
