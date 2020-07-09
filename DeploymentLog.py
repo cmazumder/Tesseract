@@ -76,15 +76,14 @@ class DeploymentLog:
             map(self._write_app_version_info, self.app_keys)
             print "{}\n{}".format("  *" * 20, "#" * 58)
 
-    def write_database_info(self, sql_path):
-        if sql_path and File.file_exists(sql_path):
-            File.append_text_to_file(self.log_file, self.spacer)
-            string = self.center_align_filler.format(" Database information ")
-            File.append_text_to_file(self.log_file, string, "\n")
-            string = ("\t" + self.tab_text * 2).format("Script:", str(File.basename(sql_path)))
-            File.append_text_to_file(self.log_file, string)
-            string = ("\t" + self.tab_text * 2).format("Status:", "Recreated")
-            File.append_text_to_file(self.log_file, string)
+    def write_database_info(self, script_name):
+        File.append_text_to_file(self.log_file, self.spacer)
+        string = self.center_align_filler.format(" Database information ")
+        File.append_text_to_file(self.log_file, string, "\n")
+        string = ("\t" + self.tab_text * 2).format("Script:", str(script_name))
+        File.append_text_to_file(self.log_file, string)
+        string = ("\t" + self.tab_text * 2).format("Status:", "Recreated")
+        File.append_text_to_file(self.log_file, string)
 
     def write_artifact_info(self, download_path):
         if self.app_keys:

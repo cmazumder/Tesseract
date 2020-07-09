@@ -124,7 +124,8 @@ class Infrastructure:
         download_location = get_dict_value(self.environment_setting, ["download_artifact_root_path"])
 
         if database_replace:
-            logger.write_database_info(sql_path=database_replace)
+            logger.write_database_info(
+                script_name=get_dict_value(self.environment_setting, ["db_to_setup", "db_script"]))
         logger.write_artifact_info(download_path=download_location)
         logger.write_time(time_download=total_download_time, time_replace=total_replace_time,
                           time_db=total_database_time)

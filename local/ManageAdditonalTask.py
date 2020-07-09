@@ -28,7 +28,7 @@ class ManageAdditionalTask:
                                                               ManageApplicationDownload.spacer_char_hyphen,
                                                               ManageApplicationDownload.spacer_char_hyphen,
                                                               ManageApplicationDownload.spacer_char_hyphen)
-            return sql_path
+            return True
         return False
 
     def _create_database_backup(self):
