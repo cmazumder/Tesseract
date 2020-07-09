@@ -84,8 +84,6 @@ class Infrastructure:
     def start_setup(self):
         logger = DeploymentLog(get_dict_value(self.environment_setting, ["download_artifact_root_path"]))
 
-        total_database_time = None
-
         artifact_download = ManageApplicationDownload(app_setting=self.application_setting,
                                                       env_setting=self.environment_setting)
 
@@ -119,7 +117,6 @@ class Infrastructure:
         total_replace_time = logger.total_time(start=start_time, end=logger.time_it())
 
         application_details = artifact_replace.get_application_details()  # type: dict
-
 
         start_time = logger.time_it()
         database_replace = additional_task.database_task()
