@@ -105,18 +105,22 @@ class Infrastructure:
                                                environment_setting=self.environment_setting,
                                                database_connection=self.get_database_connection())
 
-        additional_task.close_running_process()
-        additional_task.delete_directory_contents()
-
         # Replace old with new artifacts
         artifact_replace = ManageApplicationReplace(application_details=application_details,
                                                     env_setting=self.environment_setting)
+
+        # close running process
+        additional_task.close_running_process()
+
         start_time = logger.time_it()
         artifact_replace.replace_application()
+
         # total artifact replace time
         total_replace_time = logger.total_time(start=start_time, end=logger.time_it())
 
         application_details = artifact_replace.get_application_details()  # type: dict
+
+        additional_task.delete_directory_contents()
 
         start_time = logger.time_it()
         database_replace = additional_task.database_task()
