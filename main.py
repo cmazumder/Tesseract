@@ -1,7 +1,7 @@
 import sys
 
 from ConfigManager.ConfigManager import ConfigManager
-from Infrastructure import Infrastructure
+from InfrastructureSetup import InfrastructureSetup
 
 
 def main(test_mode=False):
@@ -24,7 +24,7 @@ def main(test_mode=False):
     print "Using {}".format(config_file_path)
     configuration_manager = ConfigManager(path_to_master_config=config_file_path)
     if configuration_manager.get_load_status():
-        controller_infrastructure = Infrastructure()
+        controller_infrastructure = InfrastructureSetup()
         if controller_infrastructure.is_ready():
             controller_infrastructure.start_setup()
         else:

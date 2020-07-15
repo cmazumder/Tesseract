@@ -6,6 +6,7 @@
     "buildTypeID": "bt6",
     "tags": null,
     "anchor": "VertexDataService",
+    "tags": null,
     "copy_artifacts_to_path": [
       "C:\\TEAMCITY_TEST\\VERTEX\\D_Drive\\DataService"
     ],
