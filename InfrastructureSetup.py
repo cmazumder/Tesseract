@@ -10,7 +10,7 @@ from util import FolderActions as Folder
 from web.api.teamcity import TeamCity
 
 
-class Infrastructure:
+class InfrastructureSetup:
 
     def __init__(self):
         self.ConfigurationManager = ConfigManager.get_instance()
