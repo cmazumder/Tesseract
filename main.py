@@ -5,16 +5,16 @@ from Infrastructure import Infrastructure
 
 
 def main(test_mode=False):
-    if test_mode == 'v':
+    if test_mode == 'testV':
         print "TEST MODE VERTEX"
         config_file_path = r"configuration/test_config/config_path_TEST_VERTEX.json"
-    elif test_mode == 'n':
+    elif test_mode == 'testN':
         print "TEST MODE NABLER"
         config_file_path = r"configuration/test_config/config_path_TEST_NABLER.json"
-    elif test_mode or test_mode == 't':
+    elif test_mode or test_mode == 'test' or test_mode == 't':
         print "TEST MODE"
         config_file_path = r"configuration/test_config/config_path_TEST.json"
-    elif test_mode == 'p':
+    elif test_mode == 'prod':
         print "PROD MODE"
         config_file_path = r"configuration/config_path.json"
     else:
@@ -26,7 +26,10 @@ def main(test_mode=False):
     if configuration_manager.get_load_status():
         controller_infrastructure = Infrastructure()
         if controller_infrastructure.is_ready():
-            controller_infrastructure.start_setup()
+            if test_mode == 'test':
+                sys.exit("Infrastructure is ready")
+            else:
+                controller_infrastructure.start_setup()
         else:
             sys.exit("Issue with infrastructure")
     else:
@@ -39,8 +42,8 @@ if __name__ == '__main__':
     try:
         if sys.argv[1]:
             arg = sys.argv[1]
-            print arg
+            print "Mode: {}" .format(arg)
     except IndexError:
-        print "no arg"
+        print "No argument"
     finally:
         main(test_mode=arg)
