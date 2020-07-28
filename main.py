@@ -11,8 +11,11 @@ def main(test_mode=False):
     elif test_mode == 'testN':
         print "TEST MODE NABLER"
         config_file_path = r"configuration/test_config/config_path_TEST_NABLER.json"
-    elif test_mode or test_mode == 'test' or test_mode == 't':
+    elif test_mode == 'test':
         print "TEST MODE"
+        config_file_path = r"configuration/config_path.json"
+    elif test_mode or test_mode == 't':
+        print "Dummy test MODE"
         config_file_path = r"configuration/test_config/config_path_TEST.json"
     elif test_mode == 'prod':
         print "PROD MODE"
