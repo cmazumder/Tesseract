@@ -82,5 +82,6 @@ class ManageAdditionalTask:
             Folder.delete_folder_contents(folder_path=directory_list[0])
 
     def close_running_process(self):
-        if len(self.process_to_terminate) > 0:
+        if self.process_to_terminate is not None and len(self.process_to_terminate) > 0:
+            # check if any process is listed to be terminated
             map(close_running_process, self.process_to_terminate)
