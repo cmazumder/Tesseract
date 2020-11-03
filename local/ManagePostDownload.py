@@ -1,3 +1,7 @@
+"""
+Task to post download activity
+"""
+
 import util.FileActions as File
 import util.FolderActions as Folder
 from ConfigManager.ManageJsonConfig import get_dict_value
@@ -6,6 +10,12 @@ from local.artifacts.UpdateConfigFile import UpdateConfigFile
 
 
 class ManagePostDownload:
+    """
+    This class will handled task after artifacts have been downloaded.
+        - Extract all xml configuration files of controller
+        - modify xml files as per need and specification in json configuration
+
+    """
     config_update_setting = {}
     application_details = {}
 
@@ -17,6 +27,10 @@ class ManagePostDownload:
             get_dict_value(environment_setting, ["artifact_config_folder"]))
 
     def modify_xml_config(self):
+        """
+        Modify attribute/property in xml file. These values will come from json config
+
+        """
         for config_name in self.config_update_setting:
             xml_object = self._create_xml_edit_object(config_name=config_name)  # type: UpdateConfigFile
             if xml_object is not None:
@@ -26,10 +40,12 @@ class ManagePostDownload:
 
     def _create_xml_edit_object(self, config_name):
         """
-        Create object of UpdateConfigFile
-        @param config_name:
-        @return: UpdateConfigFile
-        @rtype: Object of UpdateConfigFile
+        Create instance of UpdateConfigFile
+
+        :param config_name: Name of the artifact
+        :type config_name: str
+        :return: Return instance of UpdateConfigFile or None
+        :rtype: UpdateConfigFile/None
         """
         file_name = get_dict_value(self.config_update_setting, [config_name, "config_name"])
         file_root_path = get_dict_value(self.config_update_setting, [config_name, "config_path"])
@@ -44,11 +60,19 @@ class ManagePostDownload:
             return None
 
     def extract_config_file(self):
+        """
+        Extract controller (xml) files
+
+        """
         if Folder.folder_exists(self.config_root_location):
             config_extract_handler = ExtractConfigFile(config_folder_path=self.config_root_location,
                                                        application_details=self.application_details)
             config_extract_handler.start_extraction()
 
     def start_post_download_task(self):
+        """
+        Execute extraction of controller config files and update them if required
+
+        """
         self.extract_config_file()
         self.modify_xml_config()

@@ -1,3 +1,7 @@
+"""
+Standalone operations on folder(s)
+"""
+
 from os import makedirs, listdir, walk
 from os.path import isdir, join
 from shutil import rmtree, copytree, move
@@ -6,6 +10,12 @@ from util.FileActions import file_exists, delete_file, compute_file_size
 
 
 def delete_folder(folder_path):
+    """
+    Delete the folder. Careful this will delete non-empty folder too
+
+    :param folder_path: path to the folder
+    :type folder_path: str
+    """
     try:
         if folder_exists(folder_path):
             rmtree(folder_path)
@@ -16,6 +26,15 @@ def delete_folder(folder_path):
 
 
 def move_from_to_location(source, destination):
+    """
+    Move folder from source to destination
+    Note: The destination folder will be first deleted
+
+    :param source: path of folder source
+    :type source: str
+    :param destination: path to destination where the folder will be moved
+    :type destination: str
+    """
     delete_folder(destination)
     try:
         move(source, destination)
@@ -25,6 +44,15 @@ def move_from_to_location(source, destination):
 
 
 def copy_from_to_location(source, destination):
+    """
+    Copy folder from source to destination
+    Note: The destination folder will be first deleted
+
+    :param source: path of folder source
+    :type source: str
+    :param destination: path to destination where the folder will be moved
+    :type destination: str
+    """
     delete_folder(destination)
     try:
         copytree(source, destination)
@@ -36,6 +64,14 @@ def copy_from_to_location(source, destination):
 
 
 def build_path(*args):
+    """
+    Join path to handled os paths
+
+    :param args: all the params will be joined
+    :type args: str
+    :return: absolute path
+    :rtype: str
+    """
     file_path = r''
     try:
         for arg in args:
@@ -50,6 +86,14 @@ def build_path(*args):
 
 
 def folder_exists(folder_path):
+    """
+    Check if folder is present
+
+    :param folder_path: path to the folder
+    :type folder_path: str
+    :return: status
+    :rtype: bool
+    """
     if isdir(folder_path):
         return True
     else:
@@ -57,6 +101,14 @@ def folder_exists(folder_path):
 
 
 def create_folder(folder_path):
+    """
+    Create a new folder, if not already present
+
+    :param folder_path: path to the folder
+    :type folder_path: str
+    :return: status
+    :rtype: bool
+    """
     if folder_exists(folder_path=folder_path):
         return True
     else:
@@ -73,7 +125,14 @@ def create_folder(folder_path):
 
 
 def delete_folder_contents(folder_path, exclude_content=None):
-    # Delete contents of folder
+    """
+    Delete contents of folder, and not the folder
+
+    :param folder_path: path to the folder
+    :type folder_path: str
+    :param exclude_content: List of any file that will not be deleted
+    :type exclude_content: list
+    """
     try:
         if folder_exists(folder_path):
             if exclude_content is not None:
@@ -98,14 +157,13 @@ def delete_folder_contents(folder_path, exclude_content=None):
 
 
 def get_folder_properties_file_count(folder_path):
-    """Calculate the square root of a number.
+    """
+    Get the total number of files in folder
 
-    Args:
-        folder_path: the path of the Folder
-    Returns:
-        no_of_file: total number of file as int.
-    Raises:
-        None
+    :param folder_path: path to the folder
+    :type folder_path: str
+    :return: count of files
+    :rtype: int
     """
     no_of_file = 0
     for dir_path, dir_names, file_names in walk(folder_path):
@@ -117,14 +175,13 @@ def get_folder_properties_file_count(folder_path):
 
 
 def get_folder_properties(folder_path):
-    """Return no of files, sub-folder and size of a director
+    """
+    Return no of files, sub-folder and size of a director
 
-    Args:
-        folder_path: the path of the Folder
-    Returns:
-        no of files, no of sub-folder and size
-    Raises:
-        none
+    :param folder_path: path to the folder
+    :type folder_path: str
+    :return: count of files, folders and total size
+    :rtype: int, int, bytes
     """
     no_of_file = 0
     no_of_folder = 0
@@ -141,7 +198,12 @@ def get_folder_properties(folder_path):
 
 def convert_bytes(num):
     """
-    this function will convert bytes to MB.... GB... etc
+    Convert bytes to MB.... GB... etc
+
+    :param num: size
+    :type num: int
+    :return: size
+    :rtype: bytes
     """
     step_unit = 1000.0  # 1024 bad the size
 

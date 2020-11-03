@@ -1,3 +1,7 @@
+"""
+Basic information about artifacts/application details for download
+"""
+
 import json
 
 from ConfigManager.ManageJsonConfig import get_dict_value
@@ -5,7 +9,13 @@ from web.api.teamcity import TeamCity
 
 
 class Build:
+    """
+    Base class keep track of basic information of artifacts
 
+    This class will check if api of artifact has a successful build or not. If yes, will save information related
+    to build id and version number and api. These will be used to fetch future information and start download by
+    derived call Application
+    """
     def __init__(self):
         self.build_id = None
         self.version_number = None
@@ -16,6 +26,7 @@ class Build:
     def get_json_response_as_dict(self, api_url):
         """
         decoded json response from api / url
+
         :rtype: dict
         :return: json response
         """
@@ -28,6 +39,7 @@ class Build:
     def get_api_response_status(self, api_url):
         """
         Response from api / url
+
         :rtype: string
         :return: http response
         """
@@ -37,6 +49,7 @@ class Build:
     def get_api_response(self, api_url):
         """
         Response from api / url
+
         :rtype: string
         :return: http response
         """
@@ -44,7 +57,8 @@ class Build:
 
     def has_successful_build(self, api_url):
         """
-        List the last successfully completed build in TeamCityConnection for the buildTypeId
+        List the last successfully completed build in TeamCity/server for the buildTypeId
+
         :param api_url: api url for teamcity
         :return: True if there is a successful build
         """
@@ -65,10 +79,28 @@ class Build:
             return False
 
     def get_build_id(self):
+        """
+        Get the build id of artifact
+
+        :return: build_id
+        :rtype: str
+        """
         return self.build_id
 
     def get_version_number(self):
+        """
+        Get the version number of artifact
+
+        :return: version_number
+        :rtype: str
+        """
         return self.version_number
 
     def get_app_api(self):
+        """
+        Get the api url of artifact
+
+        :return: application_api
+        :rtype: str
+        """
         return self.application_api

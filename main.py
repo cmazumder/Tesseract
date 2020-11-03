@@ -1,3 +1,7 @@
+"""
+Main
+"""
+
 import sys
 
 from ConfigManager.ConfigManager import ConfigManager
@@ -5,10 +9,16 @@ from InfrastructureSetup import InfrastructureSetup
 
 
 def main(test_mode=False):
-    if test_mode == 'testV':
+    """
+    Main
+
+    :param test_mode: The mode in which application is triggered
+    :type test_mode: str
+    """
+    if test_mode == 'v':
         print "TEST MODE VERTEX"
         config_file_path = r"configuration/test_config/config_path_TEST_VERTEX.json"
-    elif test_mode == 'testN':
+    elif test_mode == 'n':
         print "TEST MODE NABLER"
         config_file_path = r"configuration/test_config/config_path_TEST_NABLER.json"
     elif test_mode == 'test':
@@ -17,7 +27,7 @@ def main(test_mode=False):
     elif test_mode or test_mode == 't':
         print "Dummy test MODE"
         config_file_path = r"configuration/test_config/config_path_TEST.json"
-    elif test_mode == 'prod':
+    elif test_mode == 'p':
         print "PROD MODE"
         config_file_path = r"configuration/config_path.json"
     else:
@@ -45,8 +55,8 @@ if __name__ == '__main__':
     try:
         if sys.argv[1]:
             arg = sys.argv[1]
-            print "Mode: {}" .format(arg)
+            print arg
     except IndexError:
-        print "No argument"
+        print "no arg"
     finally:
         main(test_mode=arg)

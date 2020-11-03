@@ -1,18 +1,22 @@
+"""
+Task to replace artifacts from source to destination folder
+"""
+
 from util import FileActions as File
 from util import FolderActions as Folder
 
 
 class ReplaceApplication:
-    """
-    Take care of replacement of binaries of applications
-    """
-    """
-    application_replace_details - will save the information of the applications to be replaced
-    AppName : {
-                source: 'path',
-                destination: [list of folder],
-                status: True/False
-                }
+    """ Take care of replacement of binaries of applications
+
+    :param self.application_replace_details: save the information of the applications to be replaced
+    :type self.application_replace_details: dict
+    :key source: 'str' source folder value as str
+    :key destination: 'str' path of destination folder(s) value as list
+    :key status: 'str' save replacement status of artifacts value as bool
+
+    self.application_replace_details = {AppName : {source: 'path',destination: [list of folder],status: True/False}}
+
     """
 
     def __init__(self, app_source=None, app_destinations=None, config_source=None, config_destinations=None):
@@ -57,7 +61,17 @@ class ReplaceApplication:
         return tmp_status
 
     def __check_file_copy_status(self, source, destination):
-        # compare source and dest file size
+        """
+        compare source and destination file size
+
+        :param source: source folder location
+        :type source: str
+        :param destination: destination folder location
+        :type destination: str
+        :return: return copy status
+        :rtype: bool
+        """
+
         if Folder.isdir(destination):
             destination = Folder.build_path(destination, File.basename(source))
         if File.compute_file_size(source) == File.compute_file_size(destination):
@@ -70,6 +84,11 @@ class ReplaceApplication:
             return False
 
     def replace_artifact(self):
+        """
+        Replace (delete old and copy latest) artifacts from downloads to actual location
+        and update the status for success or failure
+
+        """
         tmp_status = True
         if self.app_source and self.app_destinations:
             if not self._copy_folder():
@@ -84,7 +103,19 @@ class ReplaceApplication:
         self.status = tmp_status
 
     def get_replace_status(self):
+        """
+        Get status of artifact replacement
+
+        :return: status
+        :rtype: bool
+        """
         return self.status
 
     def get_replace_folder(self):
+        """
+        Get artifact destination folder location
+
+        :return: app_destination folder path
+        :rtype: str
+        """
         return self.app_destinations

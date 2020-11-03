@@ -2,6 +2,9 @@ from web.connection import Connection
 
 
 class TeamCity(object, Connection):
+    """
+    Base class to manage Teamcity connection
+    """
     _instance = None
     host = None
     username = None
@@ -10,7 +13,6 @@ class TeamCity(object, Connection):
     def __new__(cls, host, username, password):
         if cls._instance is None:
             cls._instance = super(TeamCity, cls).__new__(cls)
-            # Put any initialization here.
             cls.host = host
             cls.username = password
             cls.password = username
@@ -18,21 +20,25 @@ class TeamCity(object, Connection):
 
     @staticmethod
     def get_instance():
-        """ Static access method. """
+        """
+        Get instance of Teamcity
+
+        :return: instance of Teamcity
+        :rtype: TeamCity
+        """
         if not TeamCity._instance:
             raise RuntimeError('Did you call __new__() ?')
         return TeamCity._instance
 
     def get_teamcity_response(self, api_url=None, headers=None, timeout=None):
         """
-            Re-implementation from superclass
-            :param timeout:
-            :param headers:
-            :type string:
-            :param api_url:
-            :type string:
-            :return: from parent class
-            :rtype:
+        Override to get Teamcity response from url
+
+        :param timeout:
+        :param headers:
+        :param api_url:
+        :return: from parent class
+        :rtype: json
         """
         final_url = self.join_url(self.host, api_url)
         return self.get_url_response(url=final_url, username=self.username, password=self.password, headers=headers,
@@ -40,11 +46,12 @@ class TeamCity(object, Connection):
 
     def get_teamcity_json_response(self, api_url):
         """
-            Re-implementation from superclass
-            :param api_url:
-            :type api_url:
-            :return: from parent class
-            :rtype:
+        Override to get Teamcity response from url as json
+
+        :param api_url:
+        :type api_url:
+        :return: from parent class
+        :rtype:
         """
         final_url = self.join_url(self.host, api_url)
-        return self.get_json_response(url=final_url, username=self.username, password=self.password)
+        return self.get_unicode_json_response(url=final_url, username=self.username, password=self.password)

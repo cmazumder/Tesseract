@@ -1,3 +1,7 @@
+"""
+Manage artifacts/application details to be downloaded from TeamCity
+"""
+
 from urllib import unquote
 
 from build import Build
@@ -7,6 +11,12 @@ from util.ProgressBar import ProgressBar2
 
 
 class Application(Build):
+    """
+    Derived class from Build to handle and save attributes of each artifacts to be downloaded from TeamCity.
+
+    It's responsible for managing the download of but fetching the list of files from api and triggering the download
+    and saving the files to the system
+    """
     application_count = 0
 
     def __init__(self, app_name, artifact_download_path, ignore_file_extensions, anchor_text):
@@ -41,6 +51,7 @@ class Application(Build):
         """
         Private method
         create list of urls and file names that would be downloaded and also used to create subdirectories
+
         :param filename_to_get: list of filenames that has to be included in dict artifact_file_details
         :param artifact_list_from_api: api json response with list of files
         """
@@ -82,9 +93,12 @@ class Application(Build):
 
     def __complete_download_prerequisite(self, artifact_repository_url):
         """
-        Private method
-        Check if url is available then download Vertex Service files
-        :return: None
+        Check if url is available then create the list of files to download from server (TeamCity)
+
+        :param artifact_repository_url: url of artifact
+        :type artifact_repository_url: str
+        :return: status
+        :rtype: bool
         """
         status = True
         if self.get_api_response_status(api_url=artifact_repository_url) == 200:
@@ -98,8 +112,7 @@ class Application(Build):
 
     def _initiate_download(self):
         """
-        start app file(s) download
-        :return: None
+        Start app file(s) download
         """
         # make the api for artifacts with the list of files
         artifact_url = self.teamcity_handler.join_url(self.application_api, self.anchor_text)
@@ -110,6 +123,10 @@ class Application(Build):
             self.__start_download()
 
     def __start_download(self):
+        """
+        Start download
+
+        """
         # progress bar
         progress = ProgressBar2(desc=self.application_name, total=self.total_size,
                                 position=self.actual_application_count, leave=True)
@@ -127,6 +144,12 @@ class Application(Build):
         progress.bar.close()
 
     def _count_of_download_and_artifact_list_match(self):
+        """
+        Check if count of list of files to download and files downloaded match
+
+        :return: status
+        :rtype: bool
+        """
         if len(self.artifact_file_details) == len(self.downloaded_file_details):
             return True
         else:
@@ -135,7 +158,7 @@ class Application(Build):
     def show_downloaded_info(self):
         """
         Print version information
-        :return: None
+
         """
         print "Version: {}\nBuild_ID: {}".format(self.version_number, self.build_id)
         print "Teamcity file count : {} \n" \
@@ -144,7 +167,16 @@ class Application(Build):
 
     def __download_file_from_api(self, file_api, file_relative_path, file_size):
         """
+        Download and save file from the file_api list and save to system and return the absolute path of the file
 
+        :param file_api: api of the file
+        :type file_api: string
+        :param file_relative_path: relative file path
+        :type file_relative_path: string
+        :param file_size: file size in bytes
+        :type file_size: bytes
+        :return: absolute file path from file_complete_path
+        :rtype: str
         """
         file_relative_path = unquote(file_relative_path)  # Replace %xx escapes by their single-character equivalent
 
@@ -158,6 +190,14 @@ class Application(Build):
             return file_complete_path
 
     def __build_complete_windows_path(self, relative_path):
+        """
+        Make absolute file path from relative file path for Application
+
+        :param relative_path: relative file path
+        :type relative_path: string
+        :return: absolute file path
+        :rtype: str
+        """
         try:
             # split from right, the first element from left. Checking if relative path is the file itself
             if relative_path == relative_path.rsplit("/")[0]:
@@ -176,6 +216,14 @@ class Application(Build):
             print "Issue while converting to windows path: {}".format(WindowsError.message)
 
     def __save_file_to_system(self, api_url, file_path):
+        """
+        Save a file from url to system, and is used by __download_file_from_api method
+
+        :param api_url: file api
+        :type api_url: str
+        :param file_path: absolute file path to save
+        :type file_path: str
+        """
         try:
             # do not need to close file obj explicitly 
             with open(file_path, "wb") as local_file:
@@ -187,6 +235,16 @@ class Application(Build):
                                                                                                     api_url)
 
     def __file_size_match(self, file_path, file_size):
+        """
+        Compare file size for a file in file_path with expected size in file_size
+
+        :param file_path: absolute file path
+        :type file_path: str
+        :param file_size: size of file
+        :type file_size: bytes
+        :return: True/False
+        :rtype: bool
+        """
         file_size_computed = File.compute_file_size(file_path=file_path)
         if file_size_computed == file_size:
             return True

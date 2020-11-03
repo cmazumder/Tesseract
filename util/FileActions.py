@@ -1,3 +1,7 @@
+"""
+Standalone operations on file(s)
+"""
+
 import io
 from os import remove, rename, walk
 from os.path import isdir, basename, dirname, join, isfile, getsize, islink
@@ -5,6 +9,14 @@ from shutil import move, copy2
 
 
 def append_text_to_file(file_path, *args):
+    """
+    Append text to a file
+
+    :param file_path: path of the file
+    :type file_path: str
+    :param args: collections of all text
+    :type args: str
+    """
     if isdir(file_path):
         print "Cannot write to dir: {}".format(file_path)
     else:
@@ -20,6 +32,14 @@ def append_text_to_file(file_path, *args):
 
 
 def file_exists(file_path):
+    """
+    Check if file is present
+
+    :param file_path: path of the file
+    :type file_path: str
+    :return: True/False
+    :rtype: bool
+    """
     try:
         if isfile(file_path):
             return True
@@ -29,6 +49,12 @@ def file_exists(file_path):
 
 
 def delete_file(file_path):
+    """
+    Delete a file
+
+    :param file_path: path of the file
+    :type file_path: str
+    """
     if file_exists(file_path):
         try:
             remove(file_path)
@@ -39,6 +65,14 @@ def delete_file(file_path):
 
 
 def move_from_to_file(source, destination):
+    """
+    Move a file from source to destination
+
+    :param source: path to the file source
+    :type source: str
+    :param destination: path of destination
+    :type destination: str
+    """
     delete_file(destination)
     try:
         move(source, destination)
@@ -47,6 +81,18 @@ def move_from_to_file(source, destination):
 
 
 def find_replace_text(file_path, find_text, replace_text, encoding='ascii'):
+    """
+    Find and replace a text in text file
+
+    :param file_path: path of the file
+    :type file_path: str
+    :param find_text: original text
+    :type find_text: str
+    :param replace_text: replace text
+    :type replace_text: str
+    :param encoding: encoding of file
+    :type encoding: str
+    """
     if file_exists(file_path):
         file_root = dirname(file_path)
 
@@ -69,13 +115,17 @@ def find_replace_text(file_path, find_text, replace_text, encoding='ascii'):
 
 def find_replace_text_many(file_path, find_text_list, replace_text_list, encoding='ascii'):
     """
-    Replace all occurrences of text in file
-    @param file_path: path to file
-    @type file_path: raw string
-    @param find_text_list: find the list of words in file
-    @type find_text_list: list
-    @param replace_text_list: replace the list of words in file
-    @type replace_text_list: list
+    Find and replace a list of texts in text file
+    Keep tab of pairing the two list!
+
+    :param file_path: path of the file
+    :type file_path: str
+    :param find_text_list: list of original text
+    :type find_text_list: list
+    :param replace_text_list: list of replace text
+    :type replace_text_list: list
+    :param encoding: encoding of file
+    :type encoding: str
     """
     if file_exists(file_path):
         file_root = dirname(file_path)
@@ -106,12 +156,14 @@ def find_replace_text_many(file_path, find_text_list, replace_text_list, encodin
 
 def copy_from_to_file(source, destination):
     """
-    @param source: source path to file, with filename
-    @type source: string
-    @param destination: destination directory only
-    @type destination: string
-    @return: None
-    @rtype: None
+    Move a file from source to destination
+
+    :param source: path to the file source
+    :type source: str
+    :param destination: path of destination
+    :type destination: str
+    :return: status
+    :rtype: bool
     """
     if file_exists(source) and isdir(dirname(destination)):
         if basename(source) == basename(destination) and file_exists(destination):
@@ -125,6 +177,16 @@ def copy_from_to_file(source, destination):
 
 
 def search_file_first_occurrence(search_path, filename):
+    """
+    Search for a file in folder
+
+    :param search_path: path of the folder to search
+    :type search_path: str
+    :param filename: file to be searched
+    :type filename: str
+    :return: return absolute of file if found
+    :rtype: str
+    """
     result = r''
     # Waking top-down from the root
     for dir_path, dir_names, file_names in walk(search_path):
@@ -134,6 +196,16 @@ def search_file_first_occurrence(search_path, filename):
 
 
 def search_file_all_occurrence(filename, search_path):
+    """
+    Search all the occurrence for a file in the folder
+
+    :param search_path: path of the folder to search
+    :type search_path: str
+    :param filename: file to be searched
+    :type filename: str
+    :return: return absolute of file if found
+    :rtype: list
+    """
     result = []
     # Waking top-down from the root
     for dir_path, dir_names, file_names in walk(search_path):
@@ -143,11 +215,27 @@ def search_file_all_occurrence(filename, search_path):
 
 
 def create_file(file_path, encoding='ascii'):
+    """
+    Create an empty file
+
+    :param file_path: path of the file to be created
+    :type file_path: str
+    :param encoding: file encoding
+    :type encoding: str
+    """
     with io.open(file_path, "w", encoding=encoding) as file_write:
         file_write.close()
 
 
 def compute_file_size(file_path):
+    """
+    Return size of the file
+
+    :param file_path: path to file
+    :type file_path: str
+    :return: file size
+    :rtype: bytes
+    """
     if file_exists(file_path):
         # skip if it is symbolic link
         if not islink(file_path):

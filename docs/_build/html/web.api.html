@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>web.api package &mdash; Tesseract 2.1.7 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="web package" href="web.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Tesseract
+          
+
+          
+            
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tesseract.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DeployBuilds_from_TeamCity</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ConfigManager.html">ConfigManager package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DeploymentLog.html">DeploymentLog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InfrastructureSetup.html">InfrastructureSetup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.html">local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="web.html">web package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="web.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">web.api package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="web.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="web.html#module-web.connection">web.connection module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Tesseract</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">DeployBuilds_from_TeamCity</a> &raquo;</li>
+        
+          <li><a href="web.html">web package</a> &raquo;</li>
+        
+      <li>web.api package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/web.api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-web.api">
+<span id="web-api-package"></span><h1>web.api package<a class="headerlink" href="#module-web.api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-web.api.application">
+<span id="web-api-application-module"></span><h2>web.api.application module<a class="headerlink" href="#module-web.api.application" title="Permalink to this headline">¶</a></h2>
+<p>Manage artifacts/application details to be downloaded from TeamCity</p>
+<dl class="class">
+<dt id="web.api.application.Application">
+<em class="property">class </em><code class="descclassname">web.api.application.</code><code class="descname">Application</code><span class="sig-paren">(</span><em>app_name</em>, <em>artifact_download_path</em>, <em>ignore_file_extensions</em>, <em>anchor_text</em><span class="sig-paren">)</span><a class="headerlink" href="#web.api.application.Application" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#web.api.build.Build" title="web.api.build.Build"><code class="xref py py-class docutils literal notranslate"><span class="pre">web.api.build.Build</span></code></a></p>
+<p>Derived class from Build to handle and save attributes of each artifacts to be downloaded from TeamCity.</p>
+<p>It’s responsible for managing the download of but fetching the list of files from api and triggering the download
+and saving the files to the system</p>
+<dl class="attribute">
+<dt id="web.api.application.Application.application_count">
+<code class="descname">application_count</code><em class="property"> = 0</em><a class="headerlink" href="#web.api.application.Application.application_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="web.api.application.Application.artifact_file_details">
+<code class="descname">artifact_file_details</code><em class="property"> = None</em><a class="headerlink" href="#web.api.application.Application.artifact_file_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>downloaded_file_details will save the information of the files downloaded in a dict
+absolute_path : FileName</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="web.api.application.Application.show_downloaded_info">
+<code class="descname">show_downloaded_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#web.api.application.Application.show_downloaded_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print version information</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-web.api.build">
+<span id="web-api-build-module"></span><h2>web.api.build module<a class="headerlink" href="#module-web.api.build" title="Permalink to this headline">¶</a></h2>
+<p>Basic information about artifacts/application details for download</p>
+<dl class="class">
+<dt id="web.api.build.Build">
+<em class="property">class </em><code class="descclassname">web.api.build.</code><code class="descname">Build</code><a class="headerlink" href="#web.api.build.Build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class keep track of basic information of artifacts</p>
+<p>This class will check if api of artifact has a successful build or not. If yes, will save information related
+to build id and version number and api. These will be used to fetch future information and start download by
+derived call Application</p>
+<dl class="method">
+<dt id="web.api.build.Build.get_api_response">
+<code class="descname">get_api_response</code><span class="sig-paren">(</span><em>api_url</em><span class="sig-paren">)</span><a class="headerlink" href="#web.api.build.Build.get_api_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Response from api / url</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">http response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="web.api.build.Build.get_api_response_status">
+<code class="descname">get_api_response_status</code><span class="sig-paren">(</span><em>api_url</em><span class="sig-paren">)</span><a class="headerlink" href="#web.api.build.Build.get_api_response_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Response from api / url</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">http response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="web.api.build.Build.get_app_api">
+<code class="descname">get_app_api</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#web.api.build.Build.get_app_api" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the api url of artifact</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">application_api</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="web.api.build.Build.get_build_id">
+<code class="descname">get_build_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#web.api.build.Build.get_build_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the build id of artifact</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">build_id</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="web.api.build.Build.get_json_response_as_dict">
+<code class="descname">get_json_response_as_dict</code><span class="sig-paren">(</span><em>api_url</em><span class="sig-paren">)</span><a class="headerlink" href="#web.api.build.Build.get_json_response_as_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>decoded json response from api / url</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">json response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="web.api.build.Build.get_version_number">
+<code class="descname">get_version_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#web.api.build.Build.get_version_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the version number of artifact</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">version_number</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="web.api.build.Build.has_successful_build">
+<code class="descname">has_successful_build</code><span class="sig-paren">(</span><em>api_url</em><span class="sig-paren">)</span><a class="headerlink" href="#web.api.build.Build.has_successful_build" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the last successfully completed build in TeamCity/server for the buildTypeId</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>api_url</strong> – api url for teamcity</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if there is a successful build</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-web.api.teamcity">
+<span id="web-api-teamcity-module"></span><h2>web.api.teamcity module<a class="headerlink" href="#module-web.api.teamcity" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="web.api.teamcity.TeamCity">
+<em class="property">class </em><code class="descclassname">web.api.teamcity.</code><code class="descname">TeamCity</code><a class="headerlink" href="#web.api.teamcity.TeamCity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code>, <a class="reference internal" href="web.html#web.connection.Connection" title="web.connection.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">web.connection.Connection</span></code></a></p>
+<p>Base class to manage Teamcity connection</p>
+<dl class="staticmethod">
+<dt id="web.api.teamcity.TeamCity.get_instance">
+<em class="property">static </em><code class="descname">get_instance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#web.api.teamcity.TeamCity.get_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get instance of Teamcity</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">instance of Teamcity</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#web.api.teamcity.TeamCity" title="web.api.teamcity.TeamCity">TeamCity</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="web.api.teamcity.TeamCity.get_teamcity_json_response">
+<code class="descname">get_teamcity_json_response</code><span class="sig-paren">(</span><em>api_url</em><span class="sig-paren">)</span><a class="headerlink" href="#web.api.teamcity.TeamCity.get_teamcity_json_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override to get Teamcity response from url as json</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>api_url</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">from parent class</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="web.api.teamcity.TeamCity.get_teamcity_response">
+<code class="descname">get_teamcity_response</code><span class="sig-paren">(</span><em>api_url=None</em>, <em>headers=None</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#web.api.teamcity.TeamCity.get_teamcity_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override to get Teamcity response from url</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>timeout</strong> – </li>
+<li><strong>headers</strong> – </li>
+<li><strong>api_url</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">from parent class</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">json</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="web.api.teamcity.TeamCity.host">
+<code class="descname">host</code><em class="property"> = None</em><a class="headerlink" href="#web.api.teamcity.TeamCity.host" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="web.api.teamcity.TeamCity.password">
+<code class="descname">password</code><em class="property"> = None</em><a class="headerlink" href="#web.api.teamcity.TeamCity.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="web.api.teamcity.TeamCity.username">
+<code class="descname">username</code><em class="property"> = None</em><a class="headerlink" href="#web.api.teamcity.TeamCity.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="web.html" class="btn btn-neutral float-left" title="web package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Chayan Mazumder
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,11 +1,32 @@
+"""
+Manage network connection via url
+"""
+
 from urlparse import urljoin
 
 from requests import get, ConnectionError
 
 
 class Connection:
+    """
+    Base class to make connection request to url
+
+    This class take the responsibility to manage connection request, getting URL and Json responses
+    """
     @classmethod
-    def get_json_response(cls, url, username=None, password=None):
+    def get_unicode_json_response(cls, url, username=None, password=None):
+        """
+        Get the Json response from url
+
+        :param url: the url to get response from
+        :type url: str
+        :param username: optional user name for authentication if required
+        :type username: str
+        :param password: optional password for authentication if required
+        :type password: str
+        :return: response_api.text
+        :rtype: unicode
+        """
         header = {"Accept": "Application/JSON"}
         response_api = cls.get_url_response(url, username=username, password=password, headers=header)
         if response_api.status_code == 200:
@@ -24,18 +45,20 @@ class Connection:
     @classmethod
     def get_url_response(cls, url, username=None, password=None, headers=None, timeout=None):
         """
+        Get Response from url
 
-        :param timeout:
-        :param headers:
-        :type headers:
-        :param url:
-        :type url:
-        :param username:
-        :type username:
-        :param password:
-        :type password:
+        :param url: the url to get response from
+        :type url: str
+        :param username: optional user name for authentication if required
+        :type username: str
+        :param password: optional password for authentication if required
+        :type password: str
+        :param headers: lines sent by the client in a HTTP protocol transaction
+        :type headers: dict
+        :param timeout: Requests to stop waiting for a response after a given number of seconds
+        :type timeout: float
         :return: response
-        :rtype: json
+        :rtype: requests.Response
         """
         try:
             response = get(url, auth=(username, password), headers=headers, timeout=timeout)
@@ -47,8 +70,9 @@ class Connection:
     @classmethod
     def join_url(cls, *args):
         """
-        pythonic way to make urls
-        WARNING Don't sent any argument starting with /
+        Pythonic way to make urls
+        WARNING Don't send any argument starting with /
+
         :param args: all arguments to be joined
         :return: final url
         """

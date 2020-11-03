@@ -1,3 +1,7 @@
+"""
+Standalone operations on based on OS processes
+"""
+
 import os
 import signal
 import time
@@ -6,10 +10,15 @@ import psutil
 
 
 def get_processid_by_name(process_name):
-    '''
+    """
     Get a list of all the PIDs of the running process whose name contains
     the given string processName
-    '''
+
+    :param process_name: windows process name
+    :type process_name: str
+    :return: list of running process information with process_name
+    :rtype: list
+    """
     gone = alive = []
     list_of_processes = []
     # Iterate over the all the running process
@@ -26,10 +35,24 @@ def get_processid_by_name(process_name):
 
 def kill_process_tree(pid, sig=signal.SIGTERM, include_parent=True,
                       timeout=None, on_terminate=None):
-    """Kill a process tree (including grandchildren) with signal
-    "sig" and return a (gone, still_alive) tuple.
-    "on_terminate", if specified, is a callabck function which is
-    called as soon as a child terminates.
+    """
+    Kill a process tree (including grandchildren) with signal "sig" and
+    return a (gone, still_alive) tuple.
+    "on_terminate", if specified, is a callback function which is called as soon as a child terminates.
+
+    :param pid: Process id of process
+    :type pid: str
+    :param sig: Optional argument for Termination Signals
+    :type sig: str
+    :param include_parent: Optional if parent process to be included
+    :type include_parent: bool
+    :param on_terminate: Optional for *callback* which is a function which gets called every time a process
+        terminates (a Process instance is passed as callback argument)
+    :param timeout: Process wait timeout
+    :type timeout: float
+    :type on_terminate: str
+    :return: status of terminating the process
+    :rtype: bool
     """
     assert pid != os.getpid(), "won't kill myself"
     try:
@@ -48,7 +71,13 @@ def kill_process_tree(pid, sig=signal.SIGTERM, include_parent=True,
 
 
 def close_running_process(process_name):
-    # process_detail = get_processid_by_name('chrome', 'conhost', 'pycharm64.exe', 'WinMergeU')
+    """
+    This will handle the termination of running processes passed in the list
+    E.g. process_detail = get_processid_by_name('chrome', 'conhost', 'pycharm64.exe', 'WinMergeU')
+
+    :param process_name: list of process to be terminated
+    :type process_name: list
+    """
     try:
         process_detail = get_processid_by_name(process_name=process_name)
         if len(process_detail) > 0:

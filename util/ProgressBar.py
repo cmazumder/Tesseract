@@ -1,3 +1,7 @@
+"""
+Maintain Progress bar
+"""
+
 import sys
 from random import choice
 
@@ -7,14 +11,18 @@ from tqdm import tqdm
 
 
 class ProgressBar:
-    # native progress bar, and unused. If bug is not fixed in tqdm have to move to this
+    """
+    Native progress bar, and unused. If bug is not fixed in tqdm have to move to this
+    """
     def __init__(self):
         self.bar = progressbar.ProgressBar(maxval=20,
                                            widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 
 
 class ProgressBar2:
-    # progress bar using tqdm. Has bug as per GitHub open issue list
+    """
+    Progress bar using tqdm. Has bug as per GitHub open issue list
+    """
     color_bars = [Fore.BLACK,
                   Fore.RED,
                   Fore.GREEN,
@@ -25,7 +33,6 @@ class ProgressBar2:
                   Fore.WHITE]
 
     def __init__(self, desc, total, position=None, leave=True, ascii=True, unit=" byte", colour=True):
-
         if colour:
             bar_format = "{l_bar}%s{bar}%s{r_bar}" % (choice(ProgressBar2.color_bars), Fore.RESET)
             self.bar = tqdm(desc=desc, total=total, position=position, unit=unit, unit_scale=True, ascii=ascii,

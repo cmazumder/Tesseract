@@ -1,3 +1,7 @@
+"""
+Setup the python framework's requirements
+"""
+
 from setuptools import setup
 
 setup(

@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>DeployBuilds_from_TeamCity &mdash; Tesseract 2.1.7 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ConfigManager package" href="ConfigManager.html" />
+    <link rel="prev" title="Summary" href="tesseract_about.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Tesseract
+          
+
+          
+            
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tesseract.html">About</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DeployBuilds_from_TeamCity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ConfigManager.html">ConfigManager package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DeploymentLog.html">DeploymentLog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InfrastructureSetup.html">InfrastructureSetup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.html">local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">web package</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Tesseract</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>DeployBuilds_from_TeamCity</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deploybuilds-from-teamcity">
+<h1>DeployBuilds_from_TeamCity<a class="headerlink" href="#deploybuilds-from-teamcity" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ConfigManager.html">ConfigManager package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ConfigManager.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConfigManager.html#module-ConfigManager.ConfigManager">ConfigManager.ConfigManager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConfigManager.html#module-ConfigManager.ManageJsonConfig">ConfigManager.ManageJsonConfig module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DeploymentLog.html">DeploymentLog module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InfrastructureSetup.html">InfrastructureSetup module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local.html">local package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="local.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="local.artifacts.html">local.artifacts package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="local.artifacts.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="local.artifacts.html#module-local.artifacts.BackupApplication">local.artifacts.BackupApplication module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="local.artifacts.html#module-local.artifacts.DownloadApplication">local.artifacts.DownloadApplication module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="local.artifacts.html#module-local.artifacts.ExtractConfigFiles">local.artifacts.ExtractConfigFiles module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="local.artifacts.html#module-local.artifacts.ReplaceApplication">local.artifacts.ReplaceApplication module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="local.artifacts.html#module-local.artifacts.UpdateConfigFile">local.artifacts.UpdateConfigFile module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="local.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.html#module-local.DatabaseSetup">local.DatabaseSetup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.html#module-local.ManageAdditonalTask">local.ManageAdditonalTask module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.html#module-local.ManageApplicationDownload">local.ManageApplicationDownload module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.html#module-local.ManageApplicationReplace">local.ManageApplicationReplace module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.html#module-local.ManagePostDownload">local.ManagePostDownload module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.html#module-local.database">local.database module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">util package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="util.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#module-util.FileActions">util.FileActions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#module-util.FolderActions">util.FolderActions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#module-util.OSProcess">util.OSProcess module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#module-util.ProgressBar">util.ProgressBar module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html#module-util.XmlParser">util.XmlParser module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="web.html">web package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="web.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="web.api.html">web.api package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="web.api.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="web.api.html#module-web.api.application">web.api.application module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="web.api.html#module-web.api.build">web.api.build module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="web.api.html#module-web.api.teamcity">web.api.teamcity module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="web.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html#module-web.connection">web.connection module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ConfigManager.html" class="btn btn-neutral float-right" title="ConfigManager package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tesseract_about.html" class="btn btn-neutral float-left" title="Summary" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Chayan Mazumder
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

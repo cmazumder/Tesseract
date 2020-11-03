@@ -1,3 +1,7 @@
+"""
+Task to manage application replace
+"""
+
 from ConfigManager.ManageJsonConfig import get_dict_value
 from local.artifacts.DownloadApplication import DownloadApplication
 from local.artifacts.ReplaceApplication import ReplaceApplication
@@ -5,6 +9,11 @@ from util import FolderActions as Folder
 
 
 class ManageApplicationReplace:
+    """
+    This class will handled replacement of artifacts.
+    Delete old artifact and copy the new downloaded artifact(s)
+
+    """
     spacer_char_hyphen = '-' * 50
     spacer_char_asterisk = '*' * 65
     download_application_root_path = None
@@ -32,14 +41,15 @@ class ManageApplicationReplace:
             if list_of_application_object[replace_object] is not 'None':
                 self.application_details[replace_object]['Replace'] = list_of_application_object[replace_object]
 
-    def __get_and_update_replace_list2(self):
-        # tester function and should be removed in future
-        for item in self.application_name_keys:
-            app_name, replace_object = self.__create_replace_object(app_name=item)
-            if replace_object is not 'None':
-                self.application_details[item]['Replace'] = replace_object
-
     def __create_replace_object(self, app_name):
+        """
+        Create instance of ReplaceApplication
+
+        :param app_name: Name of artifact
+        :type app_name: str
+        :return: Artifact name and ReplaceApplication instance
+        :rtype: str, ReplaceApplication
+        """
         app_download_handler = get_dict_value(self.application_details,
                                               [app_name, "Download"])  # type: DownloadApplication
         if app_download_handler.get_download_status() is True:
@@ -63,7 +73,10 @@ class ManageApplicationReplace:
             return app_name, 'None'
 
     def replace_application(self):
-        # make list of applications to be replaced
+        """
+        Make list of applications to be replaced
+
+        """
         self.__get_and_update_replace_list()
         print "{}\n{}".format(self.spacer_char_asterisk, self.spacer_char_asterisk)
         for application in self.application_name_keys:
@@ -72,4 +85,10 @@ class ManageApplicationReplace:
                 app_handler.replace_artifact()
 
     def get_application_details(self):
+        """
+        Get the application details
+
+        :return: application_details
+        :rtype: dict
+        """
         return self.application_details

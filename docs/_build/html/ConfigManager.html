@@ -1,0 +1,573 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ConfigManager package &mdash; Tesseract 2.1.7 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="DeploymentLog module" href="DeploymentLog.html" />
+    <link rel="prev" title="DeployBuilds_from_TeamCity" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Tesseract
+          
+
+          
+            
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tesseract.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DeployBuilds_from_TeamCity</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ConfigManager package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ConfigManager.ConfigManager">ConfigManager.ConfigManager module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ConfigManager.ManageJsonConfig">ConfigManager.ManageJsonConfig module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DeploymentLog.html">DeploymentLog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InfrastructureSetup.html">InfrastructureSetup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.html">local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">web package</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Tesseract</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">DeployBuilds_from_TeamCity</a> &raquo;</li>
+        
+      <li>ConfigManager package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ConfigManager.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-ConfigManager">
+<span id="configmanager-package"></span><h1>ConfigManager package<a class="headerlink" href="#module-ConfigManager" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-ConfigManager.ConfigManager">
+<span id="configmanager-configmanager-module"></span><h2>ConfigManager.ConfigManager module<a class="headerlink" href="#module-ConfigManager.ConfigManager" title="Permalink to this headline">¶</a></h2>
+<p>Manage json configuration file(s)</p>
+<dl class="exception">
+<dt id="ConfigManager.ConfigManager.ConfigLoadError">
+<em class="property">exception </em><code class="descclassname">ConfigManager.ConfigManager.</code><code class="descname">ConfigLoadError</code><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigLoadError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.Exception</span></code></p>
+<p>Custom exception class!</p>
+<p>Raised if there is any error in loading Configuration file</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ConfigManager.ConfigManager.ConfigManager">
+<em class="property">class </em><code class="descclassname">ConfigManager.ConfigManager.</code><code class="descname">ConfigManager</code><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Singleton class to handle and load configuration from json to dictionary</p>
+<p>Will read a json configuration file, and load it into a dictionary. These values will be then used as per need
+throughout the framework</p>
+<dl class="attribute">
+<dt id="ConfigManager.ConfigManager.ConfigManager.artifacts_to_download_setting">
+<code class="descname">artifacts_to_download_setting</code><em class="property"> = None</em><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.artifacts_to_download_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ConfigManager.ConfigManager.ConfigManager.config_load_status">
+<code class="descname">config_load_status</code><em class="property"> = None</em><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.config_load_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ConfigManager.ConfigManager.ConfigManager.database_setting">
+<code class="descname">database_setting</code><em class="property"> = None</em><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.database_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ConfigManager.ConfigManager.ConfigManager.environment_setting">
+<code class="descname">environment_setting</code><em class="property"> = None</em><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.environment_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.get_artifacts_to_download">
+<em class="property">classmethod </em><code class="descname">get_artifacts_to_download</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.get_artifacts_to_download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get artifact configuration
+:return: artifacts_to_download_setting
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.get_database">
+<em class="property">classmethod </em><code class="descname">get_database</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.get_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get database configuration
+:return: database_setting
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.get_environment_setting">
+<em class="property">classmethod </em><code class="descname">get_environment_setting</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.get_environment_setting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get local environment configuration
+:return: environment_setting
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.get_instance">
+<em class="property">static </em><code class="descname">get_instance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.get_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get instance of ConfigManger
+:return: _instance
+:rtype: ConfigManager</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.get_list_of_failed_configs">
+<em class="property">classmethod </em><code class="descname">get_list_of_failed_configs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.get_list_of_failed_configs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of all the configuration of files that failed to load
+:return: list_configs_failed
+:rtype: list</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.get_load_status">
+<em class="property">classmethod </em><code class="descname">get_load_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.get_load_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the status of all the configuration of files being loaded successfully or not
+:return: config_load_status
+:rtype: bool</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.get_teamcity">
+<em class="property">classmethod </em><code class="descname">get_teamcity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.get_teamcity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get teamcity configuration
+:return: teamcity_setting
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ConfigManager.ConfigManager.ConfigManager.list_configs_failed">
+<code class="descname">list_configs_failed</code><em class="property"> = []</em><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.list_configs_failed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.load_all_configurations">
+<em class="property">classmethod </em><code class="descname">load_all_configurations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.load_all_configurations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load all the configuration files to dictionary</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.load_artifacts_to_download">
+<em class="property">classmethod </em><code class="descname">load_artifacts_to_download</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.load_artifacts_to_download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load artifact(s) details config from file to artifacts_to_download_setting
+:return: True/False
+:rtype: bool</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.load_config">
+<em class="property">classmethod </em><code class="descname">load_config</code><span class="sig-paren">(</span><em>setting_name</em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.load_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load config from file to dictionary
+:param setting_name: path of the specific configuration
+:type setting_name: str
+:return: dictionary
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.load_database">
+<em class="property">classmethod </em><code class="descname">load_database</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.load_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load database config from file to database_setting
+:return: True/False
+:rtype: bool</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.load_environment_setting">
+<em class="property">classmethod </em><code class="descname">load_environment_setting</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.load_environment_setting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load local environment config from file to environment_setting
+:return: True/False
+:rtype: bool</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="ConfigManager.ConfigManager.ConfigManager.load_teamcity">
+<em class="property">classmethod </em><code class="descname">load_teamcity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.load_teamcity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load TeamCity config from file to teamcity_setting
+:return: True/False
+:rtype: bool</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ConfigManager.ConfigManager.ConfigManager.master_config_with_path">
+<code class="descname">master_config_with_path</code><em class="property"> = None</em><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.master_config_with_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ConfigManager.ConfigManager.ConfigManager.teamcity_setting">
+<code class="descname">teamcity_setting</code><em class="property"> = None</em><a class="headerlink" href="#ConfigManager.ConfigManager.ConfigManager.teamcity_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-ConfigManager.ManageJsonConfig">
+<span id="configmanager-managejsonconfig-module"></span><h2>ConfigManager.ManageJsonConfig module<a class="headerlink" href="#module-ConfigManager.ManageJsonConfig" title="Permalink to this headline">¶</a></h2>
+<p>Handle json</p>
+<dl class="function">
+<dt id="ConfigManager.ManageJsonConfig.construct_abs_path">
+<code class="descclassname">ConfigManager.ManageJsonConfig.</code><code class="descname">construct_abs_path</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ManageJsonConfig.construct_abs_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make absolute path for the relative path</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_path</strong> (<em>str</em>) – relative path of file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">absolute path of file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="ConfigManager.ManageJsonConfig.force_abs_path">
+<code class="descclassname">ConfigManager.ManageJsonConfig.</code><code class="descname">force_abs_path</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ManageJsonConfig.force_abs_path" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_path</strong> (<em>str</em>) – relative path of file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">absolute path of file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="ConfigManager.ManageJsonConfig.get_abs_path">
+<code class="descclassname">ConfigManager.ManageJsonConfig.</code><code class="descname">get_abs_path</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ManageJsonConfig.get_abs_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get absolute path to json file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_path</strong> (<em>str</em>) – path of the file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">absolute os path of the file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="ConfigManager.ManageJsonConfig.get_abspath_from_config">
+<code class="descclassname">ConfigManager.ManageJsonConfig.</code><code class="descname">get_abspath_from_config</code><span class="sig-paren">(</span><em>dictionary</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ManageJsonConfig.get_abspath_from_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get absolute path of file from the dictionary</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dictionary</strong> (<em>dict</em>) – contains filenames and relative paths</li>
+<li><strong>val</strong> (<em>str</em>) – name of file</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">absolute path of file</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="ConfigManager.ManageJsonConfig.get_dict_value">
+<code class="descclassname">ConfigManager.ManageJsonConfig.</code><code class="descname">get_dict_value</code><span class="sig-paren">(</span><em>dictionary</em>, <em>keys</em>, <em>ascii=False</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ManageJsonConfig.get_dict_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get value from nested dictionary using deep fetch</p>
+<dl class="docutils">
+<dt>Examples:</dt>
+<dd><ul class="first last simple">
+<li>dictionary = {‘meta’: {‘status’: ‘OK’, ‘status_code’: 200}}</li>
+<li>get_dict_value(dictionary, [“meta”, “status_code”])          # =&gt; 200</li>
+<li>get_dict_value(dictionary, [“garbage”, “status_code”])       # =&gt; None</li>
+<li>get_dict_value(dictionary, [“meta”, “garbage”], default=’-‘) # =&gt; ‘-‘</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dictionary</strong> (<em>dict</em>) – dictionary to get value from</li>
+<li><strong>keys</strong> (<em>list</em>) – list of keys for nested dictionary values</li>
+<li><strong>ascii</strong> (<em>bool</em>) – specify if value has to returned as ascii</li>
+<li><strong>default</strong> (<em>str</em>) – return value if key not found. By default return None</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">value from the dictionary</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="ConfigManager.ManageJsonConfig.get_json_as_dictionary">
+<code class="descclassname">ConfigManager.ManageJsonConfig.</code><code class="descname">get_json_as_dictionary</code><span class="sig-paren">(</span><em>json_file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ManageJsonConfig.get_json_as_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse json file and return as dictionary</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>json_file_path</strong> (<em>str</em>) – path to json file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">json as dictionary</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="ConfigManager.ManageJsonConfig.get_path_from_json_file">
+<code class="descclassname">ConfigManager.ManageJsonConfig.</code><code class="descname">get_path_from_json_file</code><span class="sig-paren">(</span><em>json_file_path</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ManageJsonConfig.get_path_from_json_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get absolute path from master configuration files with path to all json configs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>json_file_path</strong> (<em>str</em>) – path to master json file</li>
+<li><strong>val</strong> (<em>str</em>) – the specific json file name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">relative path of the json file as per name in val</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="ConfigManager.ManageJsonConfig.update_value_in_json_fie">
+<code class="descclassname">ConfigManager.ManageJsonConfig.</code><code class="descname">update_value_in_json_fie</code><span class="sig-paren">(</span><em>json_file_path</em>, <em>dictionary</em><span class="sig-paren">)</span><a class="headerlink" href="#ConfigManager.ManageJsonConfig.update_value_in_json_fie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update value in json file from dictionary</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>json_file_path</strong> (<em>str</em>) – path to json file</li>
+<li><strong>dictionary</strong> (<em>dict</em>) – the values to update in json file</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="DeploymentLog.html" class="btn btn-neutral float-right" title="DeploymentLog module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="DeployBuilds_from_TeamCity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Chayan Mazumder
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,9 +1,20 @@
+"""
+Task related to application download
+"""
+
 from ConfigManager.ManageJsonConfig import get_dict_value
 from local.artifacts.DownloadApplication import DownloadApplication
 from util import FolderActions as Folder
 
 
 class ManageApplicationDownload:
+    """
+    This class will handled creation of download object handlers as
+    per the application/artifacts listed in the configuration.
+
+    Any new artifact to download, just add it to the config file.
+
+    """
     spacer_char_hyphen = '-' * 50
     spacer_char_asterisk = '*' * 65
     download_application_root_path = None
@@ -26,7 +37,11 @@ class ManageApplicationDownload:
         self.application_name_keys = app_setting.keys()
 
     def download_application(self):
-        """ Download Applications """
+        """
+        Start the downlaod process of the artifact(s)
+
+        """
+
         self.__get_and_update_download_list()
         download_instances = []
         for application in self.application_name_keys:
@@ -43,16 +58,20 @@ class ManageApplicationDownload:
 
     def _start_thread(self, instance):
         """
-        start download thread
-        @param instance: object of DowbloadApplication
+        Start download thread
+
+        :param instance: handler of artifact to download
+        :type instance: DownloadApplication
         """
         application_instance = instance  # type: DownloadApplication
         application_instance.start()
 
     def _join_thread(self, instance):
         """
-        join all thread of download
-        @param instance: object of DowbloadApplication
+        Join all thread of download
+
+        :param instance: handler of artifact to download
+        :type instance: DownloadApplication
         """
         application_instance = instance  # type: DownloadApplication
         application_instance.join()
@@ -60,7 +79,9 @@ class ManageApplicationDownload:
     def _print_download_info(self, instance):
         """
         Print download status and information of application
-        @param instance: object of DowbloadApplication
+
+        :param instance: handler of artifact to download
+        :type instance: DownloadApplication
         """
         application_instance = instance  # type: DownloadApplication
         print "Application --> {}\n".format(application_instance.application_name)
@@ -69,8 +90,8 @@ class ManageApplicationDownload:
 
     def __get_and_update_download_list(self):
         """
-        Download application
-        @return: None
+        Update the downloaded artifacts details in class attribute application_details
+
         """
         list_of_application_object = dict(
             map(self.__create_download_object, self.application_name_keys))
@@ -79,11 +100,12 @@ class ManageApplicationDownload:
 
     def __create_download_object(self, app_name):
         """
-        Create download object
-        @param app_name:
-        @type app_name:
-        @return:
-        @rtype:
+        Create instances of DownloadApplication
+
+        :param app_name: Name of the artifact
+        :type app_name: str
+        :return: Artifact name and DownloadApplication instance
+        :rtype: str, DownloadApplication
         """
         ignore_extensions = get_dict_value(self.env_setting, ["exclude_file_extension"])
         return app_name, DownloadApplication(app_name=app_name,
@@ -91,4 +113,10 @@ class ManageApplicationDownload:
                                              exclude_file_extension=ignore_extensions)
 
     def get_application_details(self):
+        """
+        Get the application details
+
+        :return: application_details
+        :rtype: dict
+        """
         return self.application_details

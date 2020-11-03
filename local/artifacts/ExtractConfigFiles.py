@@ -1,10 +1,18 @@
+"""
+Task for extraction of controller configuration files
+"""
+
 from ConfigManager.ManageJsonConfig import get_dict_value
 from util import FileActions as File
 from util import FolderActions as Folder
 
 
 class ExtractConfigFile:
+    """
+       Class extract each controller configuration files to configuration folder for later use
 
+       Tasks: Extract configuration files
+       """
     def __init__(self, config_folder_path, application_details):
         self.config_folder_path = config_folder_path
         self.application_details = application_details
@@ -21,5 +29,7 @@ class ExtractConfigFile:
                 File.copy_from_to_file(source=config_source_path, destination=config_destination_path)
 
     def start_extraction(self):
-        # extract and collect all config files into a folder
+        """
+        extract and collect all config files into a folder
+        """
         map(self.__extract_configuration_file, self.application_name_keys)

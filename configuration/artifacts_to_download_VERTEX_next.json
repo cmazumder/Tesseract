@@ -1,5 +1,16 @@
 {
   "_comment": "Vertex artifacts to download and replace",
+    "AuditUI": {
+    "folder_name": "AuditUI",
+    "config_file_name": null,
+    "buildTypeID": "Vertex_AuditUI_VertexAuditUITrunk",
+    "tags": null,
+    "anchor": "AuditUI_Publish",
+    "copy_artifacts_to_path": [
+      "D:\\AuditUI"
+    ],
+    "copy_config_to_path": null
+  },
   "DataService": {
     "folder_name": "DataService",
     "config_file_name": "DataService.config",

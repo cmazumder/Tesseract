@@ -1,0 +1,1018 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>util package &mdash; Tesseract 2.1.7 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="web package" href="web.html" />
+    <link rel="prev" title="main module" href="main.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Tesseract
+          
+
+          
+            
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tesseract.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DeployBuilds_from_TeamCity</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ConfigManager.html">ConfigManager package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DeploymentLog.html">DeploymentLog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InfrastructureSetup.html">InfrastructureSetup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.html">local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">util package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-util.FileActions">util.FileActions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-util.FolderActions">util.FolderActions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-util.OSProcess">util.OSProcess module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-util.ProgressBar">util.ProgressBar module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-util.XmlParser">util.XmlParser module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">web package</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Tesseract</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">DeployBuilds_from_TeamCity</a> &raquo;</li>
+        
+      <li>util package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/util.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-util">
+<span id="util-package"></span><h1>util package<a class="headerlink" href="#module-util" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-util.FileActions">
+<span id="util-fileactions-module"></span><h2>util.FileActions module<a class="headerlink" href="#module-util.FileActions" title="Permalink to this headline">¶</a></h2>
+<p>Standalone operations on file(s)</p>
+<dl class="function">
+<dt id="util.FileActions.append_text_to_file">
+<code class="descclassname">util.FileActions.</code><code class="descname">append_text_to_file</code><span class="sig-paren">(</span><em>file_path</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FileActions.append_text_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append text to a file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_path</strong> (<em>str</em>) – path of the file</li>
+<li><strong>args</strong> (<em>str</em>) – collections of all text</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FileActions.compute_file_size">
+<code class="descclassname">util.FileActions.</code><code class="descname">compute_file_size</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FileActions.compute_file_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return size of the file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_path</strong> (<em>str</em>) – path to file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">file size</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FileActions.copy_from_to_file">
+<code class="descclassname">util.FileActions.</code><code class="descname">copy_from_to_file</code><span class="sig-paren">(</span><em>source</em>, <em>destination</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FileActions.copy_from_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move a file from source to destination</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>source</strong> (<em>str</em>) – path to the file source</li>
+<li><strong>destination</strong> (<em>str</em>) – path of destination</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">status</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FileActions.create_file">
+<code class="descclassname">util.FileActions.</code><code class="descname">create_file</code><span class="sig-paren">(</span><em>file_path</em>, <em>encoding='ascii'</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FileActions.create_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an empty file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_path</strong> (<em>str</em>) – path of the file to be created</li>
+<li><strong>encoding</strong> (<em>str</em>) – file encoding</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FileActions.delete_file">
+<code class="descclassname">util.FileActions.</code><code class="descname">delete_file</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FileActions.delete_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_path</strong> (<em>str</em>) – path of the file</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FileActions.file_exists">
+<code class="descclassname">util.FileActions.</code><code class="descname">file_exists</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FileActions.file_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if file is present</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_path</strong> (<em>str</em>) – path of the file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True/False</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FileActions.find_replace_text">
+<code class="descclassname">util.FileActions.</code><code class="descname">find_replace_text</code><span class="sig-paren">(</span><em>file_path</em>, <em>find_text</em>, <em>replace_text</em>, <em>encoding='ascii'</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FileActions.find_replace_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find and replace a text in text file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_path</strong> (<em>str</em>) – path of the file</li>
+<li><strong>find_text</strong> (<em>str</em>) – original text</li>
+<li><strong>replace_text</strong> (<em>str</em>) – replace text</li>
+<li><strong>encoding</strong> (<em>str</em>) – encoding of file</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FileActions.find_replace_text_many">
+<code class="descclassname">util.FileActions.</code><code class="descname">find_replace_text_many</code><span class="sig-paren">(</span><em>file_path</em>, <em>find_text_list</em>, <em>replace_text_list</em>, <em>encoding='ascii'</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FileActions.find_replace_text_many" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find and replace a list of texts in text file
+Keep tab of pairing the two list!</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_path</strong> (<em>str</em>) – path of the file</li>
+<li><strong>find_text_list</strong> (<em>list</em>) – list of original text</li>
+<li><strong>replace_text_list</strong> (<em>list</em>) – list of replace text</li>
+<li><strong>encoding</strong> (<em>str</em>) – encoding of file</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FileActions.move_from_to_file">
+<code class="descclassname">util.FileActions.</code><code class="descname">move_from_to_file</code><span class="sig-paren">(</span><em>source</em>, <em>destination</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FileActions.move_from_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move a file from source to destination</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>source</strong> (<em>str</em>) – path to the file source</li>
+<li><strong>destination</strong> (<em>str</em>) – path of destination</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FileActions.search_file_all_occurrence">
+<code class="descclassname">util.FileActions.</code><code class="descname">search_file_all_occurrence</code><span class="sig-paren">(</span><em>filename</em>, <em>search_path</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FileActions.search_file_all_occurrence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search all the occurrence for a file in the folder</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>search_path</strong> (<em>str</em>) – path of the folder to search</li>
+<li><strong>filename</strong> (<em>str</em>) – file to be searched</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">return absolute of file if found</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FileActions.search_file_first_occurrence">
+<code class="descclassname">util.FileActions.</code><code class="descname">search_file_first_occurrence</code><span class="sig-paren">(</span><em>search_path</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FileActions.search_file_first_occurrence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for a file in folder</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>search_path</strong> (<em>str</em>) – path of the folder to search</li>
+<li><strong>filename</strong> (<em>str</em>) – file to be searched</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">return absolute of file if found</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-util.FolderActions">
+<span id="util-folderactions-module"></span><h2>util.FolderActions module<a class="headerlink" href="#module-util.FolderActions" title="Permalink to this headline">¶</a></h2>
+<p>Standalone operations on folder(s)</p>
+<dl class="function">
+<dt id="util.FolderActions.build_path">
+<code class="descclassname">util.FolderActions.</code><code class="descname">build_path</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FolderActions.build_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join path to handled os paths</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>str</em>) – all the params will be joined</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">absolute path</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FolderActions.convert_bytes">
+<code class="descclassname">util.FolderActions.</code><code class="descname">convert_bytes</code><span class="sig-paren">(</span><em>num</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FolderActions.convert_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert bytes to MB…. GB… etc</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>num</strong> (<em>int</em>) – size</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">size</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FolderActions.copy_from_to_location">
+<code class="descclassname">util.FolderActions.</code><code class="descname">copy_from_to_location</code><span class="sig-paren">(</span><em>source</em>, <em>destination</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FolderActions.copy_from_to_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy folder from source to destination
+Note: The destination folder will be first deleted</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>source</strong> (<em>str</em>) – path of folder source</li>
+<li><strong>destination</strong> (<em>str</em>) – path to destination where the folder will be moved</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FolderActions.create_folder">
+<code class="descclassname">util.FolderActions.</code><code class="descname">create_folder</code><span class="sig-paren">(</span><em>folder_path</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FolderActions.create_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new folder, if not already present</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>folder_path</strong> (<em>str</em>) – path to the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FolderActions.delete_folder">
+<code class="descclassname">util.FolderActions.</code><code class="descname">delete_folder</code><span class="sig-paren">(</span><em>folder_path</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FolderActions.delete_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the folder. Careful this will delete non-empty folder too</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>folder_path</strong> (<em>str</em>) – path to the folder</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FolderActions.delete_folder_contents">
+<code class="descclassname">util.FolderActions.</code><code class="descname">delete_folder_contents</code><span class="sig-paren">(</span><em>folder_path</em>, <em>exclude_content=None</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FolderActions.delete_folder_contents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete contents of folder, and not the folder</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>folder_path</strong> (<em>str</em>) – path to the folder</li>
+<li><strong>exclude_content</strong> (<em>list</em>) – List of any file that will not be deleted</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FolderActions.folder_exists">
+<code class="descclassname">util.FolderActions.</code><code class="descname">folder_exists</code><span class="sig-paren">(</span><em>folder_path</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FolderActions.folder_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if folder is present</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>folder_path</strong> (<em>str</em>) – path to the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FolderActions.get_folder_properties">
+<code class="descclassname">util.FolderActions.</code><code class="descname">get_folder_properties</code><span class="sig-paren">(</span><em>folder_path</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FolderActions.get_folder_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return no of files, sub-folder and size of a director</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>folder_path</strong> (<em>str</em>) – path to the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">count of files, folders and total size</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int, int, bytes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FolderActions.get_folder_properties_file_count">
+<code class="descclassname">util.FolderActions.</code><code class="descname">get_folder_properties_file_count</code><span class="sig-paren">(</span><em>folder_path</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FolderActions.get_folder_properties_file_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the total number of files in folder</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>folder_path</strong> (<em>str</em>) – path to the folder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">count of files</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.FolderActions.move_from_to_location">
+<code class="descclassname">util.FolderActions.</code><code class="descname">move_from_to_location</code><span class="sig-paren">(</span><em>source</em>, <em>destination</em><span class="sig-paren">)</span><a class="headerlink" href="#util.FolderActions.move_from_to_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move folder from source to destination
+Note: The destination folder will be first deleted</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>source</strong> (<em>str</em>) – path of folder source</li>
+<li><strong>destination</strong> (<em>str</em>) – path to destination where the folder will be moved</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-util.OSProcess">
+<span id="util-osprocess-module"></span><h2>util.OSProcess module<a class="headerlink" href="#module-util.OSProcess" title="Permalink to this headline">¶</a></h2>
+<p>Standalone operations on based on OS processes</p>
+<dl class="function">
+<dt id="util.OSProcess.close_running_process">
+<code class="descclassname">util.OSProcess.</code><code class="descname">close_running_process</code><span class="sig-paren">(</span><em>process_name</em><span class="sig-paren">)</span><a class="headerlink" href="#util.OSProcess.close_running_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will handle the termination of running processes passed in the list
+E.g. process_detail = get_processid_by_name(‘chrome’, ‘conhost’, ‘pycharm64.exe’, ‘WinMergeU’)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>process_name</strong> (<em>list</em>) – list of process to be terminated</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.OSProcess.get_processid_by_name">
+<code class="descclassname">util.OSProcess.</code><code class="descname">get_processid_by_name</code><span class="sig-paren">(</span><em>process_name</em><span class="sig-paren">)</span><a class="headerlink" href="#util.OSProcess.get_processid_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the PIDs of the running process whose name contains
+the given string processName</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>process_name</strong> (<em>str</em>) – windows process name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of running process information with process_name</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.OSProcess.kill_process_tree">
+<code class="descclassname">util.OSProcess.</code><code class="descname">kill_process_tree</code><span class="sig-paren">(</span><em>pid</em>, <em>sig=15</em>, <em>include_parent=True</em>, <em>timeout=None</em>, <em>on_terminate=None</em><span class="sig-paren">)</span><a class="headerlink" href="#util.OSProcess.kill_process_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill a process tree (including grandchildren) with signal “sig” and
+return a (gone, still_alive) tuple.
+“on_terminate”, if specified, is a callback function which is called as soon as a child terminates.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pid</strong> (<em>str</em>) – Process id of process</li>
+<li><strong>sig</strong> (<em>str</em>) – Optional argument for Termination Signals</li>
+<li><strong>include_parent</strong> (<em>bool</em>) – Optional if parent process to be included</li>
+<li><strong>on_terminate</strong> (<em>str</em>) – Optional for <em>callback</em> which is a function which gets called every time a process
+terminates (a Process instance is passed as callback argument)</li>
+<li><strong>timeout</strong> (<em>float</em>) – Process wait timeout</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">status of terminating the process</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-util.ProgressBar">
+<span id="util-progressbar-module"></span><h2>util.ProgressBar module<a class="headerlink" href="#module-util.ProgressBar" title="Permalink to this headline">¶</a></h2>
+<p>Maintain Progress bar</p>
+<dl class="class">
+<dt id="util.ProgressBar.ProgressBar">
+<em class="property">class </em><code class="descclassname">util.ProgressBar.</code><code class="descname">ProgressBar</code><a class="headerlink" href="#util.ProgressBar.ProgressBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Native progress bar, and unused. If bug is not fixed in tqdm have to move to this</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="util.ProgressBar.ProgressBar2">
+<em class="property">class </em><code class="descclassname">util.ProgressBar.</code><code class="descname">ProgressBar2</code><span class="sig-paren">(</span><em>desc</em>, <em>total</em>, <em>position=None</em>, <em>leave=True</em>, <em>ascii=True</em>, <em>unit=' byte'</em>, <em>colour=True</em><span class="sig-paren">)</span><a class="headerlink" href="#util.ProgressBar.ProgressBar2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Progress bar using tqdm. Has bug as per GitHub open issue list</p>
+<dl class="attribute">
+<dt id="util.ProgressBar.ProgressBar2.color_bars">
+<code class="descname">color_bars</code><em class="property"> = ['\x1b[30m', '\x1b[31m', '\x1b[32m', '\x1b[33m', '\x1b[34m', '\x1b[35m', '\x1b[36m', '\x1b[37m']</em><a class="headerlink" href="#util.ProgressBar.ProgressBar2.color_bars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-util.XmlParser">
+<span id="util-xmlparser-module"></span><h2>util.XmlParser module<a class="headerlink" href="#module-util.XmlParser" title="Permalink to this headline">¶</a></h2>
+<p>Actions on xml document/file</p>
+<dl class="class">
+<dt id="util.XmlParser.CommentedTreeBuilder">
+<em class="property">class </em><code class="descclassname">util.XmlParser.</code><code class="descname">CommentedTreeBuilder</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.CommentedTreeBuilder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">xml.etree.ElementTree.TreeBuilder</span></code></p>
+<dl class="docutils">
+<dt>Class to handle xml comments</dt>
+<dd><ul class="first last simple">
+<li>Need this to handle comments in an xml file</li>
+<li><a class="reference external" href="https://gist.github.com/jamiejackson/a37e8d3dacb33b2dcbc1">https://gist.github.com/jamiejackson/a37e8d3dacb33b2dcbc1</a></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="util.XmlParser.CommentedTreeBuilder.comment">
+<code class="descname">comment</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.CommentedTreeBuilder.comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct start, body and end of comment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>str</em>) – the comment</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="util.XmlParser.DuplicateElement">
+<em class="property">exception </em><code class="descclassname">util.XmlParser.</code><code class="descname">DuplicateElement</code><span class="sig-paren">(</span><em>xpath</em>, <em>tag</em>, <em>attribute</em>, <em>message='Trying to add duplicate element?'</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.DuplicateElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.Exception</span></code></p>
+<p>Class to handle duplicate element in xml</p>
+<dl class="method">
+<dt id="util.XmlParser.DuplicateElement.make_emelemt_string">
+<code class="descname">make_emelemt_string</code><span class="sig-paren">(</span><em>tag</em>, <em>attribute</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.DuplicateElement.make_emelemt_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will construct an proper xml element as a string
+:param tag: xml tag
+:type tag: str
+:param attribute: attributes of xml tag
+:type attribute: list
+:return: the xml block of the element with attribute
+:rtype: str</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="util.XmlParser.XmlParser">
+<em class="property">class </em><code class="descclassname">util.XmlParser.</code><code class="descname">XmlParser</code><span class="sig-paren">(</span><em>file_path</em>, <em>indent_level=2</em>, <em>encoding='utf-8'</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to parse xml file</p>
+<dl class="method">
+<dt id="util.XmlParser.XmlParser.add_element">
+<code class="descname">add_element</code><span class="sig-paren">(</span><em>parent_node</em>, <em>tag</em>, <em>attribute_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.add_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an element in xml node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parent_node</strong> (<em>ElementTree</em>) – xml node</li>
+<li><strong>tag</strong> (<em>str</em>) – tag of the xml node</li>
+<li><strong>attribute_dict</strong> (<em>dict</em>) – attributes of element</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="util.XmlParser.XmlParser.check_duplicate_element">
+<em class="property">static </em><code class="descname">check_duplicate_element</code><span class="sig-paren">(</span><em>xpath</em>, <em>parent_node</em>, <em>tag</em>, <em>attrib_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.check_duplicate_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if element is already present in xml</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>xpath</strong> (<em>str</em>) – the xpath of element</li>
+<li><strong>parent_node</strong> (<em>ElementTree</em>) – parent node in xml</li>
+<li><strong>tag</strong> (<em>str</em>) – tag name</li>
+<li><strong>attrib_dict</strong> (<em>dict</em>) – list of attributes for the tag/element</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="util.XmlParser.XmlParser.find_element_by_xpath">
+<code class="descname">find_element_by_xpath</code><span class="sig-paren">(</span><em>xpath</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.find_element_by_xpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find xml element from xpath</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>xpath</strong> (<em>str</em>) – the xpath of element</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">root element if found</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ElementTree</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="util.XmlParser.XmlParser.get_key_from_xpath">
+<em class="property">static </em><code class="descname">get_key_from_xpath</code><span class="sig-paren">(</span><em>xpath</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.get_key_from_xpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get key from an xpath</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>xpath</strong> (<em>str</em>) – the xpath of element</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Element tree if found, else None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="util.XmlParser.XmlParser.get_parent_node">
+<code class="descname">get_parent_node</code><span class="sig-paren">(</span><em>xpath</em>, <em>tag</em>, <em>attrib_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.get_parent_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return parent node in xml from the xpath</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>xpath</strong> (<em>str</em>) – the xpath of element</li>
+<li><strong>tag</strong> (<em>str</em>) – tag name</li>
+<li><strong>attrib_dict</strong> (<em>dict</em>) – list of attributes for the tag/element</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">parent node</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">ElementTree</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="util.XmlParser.XmlParser.get_tag_from_xpath">
+<em class="property">static </em><code class="descname">get_tag_from_xpath</code><span class="sig-paren">(</span><em>xpath</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.get_tag_from_xpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract tag from xpath of xml</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>xpath</strong> (<em>str</em>) – the xpath of element</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Element tree if found, else None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str/None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="util.XmlParser.XmlParser.get_value_from_xpath">
+<em class="property">static </em><code class="descname">get_value_from_xpath</code><span class="sig-paren">(</span><em>xpath</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.get_value_from_xpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get key from an xpath</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>xpath</strong> (<em>str</em>) – the xpath of element</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Element tree if found, else None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="util.XmlParser.XmlParser.get_xml_tree">
+<code class="descname">get_xml_tree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.get_xml_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get xml file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">xml as ElementTree</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">ElementTree</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="util.XmlParser.XmlParser.indent_xml">
+<code class="descname">indent_xml</code><span class="sig-paren">(</span><em>elem</em>, <em>level=0</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.indent_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required to indent xml properly if using add_element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>elem</strong> (<em>str</em>) – element of xml</li>
+<li><strong>level</strong> (<em>int</em>) – the level of indentation</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="util.XmlParser.XmlParser.modify_xml">
+<code class="descname">modify_xml</code><span class="sig-paren">(</span><em>xpath</em>, <em>attrib_dict</em>, <em>tag=''</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.modify_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update or modify xml file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>xpath</strong> (<em>str</em>) – the xpath of element</li>
+<li><strong>attrib_dict</strong> (<em>dict</em>) – list of attributes for the tag/element</li>
+<li><strong>tag</strong> (<em>str</em>) – tag name</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="util.XmlParser.XmlParser.read_xml_file">
+<code class="descname">read_xml_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.read_xml_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read an xml file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">xml file as ElementTree</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">ElementTree</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="util.XmlParser.XmlParser.set_attribute">
+<code class="descname">set_attribute</code><span class="sig-paren">(</span><em>node</em>, <em>element_attribute</em>, <em>element_value</em><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.set_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set attribute in xml</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>node</strong> (<em>ElementTree</em>) – xml node</li>
+<li><strong>element_attribute</strong> (<em>str</em>) – attribute of element</li>
+<li><strong>element_value</strong> (<em>str</em>) – value of element</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="util.XmlParser.XmlParser.write_to_file">
+<code class="descname">write_to_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#util.XmlParser.XmlParser.write_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write xml contents to the same file, that is overwrite on the same file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="web.html" class="btn btn-neutral float-right" title="web package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="main.html" class="btn btn-neutral float-left" title="main module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Chayan Mazumder
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

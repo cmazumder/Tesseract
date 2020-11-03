@@ -1,3 +1,7 @@
+"""
+Prepare the environment and start setup
+"""
+
 from ConfigManager.ConfigManager import ConfigManager
 from ConfigManager.ManageJsonConfig import get_dict_value
 from DeploymentLog import DeploymentLog
@@ -11,7 +15,14 @@ from web.api.teamcity import TeamCity
 
 
 class InfrastructureSetup:
-
+    """
+    This class will handled the environment preparation of
+        - Check if pre-requisites are met
+        - Start download
+        - Start build replacements
+        - Drop existing database and recreate new, if specified in config
+        - Cleanup tasks
+    """
     def __init__(self):
         self.ConfigurationManager = ConfigManager.get_instance()
         self.application_setting = self.ConfigurationManager.get_artifacts_to_download()
@@ -20,6 +31,12 @@ class InfrastructureSetup:
         self.environment_setting = self.ConfigurationManager.get_environment_setting()
 
     def check_teamcity_available(self):
+        """
+        Check if Teamcity is accessible
+
+        :return: status
+        :rtype: bool
+        """
         teamcity_connection = TeamCity(host=get_dict_value(self.teamcity_setting, ["host"]),
                                        username=get_dict_value(self.teamcity_setting, ["teamcity_username"]),
                                        password=get_dict_value(self.teamcity_setting, ["teamcity_password"]))
@@ -40,6 +57,12 @@ class InfrastructureSetup:
             return False
 
     def get_database_connection(self):
+        """
+        Check if database server is accessible
+
+        :return: status
+        :rtype: bool
+        """
         database_connection = Database.get_database_connection(
             server=get_dict_value(self.database_setting, ["db_server"]),
             username=get_dict_value(self.database_setting, ["db_username"]),
@@ -50,6 +73,12 @@ class InfrastructureSetup:
             return False
 
     def check_download_location_ready(self):
+        """
+        Check if download location as per config is accessible and valid
+
+        :return: status
+        :rtype: bool
+        """
         download_location = get_dict_value(self.environment_setting, ["download_artifact_root_path"])
         copy_all_config_location = Folder.build_path(download_location,
                                                      get_dict_value(self.environment_setting,
@@ -61,6 +90,12 @@ class InfrastructureSetup:
             return False
 
     def is_ready(self):
+        """
+        Run all checks for pre-requisites
+
+        :return: status
+        :rtype: bool
+        """
         print "Configuration files: Ok"
         if self.check_teamcity_available():
             print "TeamCity server: Ok"
@@ -82,6 +117,9 @@ class InfrastructureSetup:
         return True
 
     def start_setup(self):
+        """
+        Start Tesseract, that is start setup of the system
+        """
         logger = DeploymentLog(get_dict_value(self.environment_setting, ["download_artifact_root_path"]))
 
         artifact_download = ManageApplicationDownload(app_setting=self.application_setting,
@@ -91,7 +129,7 @@ class InfrastructureSetup:
         start_time = logger.time_it()
         artifact_download.download_application()
         # total download time
-        total_download_time = logger.total_time(start=start_time, end=logger.time_it())
+        total_download_time = logger.elapsed_time(start=start_time, end=logger.time_it())
 
         application_details = artifact_download.get_application_details()  # type: dict
 
@@ -116,7 +154,7 @@ class InfrastructureSetup:
         artifact_replace.replace_application()
 
         # total artifact replace time
-        total_replace_time = logger.total_time(start=start_time, end=logger.time_it())
+        total_replace_time = logger.elapsed_time(start=start_time, end=logger.time_it())
 
         application_details = artifact_replace.get_application_details()  # type: dict
 
@@ -124,7 +162,7 @@ class InfrastructureSetup:
 
         start_time = logger.time_it()
         database_replace = additional_task.database_task()
-        total_database_time = logger.total_time(start=start_time, end=logger.time_it())
+        total_database_time = logger.elapsed_time(start=start_time, end=logger.time_it())
 
         logger.write_deployment_status(app_details=application_details)
         download_location = get_dict_value(self.environment_setting, ["download_artifact_root_path"])

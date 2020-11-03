@@ -1,0 +1,52 @@
+test package
+============
+
+.. automodule:: test
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Submodules
+----------
+
+test.test\_ManageAdditionalTask module
+--------------------------------------
+
+.. automodule:: test.test_ManageAdditionalTask
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+test.test\_ManageApplication module
+-----------------------------------
+
+.. automodule:: test.test_ManageApplication
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+test.test\_OSProcess module
+---------------------------
+
+.. automodule:: test.test_OSProcess
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+test.test\_XmlParser module
+---------------------------
+
+.. automodule:: test.test_XmlParser
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+test.test\_database module
+--------------------------
+
+.. automodule:: test.test_database
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+

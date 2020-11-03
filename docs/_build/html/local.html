@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>local package &mdash; Tesseract 2.1.7 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="local.artifacts package" href="local.artifacts.html" />
+    <link rel="prev" title="InfrastructureSetup module" href="InfrastructureSetup.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Tesseract
+          
+
+          
+            
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tesseract.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DeployBuilds_from_TeamCity</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ConfigManager.html">ConfigManager package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DeploymentLog.html">DeploymentLog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InfrastructureSetup.html">InfrastructureSetup module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">local package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="local.artifacts.html">local.artifacts package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-local.DatabaseSetup">local.DatabaseSetup module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-local.ManageAdditonalTask">local.ManageAdditonalTask module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-local.ManageApplicationDownload">local.ManageApplicationDownload module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-local.ManageApplicationReplace">local.ManageApplicationReplace module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-local.ManagePostDownload">local.ManagePostDownload module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-local.database">local.database module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">web package</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Tesseract</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">DeployBuilds_from_TeamCity</a> &raquo;</li>
+        
+      <li>local package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/local.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-local">
+<span id="local-package"></span><h1>local package<a class="headerlink" href="#module-local" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="local.artifacts.html">local.artifacts package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="local.artifacts.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.artifacts.html#module-local.artifacts.BackupApplication">local.artifacts.BackupApplication module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.artifacts.html#module-local.artifacts.DownloadApplication">local.artifacts.DownloadApplication module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.artifacts.html#module-local.artifacts.ExtractConfigFiles">local.artifacts.ExtractConfigFiles module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.artifacts.html#module-local.artifacts.ReplaceApplication">local.artifacts.ReplaceApplication module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local.artifacts.html#module-local.artifacts.UpdateConfigFile">local.artifacts.UpdateConfigFile module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-local.DatabaseSetup">
+<span id="local-databasesetup-module"></span><h2>local.DatabaseSetup module<a class="headerlink" href="#module-local.DatabaseSetup" title="Permalink to this headline">¶</a></h2>
+<p>Setup task for database management</p>
+<dl class="class">
+<dt id="local.DatabaseSetup.DatabaseSetup">
+<em class="property">class </em><code class="descclassname">local.DatabaseSetup.</code><code class="descname">DatabaseSetup</code><a class="headerlink" href="#local.DatabaseSetup.DatabaseSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to manage database setup tasks</p>
+<p>Tasks: Connections, execution of sql script, deleting old and setup new database from script</p>
+<dl class="staticmethod">
+<dt id="local.DatabaseSetup.DatabaseSetup.delete_existing_database">
+<em class="property">static </em><code class="descname">delete_existing_database</code><span class="sig-paren">(</span><em>database_connection</em>, <em>env_setting</em><span class="sig-paren">)</span><a class="headerlink" href="#local.DatabaseSetup.DatabaseSetup.delete_existing_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop all existing database as per the names</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>database_connection</strong> (<em>pyodbc.Connection</em>) – connection object to database</li>
+<li><strong>env_setting</strong> (<em>dict</em>) – environment configuration</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="local.DatabaseSetup.DatabaseSetup.execute_sql_script">
+<em class="property">static </em><code class="descname">execute_sql_script</code><span class="sig-paren">(</span><em>database_connection</em>, <em>sql_path</em><span class="sig-paren">)</span><a class="headerlink" href="#local.DatabaseSetup.DatabaseSetup.execute_sql_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute SQL script</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>database_connection</strong> (<em>pyodbc.Connection</em>) – connection object to database</li>
+<li><strong>sql_path</strong> (<em>str</em>) – path to SQL script</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="local.DatabaseSetup.DatabaseSetup.get_database_connection">
+<em class="property">static </em><code class="descname">get_database_connection</code><span class="sig-paren">(</span><em>server</em>, <em>username</em>, <em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#local.DatabaseSetup.DatabaseSetup.get_database_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Establish database connection and return the Database handler</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>server</strong> (<em>str</em>) – database server</li>
+<li><strong>username</strong> (<em>str</em>) – database username</li>
+<li><strong>password</strong> (<em>str</em>) – database password</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">database object</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#local.database.Database" title="local.database.Database">Database</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="local.DatabaseSetup.DatabaseSetup.recreate_database_from_script">
+<em class="property">static </em><code class="descname">recreate_database_from_script</code><span class="sig-paren">(</span><em>database_connection</em>, <em>sql_path</em>, <em>env_setting</em><span class="sig-paren">)</span><a class="headerlink" href="#local.DatabaseSetup.DatabaseSetup.recreate_database_from_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop existing and recreate new database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>database_connection</strong> (<em>pyodbc.Connection</em>) – connection object to database</li>
+<li><strong>sql_path</strong> (<em>str</em>) – path to SQL script</li>
+<li><strong>env_setting</strong> (<em>dict</em>) – environment configuration</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="local.DatabaseSetup.DatabaseSetup.setup_sql_script">
+<em class="property">static </em><code class="descname">setup_sql_script</code><span class="sig-paren">(</span><em>sql_path</em>, <em>env_setting</em><span class="sig-paren">)</span><a class="headerlink" href="#local.DatabaseSetup.DatabaseSetup.setup_sql_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change values in a valid SQL script and to make it ready for database setup</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sql_path</strong> (<em>str</em>) – path to SQL script</li>
+<li><strong>env_setting</strong> (<em>dict</em>) – environment configuration</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-local.ManageAdditonalTask">
+<span id="local-manageadditonaltask-module"></span><h2>local.ManageAdditonalTask module<a class="headerlink" href="#module-local.ManageAdditonalTask" title="Permalink to this headline">¶</a></h2>
+<p>Task such as setting up database and cleanup</p>
+<dl class="class">
+<dt id="local.ManageAdditonalTask.ManageAdditionalTask">
+<em class="property">class </em><code class="descclassname">local.ManageAdditonalTask.</code><code class="descname">ManageAdditionalTask</code><span class="sig-paren">(</span><em>application_details</em>, <em>environment_setting</em>, <em>database_connection</em><span class="sig-paren">)</span><a class="headerlink" href="#local.ManageAdditonalTask.ManageAdditionalTask" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class will manage additional tasks of setup such as:</dt>
+<dd><ul class="first last simple">
+<li>Get the right SQL script to use for creation of database</li>
+<li>Create database backup, as this is required in RAM clear scenarios</li>
+<li>Cleanup directories as specified in config file. E.g. Logs and database backups</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>application_details</strong> (<em>dict</em>) – application details</li>
+<li><strong>environment_setting</strong> (<em>dict</em>) – environment details</li>
+<li><strong>database_connection</strong> (<a class="reference internal" href="#local.DatabaseSetup.DatabaseSetup" title="local.DatabaseSetup.DatabaseSetup"><em>DatabaseSetup</em></a>) – Database connection</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="local.ManageAdditonalTask.ManageAdditionalTask.application_details">
+<code class="descname">application_details</code><em class="property"> = {}</em><a class="headerlink" href="#local.ManageAdditonalTask.ManageAdditionalTask.application_details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="local.ManageAdditonalTask.ManageAdditionalTask.close_running_process">
+<code class="descname">close_running_process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#local.ManageAdditonalTask.ManageAdditionalTask.close_running_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close running windows processes in the list process_to_terminate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageAdditonalTask.ManageAdditionalTask.database_connection">
+<code class="descname">database_connection</code><em class="property"> = None</em><a class="headerlink" href="#local.ManageAdditonalTask.ManageAdditionalTask.database_connection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="local.ManageAdditonalTask.ManageAdditionalTask.database_task">
+<code class="descname">database_task</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#local.ManageAdditonalTask.ManageAdditionalTask.database_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>After creating new database, create backup database
+:return: status
+:rtype: bool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.ManageAdditonalTask.ManageAdditionalTask.delete_directory_contents">
+<code class="descname">delete_directory_contents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#local.ManageAdditonalTask.ManageAdditionalTask.delete_directory_contents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete contents of folder/dir as per list in config file “cleanup_directories”</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageAdditonalTask.ManageAdditionalTask.environment_setting">
+<code class="descname">environment_setting</code><em class="property"> = {}</em><a class="headerlink" href="#local.ManageAdditonalTask.ManageAdditionalTask.environment_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-local.ManageApplicationDownload">
+<span id="local-manageapplicationdownload-module"></span><h2>local.ManageApplicationDownload module<a class="headerlink" href="#module-local.ManageApplicationDownload" title="Permalink to this headline">¶</a></h2>
+<p>Task related to application download</p>
+<dl class="class">
+<dt id="local.ManageApplicationDownload.ManageApplicationDownload">
+<em class="property">class </em><code class="descclassname">local.ManageApplicationDownload.</code><code class="descname">ManageApplicationDownload</code><span class="sig-paren">(</span><em>app_setting</em>, <em>env_setting</em><span class="sig-paren">)</span><a class="headerlink" href="#local.ManageApplicationDownload.ManageApplicationDownload" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class will handled creation of download object handlers as
+per the application/artifacts listed in the configuration.</p>
+<p>Any new artifact to download, just add it to the config file.</p>
+<dl class="attribute">
+<dt id="local.ManageApplicationDownload.ManageApplicationDownload.application_details">
+<code class="descname">application_details</code><em class="property"> = {}</em><a class="headerlink" href="#local.ManageApplicationDownload.ManageApplicationDownload.application_details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationDownload.ManageApplicationDownload.application_name_keys">
+<code class="descname">application_name_keys</code><em class="property"> = []</em><a class="headerlink" href="#local.ManageApplicationDownload.ManageApplicationDownload.application_name_keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationDownload.ManageApplicationDownload.config_folder_path">
+<code class="descname">config_folder_path</code><em class="property"> = None</em><a class="headerlink" href="#local.ManageApplicationDownload.ManageApplicationDownload.config_folder_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="local.ManageApplicationDownload.ManageApplicationDownload.download_application">
+<code class="descname">download_application</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#local.ManageApplicationDownload.ManageApplicationDownload.download_application" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the downlaod process of the artifact(s)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationDownload.ManageApplicationDownload.download_application_root_path">
+<code class="descname">download_application_root_path</code><em class="property"> = None</em><a class="headerlink" href="#local.ManageApplicationDownload.ManageApplicationDownload.download_application_root_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationDownload.ManageApplicationDownload.exclude_file_extension">
+<code class="descname">exclude_file_extension</code><em class="property"> = []</em><a class="headerlink" href="#local.ManageApplicationDownload.ManageApplicationDownload.exclude_file_extension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="local.ManageApplicationDownload.ManageApplicationDownload.get_application_details">
+<code class="descname">get_application_details</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#local.ManageApplicationDownload.ManageApplicationDownload.get_application_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the application details</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">application_details</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationDownload.ManageApplicationDownload.process_to_terminate">
+<code class="descname">process_to_terminate</code><em class="property"> = []</em><a class="headerlink" href="#local.ManageApplicationDownload.ManageApplicationDownload.process_to_terminate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationDownload.ManageApplicationDownload.spacer_char_asterisk">
+<code class="descname">spacer_char_asterisk</code><em class="property"> = '*****************************************************************'</em><a class="headerlink" href="#local.ManageApplicationDownload.ManageApplicationDownload.spacer_char_asterisk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationDownload.ManageApplicationDownload.spacer_char_hyphen">
+<code class="descname">spacer_char_hyphen</code><em class="property"> = '--------------------------------------------------'</em><a class="headerlink" href="#local.ManageApplicationDownload.ManageApplicationDownload.spacer_char_hyphen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-local.ManageApplicationReplace">
+<span id="local-manageapplicationreplace-module"></span><h2>local.ManageApplicationReplace module<a class="headerlink" href="#module-local.ManageApplicationReplace" title="Permalink to this headline">¶</a></h2>
+<p>Task to manage application replace</p>
+<dl class="class">
+<dt id="local.ManageApplicationReplace.ManageApplicationReplace">
+<em class="property">class </em><code class="descclassname">local.ManageApplicationReplace.</code><code class="descname">ManageApplicationReplace</code><span class="sig-paren">(</span><em>application_details</em>, <em>env_setting</em><span class="sig-paren">)</span><a class="headerlink" href="#local.ManageApplicationReplace.ManageApplicationReplace" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class will handled replacement of artifacts.
+Delete old artifact and copy the new downloaded artifact(s)</p>
+<dl class="attribute">
+<dt id="local.ManageApplicationReplace.ManageApplicationReplace.application_details">
+<code class="descname">application_details</code><em class="property"> = {}</em><a class="headerlink" href="#local.ManageApplicationReplace.ManageApplicationReplace.application_details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationReplace.ManageApplicationReplace.application_name_keys">
+<code class="descname">application_name_keys</code><em class="property"> = []</em><a class="headerlink" href="#local.ManageApplicationReplace.ManageApplicationReplace.application_name_keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationReplace.ManageApplicationReplace.config_folder_path">
+<code class="descname">config_folder_path</code><em class="property"> = None</em><a class="headerlink" href="#local.ManageApplicationReplace.ManageApplicationReplace.config_folder_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationReplace.ManageApplicationReplace.download_application_root_path">
+<code class="descname">download_application_root_path</code><em class="property"> = None</em><a class="headerlink" href="#local.ManageApplicationReplace.ManageApplicationReplace.download_application_root_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="local.ManageApplicationReplace.ManageApplicationReplace.get_application_details">
+<code class="descname">get_application_details</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#local.ManageApplicationReplace.ManageApplicationReplace.get_application_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the application details</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">application_details</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.ManageApplicationReplace.ManageApplicationReplace.replace_application">
+<code class="descname">replace_application</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#local.ManageApplicationReplace.ManageApplicationReplace.replace_application" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make list of applications to be replaced</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationReplace.ManageApplicationReplace.spacer_char_asterisk">
+<code class="descname">spacer_char_asterisk</code><em class="property"> = '*****************************************************************'</em><a class="headerlink" href="#local.ManageApplicationReplace.ManageApplicationReplace.spacer_char_asterisk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManageApplicationReplace.ManageApplicationReplace.spacer_char_hyphen">
+<code class="descname">spacer_char_hyphen</code><em class="property"> = '--------------------------------------------------'</em><a class="headerlink" href="#local.ManageApplicationReplace.ManageApplicationReplace.spacer_char_hyphen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-local.ManagePostDownload">
+<span id="local-managepostdownload-module"></span><h2>local.ManagePostDownload module<a class="headerlink" href="#module-local.ManagePostDownload" title="Permalink to this headline">¶</a></h2>
+<p>Task to post download activity</p>
+<dl class="class">
+<dt id="local.ManagePostDownload.ManagePostDownload">
+<em class="property">class </em><code class="descclassname">local.ManagePostDownload.</code><code class="descname">ManagePostDownload</code><span class="sig-paren">(</span><em>environment_setting</em>, <em>application_details</em><span class="sig-paren">)</span><a class="headerlink" href="#local.ManagePostDownload.ManagePostDownload" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class will handled task after artifacts have been downloaded.</dt>
+<dd><ul class="first last simple">
+<li>Extract all xml configuration files of controller</li>
+<li>modify xml files as per need and specification in json configuration</li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="local.ManagePostDownload.ManagePostDownload.application_details">
+<code class="descname">application_details</code><em class="property"> = {}</em><a class="headerlink" href="#local.ManagePostDownload.ManagePostDownload.application_details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="local.ManagePostDownload.ManagePostDownload.config_update_setting">
+<code class="descname">config_update_setting</code><em class="property"> = {}</em><a class="headerlink" href="#local.ManagePostDownload.ManagePostDownload.config_update_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="local.ManagePostDownload.ManagePostDownload.extract_config_file">
+<code class="descname">extract_config_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#local.ManagePostDownload.ManagePostDownload.extract_config_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract controller (xml) files</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.ManagePostDownload.ManagePostDownload.modify_xml_config">
+<code class="descname">modify_xml_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#local.ManagePostDownload.ManagePostDownload.modify_xml_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify attribute/property in xml file. These values will come from json config</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.ManagePostDownload.ManagePostDownload.start_post_download_task">
+<code class="descname">start_post_download_task</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#local.ManagePostDownload.ManagePostDownload.start_post_download_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute extraction of controller config files and update them if required</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-local.database">
+<span id="local-database-module"></span><h2>local.database module<a class="headerlink" href="#module-local.database" title="Permalink to this headline">¶</a></h2>
+<p>Manage database task</p>
+<dl class="class">
+<dt id="local.database.Database">
+<em class="property">class </em><code class="descclassname">local.database.</code><code class="descname">Database</code><span class="sig-paren">(</span><em>server</em>, <em>username</em>, <em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#local.database.Database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to manage database connection and task
+Tasks: Connections, execution of sql script, query and getting results</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>connection</strong> (<em>pyodbc.Connection</em>) – database connection</li>
+<li><strong>cursor</strong> (<em>pyodbc.Cursor</em>) – database cursor for operation</li>
+<li><strong>sql_script_execute_string</strong> (<em>str</em>) – SQL query string</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="local.database.Database.connect_to_db">
+<code class="descname">connect_to_db</code><span class="sig-paren">(</span><em>db_server</em>, <em>db_username</em>, <em>db_password</em><span class="sig-paren">)</span><a class="headerlink" href="#local.database.Database.connect_to_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to SQL Server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>db_server</strong> (<em>str</em>) – database service/instance name</li>
+<li><strong>db_username</strong> (<em>str</em>) – database user name for authentication</li>
+<li><strong>db_password</strong> (<em>str</em>) – database password for authentication</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">connection, cursor</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pyodbc.Connection, pyodbc.Cursor</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.database.Database.db_exists">
+<code class="descname">db_exists</code><span class="sig-paren">(</span><em>database_name</em><span class="sig-paren">)</span><a class="headerlink" href="#local.database.Database.db_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if database is present</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>database_name</strong> (<em>str</em>) – name of database</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True/False</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.database.Database.delete_backup_history">
+<code class="descname">delete_backup_history</code><span class="sig-paren">(</span><em>database_name</em><span class="sig-paren">)</span><a class="headerlink" href="#local.database.Database.delete_backup_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete Database Backup and Restore history from MSDB System Database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>database_name</strong> (<em>str</em>) – name of database</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">SQL result</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.database.Database.delete_db">
+<code class="descname">delete_db</code><span class="sig-paren">(</span><em>database_name</em><span class="sig-paren">)</span><a class="headerlink" href="#local.database.Database.delete_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete database with the database name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>database_name</strong> (<em>str</em>) – name of database</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True/False</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.database.Database.drop_db">
+<code class="descname">drop_db</code><span class="sig-paren">(</span><em>database_name</em><span class="sig-paren">)</span><a class="headerlink" href="#local.database.Database.drop_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop database in SQL Server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>database_name</strong> (<em>str</em>) – name of database</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">SQL result</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.database.Database.execute_sql_query">
+<code class="descname">execute_sql_query</code><span class="sig-paren">(</span><em>sql_query</em><span class="sig-paren">)</span><a class="headerlink" href="#local.database.Database.execute_sql_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send SQL Query to database for execution and return status</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sql_query</strong> (<em>str</em>) – SQL query</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True/False</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.database.Database.execute_sql_script">
+<code class="descname">execute_sql_script</code><span class="sig-paren">(</span><em>sql_script_path</em><span class="sig-paren">)</span><a class="headerlink" href="#local.database.Database.execute_sql_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute SQL script from path</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sql_script_path</strong> (<em>str</em>) – path to SQL script</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.database.Database.get_result_from_sql_query">
+<code class="descname">get_result_from_sql_query</code><span class="sig-paren">(</span><em>sql_query</em><span class="sig-paren">)</span><a class="headerlink" href="#local.database.Database.get_result_from_sql_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send SQL Query to database for execution and return result</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sql_query</strong> (<em>str</em>) – SQL query</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self.cursor.fetchall()</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="local.database.Database.set_single_user_mode">
+<code class="descname">set_single_user_mode</code><span class="sig-paren">(</span><em>database_name</em><span class="sig-paren">)</span><a class="headerlink" href="#local.database.Database.set_single_user_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get exclusive access of database (before dropping)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>database_name</strong> (<em>str</em>) – name of database</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">SQL result</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="local.database.Database.sql_script_execute_string">
+<code class="descname">sql_script_execute_string</code><em class="property"> = None</em><a class="headerlink" href="#local.database.Database.sql_script_execute_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="local.artifacts.html" class="btn btn-neutral float-right" title="local.artifacts package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="InfrastructureSetup.html" class="btn btn-neutral float-left" title="InfrastructureSetup module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Chayan Mazumder
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

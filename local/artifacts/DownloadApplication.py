@@ -1,3 +1,7 @@
+"""
+Task for artifact downloads
+"""
+
 from threading import Thread
 
 from ConfigManager.ConfigManager import ConfigManager
@@ -7,6 +11,11 @@ from web.api.application import Application
 
 
 class DownloadApplication(Thread, Application):
+    """
+    Derived class from Application to manage artifacts downloads
+
+    Tasks: Get build ID, setup folder and start download
+    """
     ConfigurationManger = None
 
     def __init__(self, app_name, download_artifact_root_path, exclude_file_extension):
@@ -30,6 +39,9 @@ class DownloadApplication(Thread, Application):
             self.status = None
 
     def run(self):
+        """
+        constructor for Thread
+        """
         api = self.build_success_api()
         if self.has_successful_build(api_url=api):
             print "App: \'{0}\' | Version: {1}".format(self.application_name, self.get_version_number())
@@ -39,6 +51,12 @@ class DownloadApplication(Thread, Application):
             print "Application: {0} | No successful build".format(self.application_name)
 
     def build_success_api(self):
+        """
+        Get build ID of successful Teamcity artifact
+
+        :return: buildID information/None
+        :rtype: str
+        """
         temp_teamcity_setting = self.ConfigurationManger.get_teamcity()
         if self.tags and self.build_type_id:
             api_success = get_dict_value(temp_teamcity_setting, ["api_buildId_with_tags"])
@@ -77,17 +95,27 @@ class DownloadApplication(Thread, Application):
 
     def get_download_status(self):
         """
-        @rtype: object
+        Get status of download of the entire artifact
+
+        :return: True/False
+        :rtype: bool
         """
         return self.status
 
     def get_download_folder(self):
         """
-        @rtype: object
+        Get downloaded path of the artifact
+
+        :return: download_path
+        :rtype: str
         """
         return self.download_path
 
     def print_download_status(self):
+        """
+        Print download status of artifact
+
+        """
         if self.status:
             status_text = "GOOD"
         else:
