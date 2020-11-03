@@ -34,9 +34,9 @@ The python framework work based on Json configuration files and part of the down
     ```javascript
         {
           "_comment": "configuration for TeamCity server",
-          "host": "http://uslv-addv12-02.dev.local/",
-          "teamcity_username": "guest",
-          "teamcity_password": "guest",
+          "host": "http://teamcityurl/",
+          "teamcity_username": "username",
+          "teamcity_password": "password",
           "api_artifacts": "/httpAuth/app/rest/builds/id:{0}/artifacts/children",
           "api_buildId_without_tags": "/httpAuth/app/rest/builds/buildType:{0},status:success",
           "api_buildId_with_tags": "/httpAuth/app/rest/builds/buildType:{0},status:success,tags:({1})"
@@ -164,13 +164,13 @@ The python framework work based on Json configuration files and part of the down
                   }
                 }
               },
-              "sql_scripts_run": "configuration/Backup_VertexDB_RAMClear.sql",
+              "sql_scripts_run": "configuration/Backup_DB.sql",
               "cleanup_directories": [
                 [
                   "F:\\Logs",
                   [
-                    "Valyria.log",
-                    "AuthenticationConsole.log"
+                    "abc.log",
+                    "xyz.log"
                   ]
                 ],
                 [
@@ -187,8 +187,8 @@ The python framework work based on Json configuration files and part of the down
             {
               "_comment": "Configuration for controller (local) database server",
               "db_server": "localhost\\SQLEXPRESS",
-              "db_username": "sa",
-              "db_password": "Password1"
+              "db_username": "username",
+              "db_password": "password"
             }
             ```        
     * teamcity_setting:
@@ -198,9 +198,9 @@ The python framework work based on Json configuration files and part of the down
             ```javascript
             {
               "_comment": "configuration for TeamCity server",
-              "host": "http://uslv-addv12-02.dev.local/",
-              "teamcity_username": "guest",
-              "teamcity_password": "guest",
+              "host": "http://teamcityurl/",
+              "teamcity_username": "username",
+              "teamcity_password": "password",
               "api_artifacts": "/httpAuth/app/rest/builds/id:{0}/artifacts/children",
               "api_buildId_without_tags": "/httpAuth/app/rest/builds/buildType:{0},status:success",
               "api_buildId_with_tags": "/httpAuth/app/rest/builds/buildType:{0},status:success,tags:({1})"
