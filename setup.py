@@ -11,7 +11,7 @@ setup(
                       'tqdm==4.46.1',
                       'pyodbc==4.0.27',
                       'colorama==0.4.1',
-                      'requests==2.22.0',
+                      'requests==2.33.0',
                       'progressbar2==3.51.4'],
     url='',
     license='',
