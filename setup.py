@@ -8,7 +8,7 @@ setup(
     name='DeployBuilds_from_TeamCity',
     version='2.3',
     install_requires=['psutil==5.6.6',
-                      'tqdm==4.46.1',
+                      'tqdm==4.66.3',
                       'pyodbc==4.0.27',
                       'colorama==0.4.1',
                       'requests==2.33.0',
